@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">Foodies</string>
+    <string name="back4app_server_url">https://parseapi.back4app.com/</string>
+
+    <!-- Paste BOTH strings as required -->
+    <string name="back4app_app_id">2pyiTOC6unEXQBRTitRbFeci06DJ6B2cTodEN0d2</string>
+    <string name="back4app_client_key">Oba9757lawZVD5Z21D4bQpwuYUM8gWwY9s1TNqUU</string>
+</resources>
