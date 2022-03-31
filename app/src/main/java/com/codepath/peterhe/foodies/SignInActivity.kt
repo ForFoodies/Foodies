@@ -1,10 +1,12 @@
 package com.codepath.peterhe.foodies
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.EditText
 import android.widget.ImageButton
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.textfield.TextInputLayout
 import com.parse.ParseUser
@@ -47,14 +49,21 @@ class SignInActivity : AppCompatActivity() {
             if (user != null) {
                 // Hooray!  The user is logged in.
                 Log.i(TAG, "Log in success")
+                Toast.makeText(this,"Welcome to Foodies!", Toast.LENGTH_SHORT).show()
+                gotoMainActivity()
             } else {
                 // Log in failed.  Look at the ParseException to see what happened.
                 e.printStackTrace()
                 findViewById<EditText>(R.id.et_password_signin).text.clear()
                 findViewById<TextInputLayout>(R.id.text_input_layout_password_signin)?.setErrorEnabled(true)
-                findViewById<TextInputLayout>(R.id.text_input_layout_password_signin)?.setError("Error Logging in. Please check your email and password combination is correct.")
+                findViewById<TextInputLayout>(R.id.text_input_layout_password_signin)?.setError("Error Logging in. Invalid username and password combination.")
             }})
         )
+    }
+    private fun gotoMainActivity(){
+        val intent = Intent(this@SignInActivity,MainActivity::class.java)
+        startActivity(intent)
+        finish()
     }
     companion object {
         const val TAG = "SignInActivity"

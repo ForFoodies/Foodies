@@ -6,8 +6,10 @@ import android.net.Uri
 import android.os.Bundle
 import android.widget.EditText
 import android.widget.ImageButton
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.textfield.TextInputLayout
+import com.parse.ParseUser
 
 
 class SignUpActivity : AppCompatActivity() {
@@ -61,8 +63,26 @@ class SignUpActivity : AppCompatActivity() {
 
         }
     }
-    private fun signupUser(username:String, email:String, password:String, profile: Image, description:String) {
-
+    private fun signUpUser(username:String, password:String) {
+        // Create the ParseUser
+        val user = ParseUser()
+        // Set fields for the user to be created
+        user.setUsername(username)
+        user.setPassword(password)
+        user.signUpInBackground { e ->
+            if (e == null) {
+                // Hooray! Let them use the app now.
+                Toast.makeText(this,"Account created successfully!",Toast.LENGTH_SHORT).show()
+                intent = Intent(this@SignUpActivity, MainActivity::class.java)
+                startActivity(intent)
+                finish()
+            } else {
+                // Sign up didn't succeed. Look at the ParseException
+                // to figure out what went wrong
+                Toast.makeText(this,"Failed to create an account",Toast.LENGTH_SHORT).show()
+                e.printStackTrace()
+            }
+        }
     }
 
     // this function is triggered when
