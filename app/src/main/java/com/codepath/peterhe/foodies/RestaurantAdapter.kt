@@ -1,10 +1,15 @@
 package com.codepath.peterhe.foodies
 
 import android.content.Context
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
+import android.widget.ImageView
+import android.widget.RatingBar
+import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.resource.bitmap.CenterCrop
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners
+import com.bumptech.glide.request.RequestOptions
 
 class RestaurantAdapter(val context: Context, val restaurants: List<YelpRestaurant>) : RecyclerView.Adapter<RestaurantAdapter.ViewHolder>() {
 
@@ -17,10 +22,39 @@ class RestaurantAdapter(val context: Context, val restaurants: List<YelpRestaura
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        TODO("Not yet implemented")
+        val restaurant = restaurants[position]
+        holder.bind(restaurant)
     }
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        fun bind(restaurant: YelpRestaurant) {
+            Glide.with(context).load(restaurant.imageUrl).apply(RequestOptions().transforms(
+                CenterCrop(), RoundedCorners(20)
+            )).into(itemView.findViewById<ImageView>(R.id.restaurantImage))
+            var name = ""
+            if (restaurant.name.length>25) {
+                name = restaurant.name.substring(0,22)
+                name += "..."
+            } else {
+                name = restaurant.name
+            }
+            itemView.findViewById<TextView>(R.id.tvRestaurantName).text = name
+            itemView.findViewById<RatingBar>(R.id.ratingBar).rating = restaurant.rating.toFloat()
+            itemView.findViewById<TextView>(R.id.tvNumReviews).text = "${restaurant.numReviews} Reviews"
+            itemView.findViewById<TextView>(R.id.tvAddress).text = restaurant.location.address
+            var restaurantcategories = ""
+            for ((index,value) in restaurant.categories.withIndex()) {
+                if (index >= 3) {
+                    break
+                }
+                restaurantcategories +="${value.title}, "
+            }
+            restaurantcategories.dropLast(2)
+            itemView.findViewById<TextView>(R.id.tvCategory).text = restaurant.categories[0].title
+            itemView.findViewById<TextView>(R.id.tvDistance).text = restaurant.displayDistance()
+            itemView.findViewById<TextView>(R.id.tvPrice).text = restaurant.price
+
+        }
 
     }
 
