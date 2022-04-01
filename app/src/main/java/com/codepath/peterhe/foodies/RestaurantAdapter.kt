@@ -32,8 +32,8 @@ class RestaurantAdapter(val context: Context, val restaurants: List<YelpRestaura
                 CenterCrop(), RoundedCorners(20)
             )).into(itemView.findViewById<ImageView>(R.id.restaurantImage))
             var name = ""
-            if (restaurant.name.length>25) {
-                name = restaurant.name.substring(0,22)
+            if (restaurant.name.length>22) {
+                name = restaurant.name.substring(0,19)
                 name += "..."
             } else {
                 name = restaurant.name
