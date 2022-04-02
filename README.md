@@ -89,11 +89,11 @@ Here's a walkthrough of implemented user stories:
 
 App Icon, Splash Screen and Start Activity:
 
-<img src='https://i.imgur.com/2HMQ8w5.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
+<img src='https://i.imgur.com/quy0WxC.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
 
 Sign Up Page:
 
-<img src='https://i.imgur.com/7UUflCg.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
+<img src='https://i.imgur.com/HMyENYy.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
 
 Log In Page:
 
@@ -110,6 +110,11 @@ Search restaurants by keywords and can cancel to return to Normal searches:
 Display detail view of restaurant, also the page where user can form or join a group:
 
 <img src='https://i.imgur.com/cRxun8x.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
+
+Start a new group registration page:
+
+<img src='https://i.imgur.com/X2gKSHf.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
+
 
 
 GIF created with [LiceCap](http://www.cockos.com/licecap/).
