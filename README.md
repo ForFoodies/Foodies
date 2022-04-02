@@ -113,7 +113,7 @@ Display detail view of restaurant, also the page where user can form or join a g
 
 Start a new group registration page:
 
-<img src='https://i.imgur.com/X2gKSHf.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
+<img src='https://i.imgur.com/RcT43Gf.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
 
 
 
