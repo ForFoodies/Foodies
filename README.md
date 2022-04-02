@@ -82,7 +82,37 @@ Optional:
 * Music Selection (Or Queue if Optional) -> Jumps to Chat
 * Profile -> Text field to be modified. 
 * Settings -> Toggle settings
-* 
+
+## Video Walkthrough
+
+Here's a walkthrough of implemented user stories:
+
+App Icon, Splash Screen and Start Activity:
+
+<img src='https://i.imgur.com/2HMQ8w5.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
+
+Sign Up Page:
+
+<img src='https://i.imgur.com/7UUflCg.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
+
+Log In Page:
+
+<img src='https://i.imgur.com/KkrIMeO.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
+
+Main Screen with Botoom Navigation View and ToolBar. Discover nearby Restaurant Page with use of Phone's GPS location and infinite Scrolling, use retrofit to get Yelp API:
+
+<img src='https://i.imgur.com/954LDTh.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
+
+Search restaurants by keywords and can cancel to return to Normal searches:
+
+<img src='https://i.imgur.com/3d1CV13.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
+
+Display detail view of restaurant, also the page where user can form or join a group:
+
+<img src='https://i.imgur.com/cRxun8x.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
+
+
+GIF created with [LiceCap](http://www.cockos.com/licecap/).
 <!-- 
 ## Wireframes
 <img src="https://i.imgur.com/9CrjH1K.jpg" width=800><br> -->
