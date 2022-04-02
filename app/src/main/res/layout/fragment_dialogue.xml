@@ -7,26 +7,17 @@
     tools:context=".fragments.DialogueFragment">
 
 
-    <ImageView
-        android:id="@+id/ivDialogRestaurantBackground"
-        android:layout_width="415dp"
-        android:layout_height="100dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:src="@tools:sample/avatars" />
-
     <TextView
         android:id="@+id/tvDialogRestaurantName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Panda Express"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        android:layout_marginTop="5dp"
         android:layout_marginStart="8dp"
+        android:text="Panda Express"
+        android:layout_marginTop="10dp"
+        android:textSize="27sp"
+        android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/ivDialogRestaurantBackground" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/tvDialogAddress"
@@ -159,63 +150,76 @@
 
     </com.google.android.material.textfield.TextInputLayout>
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/text_input_layout_date_Dialog"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textColorHint="@color/white"
-        app:boxBackgroundColor="@color/orange"
-        app:boxStrokeColor="@color/white"
-        app:counterTextColor="@color/white"
 
-        app:errorEnabled="true"
-        app:helperTextTextColor="@color/white"
-        app:hintTextColor="@color/orange"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.496"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/text_input_layout_number_Dialog"
-        app:placeholderTextColor="@color/white"
-        app:prefixTextColor="@color/white"
-        app:suffixTextColor="@color/white">
-
-        <EditText
-            android:id="@+id/et_date_dialog"
-            android:layout_width="300dp"
+        <TextView
+            android:id="@+id/tvChooseDate"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:drawableStart="@drawable/ic_baseline_date_range_24"
-            android:ems="10"
-            android:hint=" When do you plan to meet?"
-            android:inputType="number"
-            android:outlineAmbientShadowColor="@color/white"
-            android:outlineSpotShadowColor="@color/white"
-            android:shadowColor="@color/white"
-            android:textColor="@color/white"
-            android:textColorHint="@color/white"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.496"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/text_input_layout_number_Dialog" />
+            android:text="Choose Date"
+            android:textSize="27sp"
 
-    </com.google.android.material.textfield.TextInputLayout>
+            android:textColor="@color/white"
+            app:layout_constraintTop_toBottomOf="@id/text_input_layout_number_Dialog"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginStart="56dp"/>
+
+    <ImageButton
+        android:id="@+id/btn_chooseDate"
+        android:layout_width="45dp"
+        android:layout_height="45dp"
+        android:layout_marginStart="14dp"
+        android:background="@drawable/btn_background_selector"
+        android:src="@drawable/date_selector"
+        app:layout_constraintStart_toEndOf="@id/tvChooseDate"
+        app:layout_constraintTop_toBottomOf="@id/text_input_layout_number_Dialog" />
+
+
 
     <ImageButton
         android:id="@+id/btn_cancel_dialog"
         android:layout_width="148dp"
         android:layout_height="70dp"
         android:src="@drawable/cancel_selector"
+        android:scaleX="0.8"
+        android:scaleY="0.8"
+        android:layout_marginTop="10dp"
         android:layout_marginStart="27dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/text_input_layout_date_Dialog" />
+        app:layout_constraintTop_toBottomOf="@+id/tvChooseTime" />
 
     <ImageButton
         android:id="@+id/btn_confirm_dialog"
         android:layout_width="177dp"
         android:layout_height="70dp"
-        android:layout_marginEnd="25dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="22dp"
+        android:scaleX="0.8"
+        android:scaleY="0.8"
         android:src="@drawable/confirm_selector"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/text_input_layout_date_Dialog" />
+        app:layout_constraintTop_toBottomOf="@+id/tvChooseTime" />
+
+    <TextView
+        android:id="@+id/tvChooseTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Choose Time"
+        android:textColor="@color/white"
+        android:textSize="27sp"
+        android:layout_marginStart="56dp"
+        android:layout_marginTop="15dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvChooseDate" />
+
+    <ImageButton
+        android:id="@+id/btn_chooseTime"
+        android:layout_width="45dp"
+        android:layout_height="45dp"
+        android:layout_marginStart="10dp"
+        android:background="@color/orange"
+        android:src="@drawable/time_selector"
+        app:layout_constraintStart_toEndOf="@+id/tvChooseTime"
+        app:layout_constraintTop_toBottomOf="@+id/btn_chooseDate" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

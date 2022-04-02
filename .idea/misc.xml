@@ -5,9 +5,11 @@
       <map>
         <entry key="../../../../../layout/custom_preview.xml" value="0.1" />
         <entry key="app/src/main/res/drawable/add_photo_selector.xml" value="0.217" />
+        <entry key="app/src/main/res/drawable/btn_background_selector.xml" value="0.17" />
         <entry key="app/src/main/res/drawable/cancel_selector.xml" value="0.196" />
         <entry key="app/src/main/res/drawable/color_selector.xml" value="0.1" />
         <entry key="app/src/main/res/drawable/confirm_selector.xml" value="0.196" />
+        <entry key="app/src/main/res/drawable/date_selector.xml" value="0.17" />
         <entry key="app/src/main/res/drawable/email_icon.xml" value="0.2045" />
         <entry key="app/src/main/res/drawable/home.xml" value="0.1" />
         <entry key="app/src/main/res/drawable/home_background_selector.xml" value="0.1" />
@@ -21,6 +23,7 @@
         <entry key="app/src/main/res/drawable/redirect_sign_in.xml" value="0.1" />
         <entry key="app/src/main/res/drawable/signup_selector.xml" value="0.217" />
         <entry key="app/src/main/res/drawable/startgroup_selector.xml" value="0.217" />
+        <entry key="app/src/main/res/drawable/time_selector.xml" value="0.221" />
         <entry key="app/src/main/res/layout/activity_log_in.xml" value="0.375" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.22604166666666667" />
         <entry key="app/src/main/res/layout/activity_sign_in.xml" value="0.35505981445312507" />
@@ -28,6 +31,7 @@
         <entry key="app/src/main/res/layout/activity_splash.xml" value="0.3098958333333333" />
         <entry key="app/src/main/res/layout/appbar.xml" value="0.19270833333333334" />
         <entry key="app/src/main/res/layout/dialog_layout.xml" value="0.29583333333333334" />
+        <entry key="app/src/main/res/layout/fragment_date_time_picker.xml" value="0.3098958333333333" />
         <entry key="app/src/main/res/layout/fragment_dialogue.xml" value="0.24479166666666666" />
         <entry key="app/src/main/res/layout/fragment_restaurant.xml" value="0.22604166666666667" />
         <entry key="app/src/main/res/layout/fragment_restaurant_detail.xml" value="0.3701806640625" />
