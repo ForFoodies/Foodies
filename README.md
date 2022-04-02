@@ -85,7 +85,7 @@ Optional:
 
 ## Wireframe
 
-<img src="https://imgur.com/6dAMOIv" title="Wireframe for profile, groupchat, and group info" width="400" alt="wireframe1">
+<img src="https://i.imgur.com/pWtfaJL.png" title="Wireframe for profile, groupchat, and group info" width=400 alt="wireframe1">
 
 ## Video Walkthrough
 
