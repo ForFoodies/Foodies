@@ -99,7 +99,7 @@ Log In Page:
 
 <img src='https://i.imgur.com/KkrIMeO.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
 
-Main Screen with Botoom Navigation View and ToolBar. Discover nearby Restaurant Page with use of Phone's GPS location and infinite Scrolling, use retrofit to get Yelp API:
+Main Screen with Bottom Navigation View and ToolBar. Discover nearby Restaurant Page with use of Phone's GPS location and infinite Scrolling, use retrofit to get Yelp API:
 
 <img src='https://i.imgur.com/954LDTh.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
 
