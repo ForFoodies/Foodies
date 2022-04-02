@@ -71,6 +71,7 @@ class RestaurantFragment : Fragment(),LocationListener {
         //getView()?.setBackgroundColor(Color.WHITE)
         restaurants = mutableListOf<YelpRestaurant>()
         restaurantAdapter = RestaurantAdapter(requireContext(), restaurants)
+        requireActivity().setTitle("Discover")
        // val fragmentManager: FragmentManager = supportFragmentManager
         val ft:FragmentTransaction? = getFragmentManager()?.beginTransaction()
         restaurantAdapter.setOnItemClickListner(object: RestaurantAdapter.onItemClickListner{
@@ -82,6 +83,7 @@ class RestaurantFragment : Fragment(),LocationListener {
                 DetailFragment.setArguments(bundle)
                 Log.i(TAG, "Restaurant ${restaurants[position]}")
                 ft?.replace(R.id.flContainer, DetailFragment)?.commit()
+                requireActivity().setTitle("${restaurants[position].name}")
                 ft?.addToBackStack(null)
             }
         })

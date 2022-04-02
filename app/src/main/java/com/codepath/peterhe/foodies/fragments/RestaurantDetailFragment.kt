@@ -10,6 +10,7 @@ import android.widget.ImageView
 import android.widget.RatingBar
 import android.widget.TextView
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentTransaction
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.CenterCrop
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
@@ -35,6 +36,7 @@ class RestaurantDetailFragment : Fragment() {
         if(bundle != null){
             restaurant = bundle.getParcelable<YelpRestaurant>("RestaurantDetail")!!
         }
+        requireActivity().setTitle("${restaurant.name}")
         Glide.with(this).load(restaurant.imageUrl).apply(
             RequestOptions().transforms(
             CenterCrop(), RoundedCorners(10)
@@ -75,14 +77,19 @@ class RestaurantDetailFragment : Fragment() {
         view.findViewById<TextView>(R.id.tvTransactions).text = transactions
         //view.findViewById<TextView>(R.id.tvTransactions).setTextColor(getResources().getColor(R.color.green))
         view.findViewById<ImageButton>(R.id.btn_startGroup).setOnClickListener {
-            showDialog()
+            val ft: FragmentTransaction? = getFragmentManager()?.beginTransaction()
+            showDialog(ft!!)
         }
 
     }
 
-    private fun showDialog() {
-        val dialog = Dialog(requireContext())
-        //dialog.setContentView()
+    private fun showDialog(ft:FragmentTransaction) {
+        val bundle = Bundle()
+        bundle.putParcelable("RestaurantDialog", restaurant)
+        val dialogFragment = DialogueFragment()
+        dialogFragment.setArguments(bundle)
+        ft.replace(R.id.flContainer, dialogFragment).commit()
+        ft.addToBackStack(null)
     }
 
 }
