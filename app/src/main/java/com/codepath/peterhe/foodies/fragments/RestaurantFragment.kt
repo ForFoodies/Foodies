@@ -4,7 +4,6 @@ import android.Manifest
 import android.annotation.SuppressLint
 import android.content.Context.LOCATION_SERVICE
 import android.content.pm.PackageManager
-import android.graphics.Color
 import android.location.*
 import android.os.Bundle
 import android.util.Log
@@ -14,7 +13,7 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.core.view.MenuItemCompat
 import androidx.fragment.app.Fragment
-import androidx.recyclerview.widget.DividerItemDecoration
+import androidx.fragment.app.FragmentTransaction
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.codepath.peterhe.foodies.*
@@ -72,6 +71,20 @@ class RestaurantFragment : Fragment(),LocationListener {
         //getView()?.setBackgroundColor(Color.WHITE)
         restaurants = mutableListOf<YelpRestaurant>()
         restaurantAdapter = RestaurantAdapter(requireContext(), restaurants)
+       // val fragmentManager: FragmentManager = supportFragmentManager
+        val ft:FragmentTransaction? = getFragmentManager()?.beginTransaction()
+        restaurantAdapter.setOnItemClickListner(object: RestaurantAdapter.onItemClickListner{
+            override fun onItemClick(position: Int) {
+                //final FragmentTransaction ft = getFragmentManager().beginTransaction();
+                val bundle = Bundle()
+                bundle.putParcelable("RestaurantDetail", restaurants[position])
+                val DetailFragment = RestaurantDetailFragment()
+                DetailFragment.setArguments(bundle)
+                Log.i(TAG, "Restaurant ${restaurants[position]}")
+                ft?.replace(R.id.flContainer, DetailFragment)?.commit()
+                ft?.addToBackStack(null)
+            }
+        })
         view.findViewById<RecyclerView>(R.id.rvRestaurants).adapter = restaurantAdapter
         val layoutManager = LinearLayoutManager(requireContext())
         view.findViewById<RecyclerView>(R.id.rvRestaurants).layoutManager = layoutManager
