@@ -16,11 +16,6 @@
         android:icon="@drawable/ic_baseline_person_24_orange"
         android:title="Profile"
         app:showAsAction="always" />
-    <item
-        android:id="@+id/action_setting"
-        android:icon="@drawable/ic_baseline_settings_24"
-        android:title="Setting"
-        app:showAsAction="always" />
 
 
 </menu>

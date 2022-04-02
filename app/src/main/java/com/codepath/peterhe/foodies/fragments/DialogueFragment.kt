@@ -27,6 +27,7 @@ class DialogueFragment : Fragment() {
     private var month: Int = 0
     private var year: Int = 0
     private var day:Int =0
+    private var date:String = ""
    private lateinit var datePickerDialog : DatePickerDialog
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -78,7 +79,7 @@ class DialogueFragment : Fragment() {
 
     private fun initDatePicker() {
         val dateSetListner = DatePickerDialog.OnDateSetListener() {datePicker: DatePicker, i:Int, i1:Int, i2:Int ->
-            val date = makeDateString(i,i1+1,i2)
+            date = makeDateString(i,i1+1,i2)
             dateText.setText(date)
         }
         val cal = Calendar.getInstance()

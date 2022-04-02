@@ -209,11 +209,12 @@
 
     <ImageButton
         android:id="@+id/btn_startGroup"
-        android:layout_width="180dp"
-        android:layout_height="38dp"
-      android:layout_marginTop="3dp"
-
-        android:backgroundTint="@color/white"
+        android:layout_width="140dp"
+        android:layout_height="27dp"
+      android:layout_marginTop="10dp"
+        android:scaleY="0.8"
+        android:scaleX="0.8"
+        android:background="@color/white"
         android:scaleType="fitStart"
         android:src="@drawable/startgroup_selector"
         app:layout_constraintStart_toEndOf="@+id/textView16"

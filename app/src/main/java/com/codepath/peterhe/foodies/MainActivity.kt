@@ -11,6 +11,7 @@ import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import com.codepath.peterhe.foodies.fragments.RestaurantFragment
+import com.codepath.peterhe.foodies.fragments.UserProfileFragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class MainActivity : AppCompatActivity() {
@@ -42,8 +43,10 @@ class MainActivity : AppCompatActivity() {
                     fragmentToShow = RestaurantFragment()
                 }
                 R.id.action_chats -> {}
-                R.id.action_profile -> {}
-                R.id.action_setting -> {}
+                R.id.action_profile -> {
+                    this.setTitle("Profile")
+                    fragmentToShow = UserProfileFragment()
+                }
             }
             if (fragmentToShow != null) {
                 fragmentManager.beginTransaction().replace(R.id.flContainer, fragmentToShow).commit()

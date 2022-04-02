@@ -35,8 +35,7 @@ class SignUpActivity : AppCompatActivity() {
             val password2 = findViewById<EditText>(R.id.et_password2_signup).text.toString()
             val username = findViewById<EditText>(R.id.et_username_signup).text.toString()
             if (email != "" && username != "" && password1 != "" && password2 != "" && password1.equals(password2)) {
-                //signupUser()
-
+                signUpUser(username, password1)
             } else {
                 if (username == "") {
                     findViewById<TextInputLayout>(R.id.text_input_layout_username_signup)?.setErrorEnabled(true)
