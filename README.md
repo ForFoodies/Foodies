@@ -83,6 +83,10 @@ Optional:
 * Profile -> Text field to be modified. 
 * Settings -> Toggle settings
 
+## Wireframe
+
+<img src="https://i.imgur.com/pWtfaJL.png" title="Wireframe for profile, groupchat, and group info" width=400 alt="wireframe1">
+
 ## Video Walkthrough
 
 Here's a walkthrough of implemented user stories:
@@ -99,7 +103,7 @@ Log In Page:
 
 <img src='https://i.imgur.com/KkrIMeO.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
 
-Main Screen with Botoom Navigation View and ToolBar. Discover nearby Restaurant Page with use of Phone's GPS location and infinite Scrolling, use retrofit to get Yelp API:
+Main Screen with Bottom Navigation View and ToolBar. Discover nearby Restaurant Page with use of Phone's GPS location and infinite Scrolling, use retrofit to get Yelp API:
 
 <img src='https://i.imgur.com/954LDTh.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
 
@@ -113,7 +117,7 @@ Display detail view of restaurant, also the page where user can form or join a g
 
 Start a new group registration page:
 
-<img src='https://i.imgur.com/X2gKSHf.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
+<img src='https://i.imgur.com/RcT43Gf.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
 
 
 
