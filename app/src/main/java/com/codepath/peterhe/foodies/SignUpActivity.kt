@@ -1,7 +1,6 @@
 package com.codepath.peterhe.foodies
 
 import android.content.Intent
-import android.media.Image
 import android.net.Uri
 import android.os.Bundle
 import android.widget.EditText
@@ -9,10 +8,13 @@ import android.widget.ImageButton
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.textfield.TextInputLayout
-import com.parse.ParseUser
+import com.parse.*
+import java.io.File
 
 
 class SignUpActivity : AppCompatActivity() {
+    var photoFile: ParseFile? = null
+    private var selectedImageUri: Uri? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_sign_up)
@@ -34,8 +36,22 @@ class SignUpActivity : AppCompatActivity() {
             val password1 = findViewById<EditText>(R.id.et_password1_signup).text.toString()
             val password2 = findViewById<EditText>(R.id.et_password2_signup).text.toString()
             val username = findViewById<EditText>(R.id.et_username_signup).text.toString()
-            if (email != "" && username != "" && password1 != "" && password2 != "" && password1.equals(password2)) {
-                signUpUser(username, password1)
+            val description = findViewById<EditText>(R.id.et_description_signup).text.toString()
+
+            if (email != "" && username != "" && password1 != "" && password2 != "" && password1.equals(password2) &&  (selectedImageUri != null)) {
+                //val file:File = File(filePath)
+                //photoFile = ParseFile(file)
+                /*photoFile!!.saveInBackground(object:SaveCallback {
+                    override fun done(e: ParseException?) {
+                        if (e == null) {
+                            signUpUser(username, password1, email, description,photoFile!!)
+                        } else {
+                            e.printStackTrace()
+                        }
+                    }
+                })*/
+                signUpUser(username, password1, email, description,photoFile!!)
+
             } else {
                 if (username == "") {
                     findViewById<TextInputLayout>(R.id.text_input_layout_username_signup)?.setErrorEnabled(true)
@@ -53,6 +69,9 @@ class SignUpActivity : AppCompatActivity() {
                     findViewById<TextInputLayout>(R.id.text_input_layout_password2_signup)?.setErrorEnabled(true)
                     findViewById<TextInputLayout>(R.id.text_input_layout_password2_signup)?.setError("Please confirm your password.")
                 }
+                if (Uri.EMPTY.equals(selectedImageUri)) {
+                    Toast.makeText(this,"Must inlcude a profile Photo!",Toast.LENGTH_LONG)
+                }
                 if (!password1.equals(password2)) {
                     findViewById<EditText>(R.id.et_password2_signup)?.text?.clear()
                     findViewById<TextInputLayout>(R.id.text_input_layout_password2_signup)?.setErrorEnabled(true)
@@ -62,12 +81,15 @@ class SignUpActivity : AppCompatActivity() {
 
         }
     }
-    private fun signUpUser(username:String, password:String) {
+    private fun signUpUser(username:String, password:String,email:String, description:String = "", parseFile: ParseFile) {
         // Create the ParseUser
         val user = ParseUser()
         // Set fields for the user to be created
         user.setUsername(username)
         user.setPassword(password)
+        user.setEmail(email)
+        user.put("description", description)
+        user.put("profile", parseFile)
         user.signUpInBackground { e ->
             if (e == null) {
                 // Hooray! Let them use the app now.
@@ -107,7 +129,7 @@ class SignUpActivity : AppCompatActivity() {
             // SELECT_PICTURE constant
             if (requestCode == SELECT_PICTURE) {
                 // Get the url of the image from data
-                val selectedImageUri: Uri? = data?.data
+                selectedImageUri = data?.data!!
                 if (null != selectedImageUri) {
                     // update the preview image in the layout
                     //IVPreviewImage.setImageURI(selectedImageUri)
@@ -116,6 +138,37 @@ class SignUpActivity : AppCompatActivity() {
             }
         }
     }
+
+    /*fun convertImageUriToFile(imageUri: Uri?, activity: Activity): File? {
+        var cursor: Cursor? = null //  w  w  w.  ja  va  2 s .  c o m
+        return try {
+            val proj = arrayOf(
+                MediaStore.Images.Media.DATA,
+                MediaStore.Images.Media._ID,
+                MediaStore.Images.ImageColumns.ORIENTATION
+            )
+            cursor = activity
+                .managedQuery(imageUri, proj, null, null, null)
+            val file_ColumnIndex: Int = cursor
+                .getColumnIndexOrThrow(MediaStore.Images.Media.DATA)
+            val orientation_ColumnIndex: Int = cursor
+                .getColumnIndexOrThrow(MediaStore.Images.ImageColumns.ORIENTATION)
+            if (cursor.moveToFirst()) {
+                val orientation: String = cursor
+                    .getString(orientation_ColumnIndex)
+                return File(cursor.getString(file_ColumnIndex))
+            }
+            null
+        } finally {
+            if (cursor != null) {
+                cursor.close()
+            }
+        }
+    }*/
+    /*
+This method can parse out the real local file path from a file URI.
+*/
+
     companion object {
         const val SELECT_PICTURE = 200
     }

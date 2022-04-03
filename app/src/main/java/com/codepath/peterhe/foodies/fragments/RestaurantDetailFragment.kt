@@ -2,24 +2,34 @@ package com.codepath.peterhe.foodies.fragments
 
 import android.app.Dialog
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageButton
-import android.widget.ImageView
-import android.widget.RatingBar
-import android.widget.TextView
+import android.widget.*
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
+import androidx.recyclerview.widget.DividerItemDecoration
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.CenterCrop
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.bumptech.glide.request.RequestOptions
-import com.codepath.peterhe.foodies.R
-import com.codepath.peterhe.foodies.YelpRestaurant
+import com.codepath.peterhe.foodies.*
+import com.parse.FindCallback
+import com.parse.ParseException
+import com.parse.ParseQuery
+import jp.wasabeef.recyclerview.animators.SlideInUpAnimator
 
 class RestaurantDetailFragment : Fragment() {
     private lateinit var restaurant: YelpRestaurant
+    private lateinit var groupAdapter: GroupAdapter
+    // Store a member variable for the listener
+    private lateinit var scrollListener: EndlessRecyclerViewScrollListener
+    var allGroups: MutableList<Group> = mutableListOf()
+    lateinit var groupsRecyclerView: RecyclerView
+    lateinit var layoutManager: LinearLayoutManager
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -80,7 +90,30 @@ class RestaurantDetailFragment : Fragment() {
             val ft: FragmentTransaction? = getFragmentManager()?.beginTransaction()
             showDialog(ft!!)
         }
-
+        groupsRecyclerView = view.findViewById(R.id.rvGroups)
+        groupAdapter = GroupAdapter(requireContext(),allGroups)
+        groupsRecyclerView.adapter = groupAdapter
+        layoutManager = LinearLayoutManager(requireContext())
+        groupsRecyclerView.layoutManager = layoutManager
+        groupsRecyclerView.itemAnimator = SlideInUpAnimator()
+        val itemDecoration: RecyclerView.ItemDecoration =
+            DividerItemDecoration(requireContext(), DividerItemDecoration.VERTICAL)
+        groupsRecyclerView.addItemDecoration(itemDecoration)
+        queryGroups()
+        val ft:FragmentTransaction? = getFragmentManager()?.beginTransaction()
+        groupAdapter.setOnItemClickListner(object: GroupAdapter.onItemClickListner{
+            override fun onItemClick(position: Int) {
+                //final FragmentTransaction ft = getFragmentManager().beginTransaction();
+                val bundle = Bundle()
+                bundle.putParcelable("GroupDetail", allGroups[position])
+                val DetailFragment = GroupDetailFragment()
+                DetailFragment.setArguments(bundle)
+                //Log.i(RestaurantFragment.TAG, "Restaurant ${allGroups[position]}")
+                ft?.replace(R.id.flContainer, DetailFragment)?.commit()
+                requireActivity().setTitle("${allGroups[position].getName()}")
+                ft?.addToBackStack(null)
+            }
+        })
     }
 
     private fun showDialog(ft:FragmentTransaction) {
@@ -90,6 +123,29 @@ class RestaurantDetailFragment : Fragment() {
         dialogFragment.setArguments(bundle)
         ft.replace(R.id.flContainer, dialogFragment).commit()
         ft.addToBackStack(null)
+    }
+
+    fun queryGroups() {
+        val query: ParseQuery<Group> = ParseQuery.getQuery(Group::class.java)
+        query.include(Group.RESTAURANT_KEY)
+        query.addDescendingOrder("createdAt")
+        query.limit = 20
+        //query.skip = offset * 20
+        query.whereEqualTo(Group.RESTAURANT_KEY, restaurant.id)
+        query.findInBackground(object : FindCallback<Group> {
+            override fun done(groups: MutableList<Group>?, e: ParseException?) {
+                if (e != null) {
+                    //Log.e(TAG, "Error getting posts")
+                    Toast.makeText(requireContext(), "Error getting groups", Toast.LENGTH_SHORT).show()
+                } else {
+                    if (groups != null) {
+                        allGroups.addAll(groups)
+                        groupAdapter.notifyDataSetChanged()
+                    }
+                }
+            }
+
+        })
     }
 
 }
