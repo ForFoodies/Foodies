@@ -14,9 +14,14 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.CenterCrop
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.bumptech.glide.request.RequestOptions
+import com.codepath.peterhe.foodies.Group
 import com.codepath.peterhe.foodies.R
 import com.codepath.peterhe.foodies.YelpRestaurant
+import com.google.android.material.textfield.TextInputLayout
+import com.parse.ParseUser
+import org.json.JSONArray
 import java.util.*
+import kotlin.collections.ArrayList
 
 class DialogueFragment : Fragment() {
     private lateinit var restaurant: YelpRestaurant
@@ -63,6 +68,92 @@ class DialogueFragment : Fragment() {
             fm?.popBackStack()
         }
 
+        view.findViewById<ImageButton>(R.id.btn_confirm_dialog).setOnClickListener {
+            view.findViewById<TextInputLayout>(R.id.text_input_layout_groupName_Dialog)?.setError(null)
+            view.findViewById<TextInputLayout>(R.id.text_input_layout_groupName_Dialog)?.setErrorEnabled(false)
+            view.findViewById<TextInputLayout>(R.id.text_input_layout_interest_Dialog)?.setError(null)
+            view.findViewById<TextInputLayout>(R.id.text_input_layout_interest_Dialog)?.setErrorEnabled(false)
+            view.findViewById<TextInputLayout>(R.id.text_input_layout_number_Dialog)?.setError(null)
+            view.findViewById<TextInputLayout>(R.id.text_input_layout_number_Dialog)?.setErrorEnabled(false)
+            view.findViewById<TextView>(R.id.tvChooseDate).setTextColor(getResources().getColor(R.color.white))
+            view.findViewById<TextView>(R.id.tvChooseTime).setTextColor(getResources().getColor(R.color.white))
+            val name = view.findViewById<EditText>(R.id.et_groupname_dialog).text.toString()
+            val description = view.findViewById<EditText>(R.id.et_interests_dialog).text.toString()
+            val number = view.findViewById<EditText>(R.id.et_number_dialog).text.toString()
+            val time = view.findViewById<TextView>(R.id.tvChooseTime).text.toString()
+            val date = view.findViewById<TextView>(R.id.tvChooseDate).text.toString()
+            if (name != "" && description != "" && number != "" && number.toDouble()%1 == 0.0 && time != "Choose Time" && date != "Choose Date") {
+                    val num = number.toInt()
+                    val founder = ParseUser.getCurrentUser()
+                    val memberList : JSONArray = JSONArray(listOf<ParseUser>(founder))
+                    val restaurantId = restaurant.id
+                    submitGroup(name,description,num,time,date,founder,memberList,restaurantId)
+            } else {
+                if (name == "") {
+                    view.findViewById<TextInputLayout>(R.id.text_input_layout_groupName_Dialog)?.setErrorEnabled(true)
+                    view.findViewById<TextInputLayout>(R.id.text_input_layout_groupName_Dialog)?.setError("Group name is required for registration.")
+                }
+                if (description == "") {
+                    view.findViewById<TextInputLayout>(R.id.text_input_layout_interest_Dialog)?.setErrorEnabled(true)
+                    view.findViewById<TextInputLayout>(R.id.text_input_layout_interest_Dialog)?.setError("A description is required for group registration.")
+                }
+                if (number == "") {
+                    view.findViewById<TextInputLayout>(R.id.text_input_layout_number_Dialog)?.setErrorEnabled(true)
+                    view.findViewById<TextInputLayout>(R.id.text_input_layout_number_Dialog)?.setError("Please specify max number of members")
+                } else {
+                    if (number.toDouble()%1 != 0.0) {
+                        view.findViewById<TextInputLayout>(R.id.text_input_layout_number_Dialog)?.setErrorEnabled(true)
+                        view.findViewById<TextInputLayout>(R.id.text_input_layout_number_Dialog)?.setError("Please enter interger number")
+                    }
+                }
+                if (date == "Choose Date") {
+                    view.findViewById<TextView>(R.id.tvChooseDate).setTextColor(getResources().getColor(R.color.red))
+                }
+                if (time == "Choose Time") {
+                    view.findViewById<TextView>(R.id.tvChooseTime).setTextColor(getResources().getColor(R.color.red))
+                }
+            }
+
+
+        }
+
+    }
+
+    private fun submitGroup(
+        name: String,
+        description: String,
+        number: Int,
+        time: String,
+        date: String,
+        founder: ParseUser?,
+        memberList: JSONArray,
+        restaurantId: String
+    ) {
+        val group = Group()
+        group.setName(name)
+        group.setDescription(description)
+        group.setMax(number)
+        group.setTime(time)
+        group.setDate(date)
+        group.setFounder(founder!!)
+        group.setMemberList(memberList)
+        group.setRestaurant(restaurantId)
+        group.saveInBackground { exception ->
+            if (exception != null) {
+                //Log.e(TAG, "ERROR submitting a post")
+                exception.printStackTrace()
+                Toast.makeText(requireContext(), "Error registering a group", Toast.LENGTH_SHORT).show()
+            } else {
+                //Log.i(TAG, "Successfully submitted a post")
+                Toast.makeText(requireContext(), "Successfully registered a post", Toast.LENGTH_SHORT).show()
+                view?.findViewById<EditText>(R.id.et_interests_dialog)?.text?.clear()
+                view?.findViewById<EditText>(R.id.et_groupname_dialog)?.text?.clear()
+                view?.findViewById<EditText>(R.id.et_number_dialog)?.text?.clear()
+
+                val fm = getFragmentManager()
+                fm?.popBackStack()
+            }
+        }
     }
 
     private fun popTimePicker(view: View) {
@@ -88,6 +179,8 @@ class DialogueFragment : Fragment() {
         day = cal.get(Calendar.DAY_OF_MONTH)
         val style = AlertDialog.THEME_HOLO_LIGHT
         datePickerDialog = DatePickerDialog(requireContext(),style,dateSetListner,year,month,day)
+        //datePickerDialog.getDatePicker().setMinDate(System.currentTimeMillis())
+        datePickerDialog.setTitle("Select Date")
     }
 
     private fun makeDateString(i: Int, i1: Int, i2: Int): String {

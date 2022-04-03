@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".fragments.GroupDetailFragment">
+
+
+    <TextView
+        android:id="@+id/tv_GroupName_Detail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="French Interest Group"
+        android:textSize="25sp"
+        android:textStyle="bold"
+        android:layout_marginTop="8dp"
+        android:layout_marginStart="15dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tv_GroupDescription_detail"
+        android:layout_width="380dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="5dp"
+        android:text="Come to learn French with us!!!!!!!!!!!!!!!!!!!!!!!"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_GroupName_Detail" />
+
+    <TextView
+        android:id="@+id/tv_GroupTime_detail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="08:00 APR 02 2022"
+        android:layout_marginTop="3dp"
+        android:layout_marginStart="15dp"
+        android:drawablePadding="1dp"
+        android:textSize="18sp"
+        android:drawableStart="@drawable/ic_baseline_access_time_24_black"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_GroupDescription_detail" />
+
+    <TextView
+        android:id="@+id/tv_Point5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="·"
+        android:textStyle="bold"
+        android:textSize="22sp"
+        android:layout_marginStart="5dp"
+        app:layout_constraintStart_toEndOf="@+id/tv_GroupTime_detail"
+        app:layout_constraintTop_toBottomOf="@+id/tv_GroupDescription_detail" />
+
+    <TextView
+        android:id="@+id/tv_GroupNumber_detail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="3/6"
+        android:drawablePadding="1dp"
+        android:layout_marginStart="5dp"
+        android:textSize="18sp"
+        android:layout_marginTop="3dp"
+        android:drawableStart="@drawable/ic_baseline_group_24_black"
+        app:layout_constraintStart_toEndOf="@+id/tv_Point5"
+        app:layout_constraintTop_toBottomOf="@+id/tv_GroupDescription_detail" />
+
+    <TextView
+        android:id="@+id/tv_founderText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Founder: "
+        android:textSize="18sp"
+        android:layout_marginTop="5dp"
+        android:layout_marginStart="15dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_GroupTime_detail" />
+
+    <ImageView
+        android:id="@+id/tv_FounderProfile_detail"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="3dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_founderText"
+        tools:src="@tools:sample/avatars" />
+
+    <TextView
+        android:id="@+id/tv_FounderName_detail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:text="Peter He"
+        android:textStyle="italic"
+        android:textSize="22sp"
+        app:layout_constraintStart_toEndOf="@+id/tv_FounderProfile_detail"
+        app:layout_constraintTop_toTopOf="@+id/tv_FounderProfile_detail" />
+
+    <TextView
+        android:id="@+id/tv_FounderDescription_detail"
+        android:layout_width="265dp"
+        android:layout_height="70dp"
+        android:textSize="15sp"
+        android:layout_marginTop="3dp"
+        android:layout_marginStart="10dp"
+        android:text="I lover French. Want to meet new people to practice with!"
+        app:layout_constraintStart_toEndOf="@+id/tv_FounderProfile_detail"
+        app:layout_constraintTop_toBottomOf="@+id/tv_FounderName_detail" />
+
+    <TextView
+        android:id="@+id/tv_memberText_detail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Members:"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="5dp"
+        android:textSize="18dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_FounderProfile_detail" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginStart="15dp"
+        android:layout_marginEnd="15dp"
+        android:layout_marginTop="5dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_memberText_detail" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

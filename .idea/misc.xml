@@ -39,10 +39,12 @@
         <entry key="app/src/main/res/layout/dialog_layout.xml" value="0.29583333333333334" />
         <entry key="app/src/main/res/layout/fragment_date_time_picker.xml" value="0.3098958333333333" />
         <entry key="app/src/main/res/layout/fragment_dialogue.xml" value="0.24479166666666666" />
+        <entry key="app/src/main/res/layout/fragment_group_detail.xml" value="0.25" />
         <entry key="app/src/main/res/layout/fragment_restaurant.xml" value="0.22604166666666667" />
         <entry key="app/src/main/res/layout/fragment_restaurant_detail.xml" value="0.3701806640625" />
         <entry key="app/src/main/res/layout/fragment_settings.xml" value="0.3098958333333333" />
         <entry key="app/src/main/res/layout/fragment_user_profile.xml" value="0.3098958333333333" />
+        <entry key="app/src/main/res/layout/item_group.xml" value="0.4156163533528646" />
         <entry key="app/src/main/res/layout/item_restaurant.xml" value="0.5" />
         <entry key="app/src/main/res/menu/appbar.xml" value="0.25" />
         <entry key="app/src/main/res/menu/appbar_profile.xml" value="0.2740740740740741" />

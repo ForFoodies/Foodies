@@ -121,6 +121,11 @@ Start a new group registration page:
 
 <img src='https://i.imgur.com/RcT43Gf.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
 
+Group Registration and back to display List of Groups:
+
+<img src='https://i.imgur.com/uFHnB7Y.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
+
+
 
 
 GIF created with [LiceCap](http://www.cockos.com/licecap/).
