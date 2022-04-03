@@ -22,17 +22,17 @@ class UserProfileFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         setHasOptionsMenu(true)
 
-
+        //TODO: Set up views and click listeners
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         inflater.inflate(R.menu.appbar_profile, menu)
-        menu.findItem(R.id.action_logout).setOnMenuItemClickListener{item ->
+        menu.findItem(R.id.action_logout).setOnMenuItemClickListener { item ->
             val intent = Intent(requireContext(), LogInActivity::class.java)
             ParseUser.logOut()
             startActivity(intent)
             requireActivity().finish()
-           //Toast.makeText(this, "Successfully logged out", Toast.LENGTH_SHORT).show()
+            //Toast.makeText(this, "Successfully logged out", Toast.LENGTH_SHORT).show()
             true
         }
     }
