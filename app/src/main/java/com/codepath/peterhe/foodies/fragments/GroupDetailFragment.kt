@@ -199,7 +199,11 @@ class GroupDetailFragment : Fragment() {
                 } else {
                     if (members != null) {
                         memberAdapter.clear()
-                        allMembers.addAll(members)
+                        for (member in members) {
+                            if (member.objectId != group.getFounder()?.objectId) {
+                                allMembers.add(member)
+                            }
+                        }
                         memberAdapter.notifyDataSetChanged()
                     }
                 }
