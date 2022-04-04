@@ -75,6 +75,7 @@
         android:layout_height="wrap_content"
         android:text="Founder: "
         android:textSize="18sp"
+        android:textStyle="bold"
         android:layout_marginTop="5dp"
         android:layout_marginStart="15dp"
         app:layout_constraintStart_toStartOf="parent"
@@ -96,8 +97,9 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
         android:text="Peter He"
+        android:layout_marginTop="-3dp"
         android:textStyle="italic|bold"
-        android:textSize="23sp"
+        android:textSize="24sp"
         app:layout_constraintStart_toEndOf="@+id/tv_FounderProfile_detail"
         app:layout_constraintTop_toTopOf="@+id/tv_FounderProfile_detail" />
 
@@ -117,9 +119,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Members:"
+        android:textStyle="bold"
         android:layout_marginStart="15dp"
         android:layout_marginTop="5dp"
-        android:textSize="18dp"
+        android:textSize="18sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btn_cancel_groupDetail" />
 

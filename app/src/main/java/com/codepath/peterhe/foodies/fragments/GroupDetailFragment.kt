@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageButton
+import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
@@ -12,13 +13,14 @@ import androidx.fragment.app.FragmentTransaction
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.resource.bitmap.CenterCrop
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners
+import com.bumptech.glide.request.RequestOptions
 import com.codepath.peterhe.foodies.Group
 import com.codepath.peterhe.foodies.MemberAdapter
 import com.codepath.peterhe.foodies.R
-import com.parse.FindCallback
-import com.parse.ParseException
-import com.parse.ParseQuery
-import com.parse.ParseUser
+import com.parse.*
 import jp.wasabeef.recyclerview.animators.SlideInUpAnimator
 
 class GroupDetailFragment : Fragment() {
@@ -44,6 +46,7 @@ class GroupDetailFragment : Fragment() {
         if(bundle != null){
             group = bundle.getParcelable<Group>("GroupDetail")!!
         }
+
         membersRecyclerView = view.findViewById(R.id.rv_Members)
         memberAdapter = MemberAdapter(requireContext(),allMembers)
         membersRecyclerView.adapter = memberAdapter
@@ -164,6 +167,11 @@ class GroupDetailFragment : Fragment() {
                 } else {
                     if (founders != null) {
                         Founder = founders[0]
+                        val image: ParseFile? = Founder.getParseFile("profile")
+                        Glide.with(requireContext()).load(image?.url).apply(
+                            RequestOptions().transforms(
+                                CenterCrop(), RoundedCorners(10)
+                            )).into(view!!.findViewById<ImageView>(R.id.tv_FounderProfile_detail))
                         view?.findViewById<TextView>(R.id.tv_FounderName_detail)?.text = Founder.get("username").toString()
                         view?.findViewById<TextView>(R.id.tv_FounderDescription_detail)?.text = Founder.get("description").toString()
                         //TODO view?.findViewById<ImageView>(R.id.tv_FounderProfile_detail)?. = Founder.get("username").toString()

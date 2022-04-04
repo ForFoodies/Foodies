@@ -40,7 +40,7 @@ class RestaurantAdapter(val context: Context, val restaurants: List<YelpRestaura
         }
         fun bind(restaurant: YelpRestaurant) {
             Glide.with(context).load(restaurant.imageUrl).apply(RequestOptions().transforms(
-                CenterCrop(), RoundedCorners(20)
+                CenterCrop(), RoundedCorners(10)
             )).into(itemView.findViewById<ImageView>(R.id.restaurantImage))
             var name = ""
             if (restaurant.name?.length>22) {
