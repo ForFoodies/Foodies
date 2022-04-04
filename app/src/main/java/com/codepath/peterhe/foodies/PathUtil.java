@@ -92,4 +92,6 @@ public class PathUtil {
     public static boolean isMediaDocument(Uri uri) {
         return "com.android.providers.media.documents".equals(uri.getAuthority());
     }
+
+
 }

@@ -1,5 +1,7 @@
 package com.codepath.peterhe.foodies
 
+import android.os.Parcel
+import android.os.Parcelable
 import com.parse.ParseClassName
 import com.parse.ParseFile
 import com.parse.ParseObject
@@ -7,7 +9,10 @@ import com.parse.ParseUser
 import org.json.JSONArray
 
 @ParseClassName("Group")
-class Group:ParseObject() {
+class Group() :ParseObject() {
+    constructor(parcel: Parcel) : this() {
+    }
+
     fun getDescription():String? {
         return getString(DESCRIPTION_KEY)
     }
@@ -68,8 +73,30 @@ class Group:ParseObject() {
     fun setMemberList(memberList:JSONArray) {
         return put(MEMBERLIST_KEY,memberList)
     }
+    fun getFull(): Boolean? {
+        return getBoolean(FULL_KEY)
+    }
+    fun setFull(full:Boolean) {
+        put(FULL_KEY,full)
+    }
 
-    companion object {
+
+    override fun writeToParcel(parcel: Parcel, flags: Int) {
+        super.writeToParcel(parcel, flags)
+    }
+
+    override fun describeContents(): Int {
+        return 0
+    }
+
+    companion object CREATOR : Parcelable.Creator<Group> {
+        override fun createFromParcel(parcel: Parcel): Group {
+            return Group(parcel)
+        }
+
+        override fun newArray(size: Int): Array<Group?> {
+            return arrayOfNulls(size)
+        }
         const val DESCRIPTION_KEY = "description"
         //const val PROFILE_KEY = "profile"
         const val NAME_KEY = "name"
@@ -80,6 +107,6 @@ class Group:ParseObject() {
         const val CUR_KEY = "curMember"
         const val FOUNDER_KEY = "FounderID"
         const val MEMBERLIST_KEY = "memberList"
-        //const val OBJECTID_KEY = "objectId"
+        const val FULL_KEY = "full"
     }
 }

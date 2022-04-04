@@ -5,11 +5,13 @@ import android.app.DatePickerDialog
 import android.app.TimePickerDialog
 import android.app.TimePickerDialog.OnTimeSetListener
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentTransaction
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.CenterCrop
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
@@ -85,9 +87,13 @@ class DialogueFragment : Fragment() {
             if (name != "" && description != "" && number != "" && number.toDouble()%1 == 0.0 && time != "Choose Time" && date != "Choose Date") {
                     val num = number.toInt()
                     val founder = ParseUser.getCurrentUser()
-                    val memberList : JSONArray = JSONArray(listOf<ParseUser>(founder))
+                    val memberList : JSONArray = JSONArray(listOf<String>(founder.objectId))
                     val restaurantId = restaurant.id
-                    submitGroup(name,description,num,time,date,founder,memberList,restaurantId)
+                    var full:Boolean = false
+                    if (memberList.length() == num) {
+                        full = true
+                    }
+                    submitGroup(name,description,num,time,date,founder,memberList,restaurantId,full)
             } else {
                 if (name == "") {
                     view.findViewById<TextInputLayout>(R.id.text_input_layout_groupName_Dialog)?.setErrorEnabled(true)
@@ -127,7 +133,8 @@ class DialogueFragment : Fragment() {
         date: String,
         founder: ParseUser?,
         memberList: JSONArray,
-        restaurantId: String
+        restaurantId: String,
+        full: Boolean
     ) {
         val group = Group()
         group.setName(name)
@@ -138,6 +145,8 @@ class DialogueFragment : Fragment() {
         group.setFounder(founder!!)
         group.setMemberList(memberList)
         group.setRestaurant(restaurantId)
+        group.setFull(full)
+        val ft: FragmentTransaction? = getFragmentManager()?.beginTransaction()
         group.saveInBackground { exception ->
             if (exception != null) {
                 //Log.e(TAG, "ERROR submitting a post")
@@ -150,8 +159,16 @@ class DialogueFragment : Fragment() {
                 view?.findViewById<EditText>(R.id.et_groupname_dialog)?.text?.clear()
                 view?.findViewById<EditText>(R.id.et_number_dialog)?.text?.clear()
 
-                val fm = getFragmentManager()
-                fm?.popBackStack()
+                //val fm = getFragmentManager()
+               // fm?.popBackStack()
+                val bundle = Bundle()
+                bundle.putParcelable("RestaurantDetail", restaurant)
+                val DetailFragment = RestaurantDetailFragment()
+                DetailFragment.setArguments(bundle)
+               // Log.i(RestaurantFragment.TAG, "Restaurant ${restaurants[position]}")
+                ft?.replace(R.id.flContainer, DetailFragment)?.commit()
+                requireActivity().setTitle("${restaurant.name}")
+                ft?.addToBackStack(null)
             }
         }
     }

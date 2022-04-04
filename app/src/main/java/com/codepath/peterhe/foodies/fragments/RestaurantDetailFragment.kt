@@ -20,6 +20,7 @@ import com.codepath.peterhe.foodies.*
 import com.parse.FindCallback
 import com.parse.ParseException
 import com.parse.ParseQuery
+import com.parse.ParseUser
 import jp.wasabeef.recyclerview.animators.SlideInUpAnimator
 
 class RestaurantDetailFragment : Fragment() {
@@ -132,6 +133,7 @@ class RestaurantDetailFragment : Fragment() {
         query.limit = 20
         //query.skip = offset * 20
         query.whereEqualTo(Group.RESTAURANT_KEY, restaurant.id)
+        query.whereEqualTo(Group.FULL_KEY,false)
         query.findInBackground(object : FindCallback<Group> {
             override fun done(groups: MutableList<Group>?, e: ParseException?) {
                 if (e != null) {

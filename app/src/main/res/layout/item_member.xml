@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="4dp"
+    android:layout_marginBottom="4dp">
+
+    <ImageView
+        android:id="@+id/iv_MemberProfile_item"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:srcCompat="@tools:sample/avatars" />
+
+    <TextView
+        android:id="@+id/tv_MemberName_item"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:text="Peter"
+        android:textSize="22sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toEndOf="@+id/iv_MemberProfile_item"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tv_MemberDescription_item"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:text="I love playing soccer"
+        android:layout_marginTop="3dp"
+        android:layout_marginStart="10dp"
+        android:textSize="15sp"
+        app:layout_constraintStart_toEndOf="@+id/iv_MemberProfile_item"
+        app:layout_constraintTop_toBottomOf="@+id/tv_MemberName_item" />
+
+    <TextView
+        android:id="@+id/tv_joined_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Joined Foodies since "
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="3dp"
+        android:drawableStart="@drawable/ic_baseline_calendar_month_24"
+        android:drawablePadding="1dp"
+        android:textSize="15sp"
+        app:layout_constraintStart_toEndOf="@+id/iv_MemberProfile_item"
+        app:layout_constraintTop_toBottomOf="@+id/tv_MemberDescription_item" />
+
+    <TextView
+        android:id="@+id/tv_MemberCreatedTime_item"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="APR 02 2022"
+        android:textSize="15sp"
+        android:layout_marginStart="1dp"
+        android:layout_marginTop="3dp"
+        app:layout_constraintStart_toEndOf="@+id/tv_joined_text"
+        app:layout_constraintTop_toBottomOf="@+id/tv_MemberDescription_item" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
