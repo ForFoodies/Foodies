@@ -1,12 +1,9 @@
 package com.codepath.peterhe.foodies
 
-import android.content.Intent
+import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.Menu
-import android.view.MenuInflater
-import android.widget.TextView
 import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
@@ -30,21 +27,23 @@ class MainActivity : AppCompatActivity() {
        // supportActionBar?.setLogo(R.drawable.foodies_logo);
         //supportActionBar?.setDisplayUseLogoEnabled(true);
         //getWindow().setNavigationBarColor(getResources().getColor(R.color.orange))
-        getWindow().getDecorView().setBackgroundColor(getResources().getColor(R.color.orange));
+        getWindow().getDecorView().setBackgroundColor(getResources().getColor(R.color.light_gray_1));
+//        supportActionBar?.setBackgroundDrawable(ColorDrawable(Color.parseColor("#FFFFFF")))
         //appbar = findViewById(R.id.appbar)
        // setSupportActionBar(appbar)
+        supportActionBar?.elevation = 0.0F
         val fragmentManager: FragmentManager = supportFragmentManager
-        findViewById<BottomNavigationView>(R.id.bottom_navigation).setBackgroundColor(getResources().getColor(R.color.orange))
+        findViewById<BottomNavigationView>(R.id.bottom_navigation).setBackgroundColor(getResources().getColor(R.color.primary))
         findViewById<BottomNavigationView>(R.id.bottom_navigation).setOnItemSelectedListener {item ->
             var fragmentToShow: Fragment? = null
             when (item.itemId) {
                 R.id.action_home -> {
-                    this.setTitle("Discover")
+                    this.title = "Discover"
                     fragmentToShow = RestaurantFragment()
                 }
                 R.id.action_chats -> {}
                 R.id.action_profile -> {
-                    this.setTitle("Profile")
+                    this.title = "Profile"
                     fragmentToShow = UserProfileFragment()
                 }
             }

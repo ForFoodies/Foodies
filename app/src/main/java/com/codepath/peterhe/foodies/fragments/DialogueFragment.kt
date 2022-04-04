@@ -5,17 +5,12 @@ import android.app.DatePickerDialog
 import android.app.TimePickerDialog
 import android.app.TimePickerDialog.OnTimeSetListener
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
-import com.bumptech.glide.Glide
-import com.bumptech.glide.load.resource.bitmap.CenterCrop
-import com.bumptech.glide.load.resource.bitmap.RoundedCorners
-import com.bumptech.glide.request.RequestOptions
 import com.codepath.peterhe.foodies.Group
 import com.codepath.peterhe.foodies.R
 import com.codepath.peterhe.foodies.YelpRestaurant
@@ -23,7 +18,6 @@ import com.google.android.material.textfield.TextInputLayout
 import com.parse.ParseUser
 import org.json.JSONArray
 import java.util.*
-import kotlin.collections.ArrayList
 
 class DialogueFragment : Fragment() {
     private lateinit var restaurant: YelpRestaurant
@@ -47,7 +41,7 @@ class DialogueFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         requireActivity().setTitle("Create a new Group")
-        view.setBackgroundColor(getResources().getColor(R.color.orange))
+        view.setBackgroundColor(getResources().getColor(R.color.primary))
         val bundle = this.arguments
         if(bundle != null){
             restaurant = bundle.getParcelable<YelpRestaurant>("RestaurantDialog")!!

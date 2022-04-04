@@ -73,12 +73,12 @@ class RestaurantDetailFragment : Fragment() {
         view.findViewById<TextView>(R.id.tvAddressDetail).text = address
         if (restaurant.is_closed == true) {
             view.findViewById<TextView>(R.id.tvIsClosed).text = "Closed"
-            view.findViewById<TextView>(R.id.tvIsClosed).setTextColor(getResources().getColor(R.color.red))
-            view.findViewById<TextView>(R.id.tvIsClosed).setCompoundDrawables(getResources().getDrawable(R.drawable.ic_baseline_close_24),null,null,null)
+            view.findViewById<TextView>(R.id.tvIsClosed).setTextColor(resources.getColor(R.color.red))
+            view.findViewById<TextView>(R.id.tvIsClosed).setCompoundDrawables(resources.getDrawable(R.drawable.ic_baseline_close_24),null,null,null)
         } else {
             view.findViewById<TextView>(R.id.tvIsClosed).text = "Open"
-            view.findViewById<TextView>(R.id.tvIsClosed).setTextColor(getResources().getColor(R.color.green))
-            view.findViewById<TextView>(R.id.tvIsClosed).setCompoundDrawables(getResources().getDrawable(R.drawable.ic_baseline_check_24),null,null,null)
+            view.findViewById<TextView>(R.id.tvIsClosed).setTextColor(resources.getColor(R.color.green))
+            view.findViewById<TextView>(R.id.tvIsClosed).setCompoundDrawables(resources.getDrawable(R.drawable.ic_baseline_check_24),null,null,null)
         }
         var transactions = ""
         for (item in restaurant.transactions) {
@@ -111,7 +111,7 @@ class RestaurantDetailFragment : Fragment() {
                 DetailFragment.setArguments(bundle)
                 //Log.i(RestaurantFragment.TAG, "Restaurant ${allGroups[position]}")
                 ft?.replace(R.id.flContainer, DetailFragment)?.commit()
-                requireActivity().setTitle("${allGroups[position].getName()}")
+                requireActivity().title = "${allGroups[position].getName()}"
                 ft?.addToBackStack(null)
             }
         })
@@ -121,7 +121,7 @@ class RestaurantDetailFragment : Fragment() {
         val bundle = Bundle()
         bundle.putParcelable("RestaurantDialog", restaurant)
         val dialogFragment = DialogueFragment()
-        dialogFragment.setArguments(bundle)
+        dialogFragment.arguments = bundle
         ft.replace(R.id.flContainer, dialogFragment).commit()
         ft.addToBackStack(null)
     }

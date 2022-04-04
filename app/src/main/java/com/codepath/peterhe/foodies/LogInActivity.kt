@@ -14,7 +14,7 @@ class LogInActivity : AppCompatActivity() {
         if (ParseUser.getCurrentUser() != null) {
             gotoMainActivity()
         }
-        getWindow().getDecorView().setBackgroundColor(getResources().getColor(R.color.orange));
+        getWindow().getDecorView().setBackgroundColor(getResources().getColor(R.color.primary));
         getSupportActionBar()?.hide()
         findViewById<ImageButton>(R.id.redirect_signin).setOnClickListener{
             val intent = Intent(this,SignInActivity::class.java)

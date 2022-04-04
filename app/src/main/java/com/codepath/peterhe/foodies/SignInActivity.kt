@@ -3,7 +3,6 @@ package com.codepath.peterhe.foodies
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
-import android.view.View
 import android.widget.EditText
 import android.widget.ImageButton
 import android.widget.Toast
@@ -17,7 +16,7 @@ class SignInActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_sign_in)
-        getWindow().getDecorView().setBackgroundColor(getResources().getColor(R.color.orange));
+        getWindow().getDecorView().setBackgroundColor(getResources().getColor(R.color.primary));
         getSupportActionBar()?.hide()
         findViewById<ImageButton>(R.id.btn_login).setOnClickListener {
             findViewById<TextInputLayout>(R.id.text_input_layout_email_signin)?.setError(null)

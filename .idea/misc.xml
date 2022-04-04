@@ -23,7 +23,10 @@
         <entry key="app/src/main/res/drawable/ic_baseline_add_a_photo_24.xml" value="0.132" />
         <entry key="app/src/main/res/drawable/ic_baseline_check_24.xml" value="0.2005" />
         <entry key="app/src/main/res/drawable/ic_baseline_email_24.xml" value="0.1575" />
+        <entry key="app/src/main/res/drawable/ic_baseline_logout_24.xml" value="0.165" />
         <entry key="app/src/main/res/drawable/ic_baseline_restaurant_24.xml" value="0.132" />
+        <entry key="app/src/main/res/drawable/ic_baseline_restaurant_24_white.xml" value="0.262" />
+        <entry key="app/src/main/res/drawable/ic_baseline_text_fields_24.xml" value="0.165" />
         <entry key="app/src/main/res/drawable/join_selector.xml" value="0.187" />
         <entry key="app/src/main/res/drawable/login_selector.xml" value="0.2045" />
         <entry key="app/src/main/res/drawable/redirect_create_account.xml" value="0.1" />

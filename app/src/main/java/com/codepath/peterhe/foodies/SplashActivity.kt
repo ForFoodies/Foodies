@@ -9,7 +9,7 @@ class SplashActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splash)
-        getWindow().getDecorView().setBackgroundColor(getResources().getColor(R.color.orange));
+        getWindow().getDecorView().setBackgroundColor(getResources().getColor(R.color.primary));
         supportActionBar?.hide()
 
         Handler().postDelayed({

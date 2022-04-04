@@ -4,10 +4,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginTop="3dp"
-    android:layout_marginBottom="3dp"
-    android:layout_marginStart="8dp"
-    android:layout_marginEnd="8dp"
+    android:layout_marginTop="5dp"
+    android:layout_marginBottom="5dp"
+    android:layout_marginStart="10dp"
+    android:layout_marginEnd="10dp"
+    android:paddingBottom="5dp"
     android:background="@color/white"
     >
 
@@ -15,17 +16,21 @@
         android:id="@+id/tvRestaurantName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
+        android:layout_marginStart="5dp"
+        android:paddingBottom="5dp"
         android:text="Panda Express"
         android:textSize="20sp"
         android:textStyle="bold"
-        app:layout_constraintStart_toEndOf="@+id/restaurantImage"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/restaurantImage" />
 
     <ImageView
         android:id="@+id/restaurantImage"
-        android:layout_width="100dp"
+        android:layout_width="match_parent"
         android:layout_height="100dp"
+        android:scaleType="centerCrop"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:srcCompat="@tools:sample/avatars" />
@@ -35,13 +40,12 @@
         style="@style/Widget.AppCompat.RatingBar.Small"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="5dp"
+        android:layout_marginStart="5dp"
         android:numStars="5"
-        android:progressTint="@color/orange"
+        android:progressTint="@color/primary"
         android:rating="4.5"
         android:stepSize="0.5"
-        app:layout_constraintStart_toEndOf="@+id/restaurantImage"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tvRestaurantName" />
 
     <TextView
@@ -49,7 +53,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="4dp"
-        android:layout_marginTop="5dp"
         android:text="TextView"
         android:textColor="@android:color/darker_gray"
         android:textSize="12sp"
@@ -61,10 +64,9 @@
         android:id="@+id/tvAddress"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="5dp"
+        android:layout_marginStart="5dp"
         android:text="TextView"
-        app:layout_constraintStart_toEndOf="@+id/restaurantImage"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/ratingBar"
         tools:text="2200 Fuller Road" />
 
@@ -72,11 +74,10 @@
         android:id="@+id/tvCategory"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="5dp"
+        android:layout_marginStart="5dp"
         android:text="TextView"
         android:textColor="@android:color/darker_gray"
-        app:layout_constraintStart_toEndOf="@+id/restaurantImage"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tvAddress"
         tools:text="Breakfast" />
 
@@ -84,23 +85,22 @@
         android:id="@+id/tvDistance"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_margin="5dp"
         android:text="TextView"
-        android:layout_marginTop="2dp"
-        android:layout_marginEnd="3dp"
         android:textColor="@android:color/darker_gray"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/tvPrice"
+        app:layout_constraintTop_toBottomOf="@+id/restaurantImage"
         tools:text="1.7 mi" />
 
     <TextView
         android:id="@+id/tvPrice"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
-        android:layout_marginEnd="3dp"
+        android:layout_margin="5dp"
+        android:layout_marginEnd="112dp"
         android:text="TextView"
         android:textColor="@android:color/darker_gray"
+        app:layout_constraintTop_toBottomOf="@id/restaurantImage"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvDistance"
         tools:text="$$" />
 </androidx.constraintlayout.widget.ConstraintLayout>

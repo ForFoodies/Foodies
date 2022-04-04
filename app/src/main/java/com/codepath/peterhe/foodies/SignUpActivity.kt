@@ -9,17 +9,12 @@ import android.widget.ImageButton
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.textfield.TextInputLayout
-import com.parse.ParseException
 import com.parse.ParseFile
 import com.parse.ParseUser
-import com.parse.SaveCallback
 import android.os.Environment
 import android.provider.MediaStore
 import android.util.Log
-import android.view.View
-import android.widget.ImageView
 import androidx.core.content.FileProvider
-import androidx.fragment.app.FragmentTransaction
 import java.io.*
 
 
@@ -31,7 +26,7 @@ class SignUpActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_sign_up)
-        getWindow().getDecorView().setBackgroundColor(getResources().getColor(R.color.orange));
+        getWindow().getDecorView().setBackgroundColor(getResources().getColor(R.color.primary));
         getSupportActionBar()?.hide()
         findViewById<ImageButton>(R.id.btn_add_photo_signup).setOnClickListener {
             imageChooser()
