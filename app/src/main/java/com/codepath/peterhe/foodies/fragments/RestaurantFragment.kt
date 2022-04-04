@@ -82,6 +82,8 @@ class RestaurantFragment : Fragment(),LocationListener {
                 val DetailFragment = RestaurantDetailFragment()
                 DetailFragment.setArguments(bundle)
                 Log.i(TAG, "Restaurant ${restaurants[position]}")
+                offset = 0
+                scrollListener.resetState()
                 ft?.replace(R.id.flContainer, DetailFragment)?.commit()
                 requireActivity().setTitle("${restaurants[position].name}")
                 ft?.addToBackStack(null)

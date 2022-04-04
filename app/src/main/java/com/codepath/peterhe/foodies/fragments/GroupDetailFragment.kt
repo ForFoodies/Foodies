@@ -198,6 +198,7 @@ class GroupDetailFragment : Fragment() {
                     Toast.makeText(requireContext(), "Error getting members", Toast.LENGTH_SHORT).show()
                 } else {
                     if (members != null) {
+                        memberAdapter.clear()
                         allMembers.addAll(members)
                         memberAdapter.notifyDataSetChanged()
                     }

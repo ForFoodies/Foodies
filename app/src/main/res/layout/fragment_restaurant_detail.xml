@@ -164,6 +164,7 @@
         android:layout_marginStart="8dp"
         android:textSize="15sp"
         android:autoLink="phone"
+        android:drawablePadding="1dp"
         android:drawableStart="@drawable/ic_baseline_phone_24_black"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tvIsClosed" />
@@ -178,6 +179,7 @@
         android:layout_marginTop="3dp"
         android:layout_marginStart="8dp"
         android:textSize="15sp"
+        android:drawablePadding="1dp"
         android:drawableStart="@drawable/ic_baseline_web_24"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tvPhone" />

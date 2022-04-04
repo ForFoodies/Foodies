@@ -1,8 +1,7 @@
 package com.codepath.peterhe.foodies.fragments
 
-import android.app.Dialog
+import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -20,8 +19,9 @@ import com.codepath.peterhe.foodies.*
 import com.parse.FindCallback
 import com.parse.ParseException
 import com.parse.ParseQuery
-import com.parse.ParseUser
 import jp.wasabeef.recyclerview.animators.SlideInUpAnimator
+import java.lang.Boolean
+
 
 class RestaurantDetailFragment : Fragment() {
     private lateinit var restaurant: YelpRestaurant
@@ -141,6 +141,7 @@ class RestaurantDetailFragment : Fragment() {
                     Toast.makeText(requireContext(), "Error getting groups", Toast.LENGTH_SHORT).show()
                 } else {
                     if (groups != null) {
+                        groupAdapter.clear()
                         allGroups.addAll(groups)
                         groupAdapter.notifyDataSetChanged()
                     }
@@ -149,5 +150,13 @@ class RestaurantDetailFragment : Fragment() {
 
         })
     }
+    /*override fun onBackPressed() {
+        val fromNewActivity = true
+        val mainIntent = Intent(view!!.context, MainActivity::class.java)
+        val bundleObj = Bundle()
+        bundleObj.putString("fromNewActivity", Boolean.toString(fromNewActivity))
+        mainIntent.putExtras(bundleObj)
+        startActivityForResult(mainIntent, 0)
+    }*/
 
 }
