@@ -28,6 +28,7 @@ import com.parse.ParseQuery
 import com.parse.ParseUser
 import org.json.JSONArray
 import java.util.*
+import kotlin.collections.ArrayList
 
 class DialogueFragment : Fragment() {
     private lateinit var restaurant: YelpRestaurant
@@ -39,7 +40,6 @@ class DialogueFragment : Fragment() {
     private var year: Int = 0
     private var day:Int =0
     private var date:String = ""
-    private var check:String = ""
    private lateinit var datePickerDialog : DatePickerDialog
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
