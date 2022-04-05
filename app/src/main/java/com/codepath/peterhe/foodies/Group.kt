@@ -79,6 +79,18 @@ class Group() :ParseObject() {
     fun setFull(full:Boolean) {
         put(FULL_KEY,full)
     }
+    fun getAddress(): String? {
+        return getString(RESTAURANTADDRESS_KEY)
+    }
+    fun setAddress(address:String) {
+        put(RESTAURANTADDRESS_KEY,address)
+    }
+    fun getRestName(): String? {
+        return getString(RESTAURANTNAME_KEY)
+    }
+    fun setRestName(name:String) {
+        put(RESTAURANTNAME_KEY,name)
+    }
 
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
@@ -108,5 +120,7 @@ class Group() :ParseObject() {
         const val FOUNDER_KEY = "FounderID"
         const val MEMBERLIST_KEY = "memberList"
         const val FULL_KEY = "full"
+        const val RESTAURANTNAME_KEY="restaurantName"
+        const val RESTAURANTADDRESS_KEY = "restaurantAddress"
     }
 }

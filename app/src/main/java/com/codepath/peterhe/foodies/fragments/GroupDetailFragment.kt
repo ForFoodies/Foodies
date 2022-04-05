@@ -4,10 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageButton
-import android.widget.ImageView
-import android.widget.TextView
-import android.widget.Toast
+import android.widget.*
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
 import androidx.recyclerview.widget.DividerItemDecoration
@@ -18,10 +15,12 @@ import com.bumptech.glide.load.resource.bitmap.CenterCrop
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.bumptech.glide.request.RequestOptions
 import com.codepath.peterhe.foodies.Group
+import com.codepath.peterhe.foodies.GroupChatDetailFragment
 import com.codepath.peterhe.foodies.MemberAdapter
 import com.codepath.peterhe.foodies.R
 import com.parse.*
 import jp.wasabeef.recyclerview.animators.SlideInUpAnimator
+import org.json.JSONArray
 
 class GroupDetailFragment : Fragment() {
     private lateinit var group: Group
@@ -31,6 +30,7 @@ class GroupDetailFragment : Fragment() {
     private lateinit var memberAdapter: MemberAdapter
     lateinit var membersRecyclerView: RecyclerView
     lateinit var layoutManager: LinearLayoutManager
+    var Userjoined = false
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -78,15 +78,26 @@ class GroupDetailFragment : Fragment() {
         view.findViewById<TextView>(R.id.tv_GroupNumber_detail).text = num
         val time = "${group.getTime()} ${group.getDate()}"
         view.findViewById<TextView>(R.id.tv_GroupTime_detail).text = time
-        view.findViewById<ImageButton>(R.id.btn_cancel_groupDetail).setOnClickListener {
+        view.findViewById<Button>(R.id.btn_cancel_groupDetail).setOnClickListener {
             val fm = getFragmentManager()
             fm?.popBackStack()
         }
-        view.findViewById<ImageButton>(R.id.btn_join_GroupDetail).setOnClickListener {
-            submitGroupUpdate(ParseUser.getCurrentUser().objectId)
+        view.findViewById<Button>(R.id.btn_join_GroupDetail).setOnClickListener {
+            if (Userjoined == false) {
+                submitGroupUpdate(ParseUser.getCurrentUser().objectId)
+            } else {
+                val bundle = Bundle()
+                bundle.putParcelable("GroupChatDetail", group)
+                val DetailFragment = GroupChatDetailFragment()
+                DetailFragment.setArguments(bundle)
+                //Log.i(RestaurantFragment.TAG, "Restaurant ${allGroups[position]}")
+                ft?.replace(R.id.flContainer, DetailFragment)?.commit()
+                requireActivity().setTitle("${group.getName()} Chat")
+                ft?.addToBackStack(null)
+            }
+
         }
 
-        var Userjoined = false
         for (i in 0 until group.getMemberList()!!.length()) {
             val item:String = group.getMemberList()?.getString(i)!!
             if (item.trim() == (ParseUser.getCurrentUser().objectId.trim())) {
@@ -96,11 +107,10 @@ class GroupDetailFragment : Fragment() {
         }
         requireActivity().setTitle("${group.getName()}")
         if (Userjoined == true) {
-            view?.findViewById<ImageButton>(R.id.btn_join_GroupDetail)?.setEnabled(false)
-            view?.findViewById<ImageButton>(R.id.btn_join_GroupDetail)?.setVisibility(View.GONE)
-            view?.findViewById<ImageButton>(R.id.btn_cancel_groupDetail)?.setEnabled(false)
-            view?.findViewById<ImageButton>(R.id.btn_cancel_groupDetail)?.setVisibility(View.GONE)
-            requireActivity().setTitle("${group.getName()} (Already Joined)")
+            view?.findViewById<Button>(R.id.btn_join_GroupDetail)?.setText("Go to Chat")
+            view?.findViewById<Button>(R.id.btn_cancel_groupDetail)?.setEnabled(false)
+            view?.findViewById<Button>(R.id.btn_cancel_groupDetail)?.setVisibility(View.GONE)
+            requireActivity().setTitle("${group.getName()} (Joined)")
         }
 
 
@@ -109,6 +119,24 @@ class GroupDetailFragment : Fragment() {
     private fun submitGroupUpdate(
         userId: String,
     ) {
+        var user = ParseUser.getCurrentUser()
+        var groupList = user.getJSONArray("groupList")
+        if (groupList != null) {
+            groupList.put(group.objectId)
+        } else {
+            groupList = JSONArray()
+            groupList.put(group.objectId)
+        }
+        user.put("groupList",groupList)
+        user.saveInBackground { e ->
+            if (e != null) {
+                e.printStackTrace()
+                Toast.makeText(requireContext(), "Error adding a group chat", Toast.LENGTH_SHORT).show()
+            } else {
+                Toast.makeText(requireContext(), "Successfully joined a group chat", Toast.LENGTH_SHORT).show()
+            }
+        }
+
         var memberList = group.getMemberList()
         memberList!!.put(userId)
         group.setMemberList(memberList)
@@ -129,11 +157,11 @@ class GroupDetailFragment : Fragment() {
             } else {
                 //Log.i(TAG, "Successfully submitted a post")
                 Toast.makeText(requireContext(), "Successfully joined a group", Toast.LENGTH_SHORT).show()
-                view?.findViewById<ImageButton>(R.id.btn_join_GroupDetail)?.setEnabled(false)
-                view?.findViewById<ImageButton>(R.id.btn_join_GroupDetail)?.setVisibility(View.GONE)
-                view?.findViewById<ImageButton>(R.id.btn_cancel_groupDetail)?.setEnabled(false)
-                view?.findViewById<ImageButton>(R.id.btn_cancel_groupDetail)?.setVisibility(View.GONE)
-                requireActivity().setTitle("${group.getName()} (Already Joined)")
+                Userjoined = true
+                view?.findViewById<Button>(R.id.btn_join_GroupDetail)?.setText("Go to Chat")
+                view?.findViewById<Button>(R.id.btn_cancel_groupDetail)?.setEnabled(false)
+                view?.findViewById<Button>(R.id.btn_cancel_groupDetail)?.setVisibility(View.GONE)
+                requireActivity().setTitle("${group.getName()} (Joined)")
                 allMembers.add(ParseUser.getCurrentUser())
                 memberAdapter.notifyDataSetChanged()
                 //ft.detach(this).attach(this).commit()
@@ -155,7 +183,6 @@ class GroupDetailFragment : Fragment() {
     fun queryFounder() {
         val query: ParseQuery<ParseUser> = ParseQuery.getQuery(ParseUser::class.java)
         query.include(ParseUser.KEY_OBJECT_ID)
-        query.addDescendingOrder("createdAt")
         query.limit = 1
         //query.skip = offset * 20
         query.whereEqualTo(ParseUser.KEY_OBJECT_ID, group.getFounder()?.objectId)
@@ -198,13 +225,13 @@ class GroupDetailFragment : Fragment() {
                     Toast.makeText(requireContext(), "Error getting members", Toast.LENGTH_SHORT).show()
                 } else {
                     if (members != null) {
-                        memberAdapter.clear()
+                        //memberAdapter.clear()
                         for (member in members) {
                             if (member.objectId != group.getFounder()?.objectId) {
                                 allMembers.add(member)
+                                memberAdapter.notifyDataSetChanged()
                             }
                         }
-                        memberAdapter.notifyDataSetChanged()
                     }
                 }
             }

@@ -11,6 +11,7 @@
         android:id="@+id/iv_MemberProfile_item"
         android:layout_width="80dp"
         android:layout_height="80dp"
+        android:layout_marginTop="3dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:srcCompat="@tools:sample/avatars" />

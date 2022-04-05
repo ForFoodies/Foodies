@@ -3,12 +3,13 @@ package com.codepath.peterhe.foodies
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
+import android.view.View.VISIBLE
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 
-class GroupAdapter(val context: Context, val groups: MutableList<Group>): RecyclerView.Adapter<GroupAdapter.ViewHolder>() {
+class GroupAdapter(val context: Context, val groups: MutableList<Group>, val chat:Boolean): RecyclerView.Adapter<GroupAdapter.ViewHolder>() {
     private lateinit var mlistner: onItemClickListner
     interface onItemClickListner {
         fun onItemClick(position: Int)
@@ -48,11 +49,19 @@ class GroupAdapter(val context: Context, val groups: MutableList<Group>): Recycl
         val tvDescription: TextView
         val tvTime: TextView
         val tvNum : TextView
+        val resName : TextView
+        val resAddress:TextView
         init {
-            tvName = itemView.findViewById(R.id.tv_groupName_item)
-            tvDescription = itemView.findViewById(R.id.tv_groupDescription_item)
-            tvTime = itemView.findViewById(R.id.tv_GroupTimeDate_item)
-            tvNum = itemView.findViewById(R.id.tv_GroupNum_item)
+            tvName = itemView.findViewById(R.id.tv_groupName_item1)
+            tvDescription = itemView.findViewById(R.id.tv_groupDescription_item1)
+            tvTime = itemView.findViewById(R.id.tv_GroupTimeDate_item1)
+            tvNum = itemView.findViewById(R.id.tv_GroupNum_item1)
+            resName = itemView.findViewById(R.id.tv_GroupRestaurantName_item)
+            resAddress =itemView.findViewById(R.id.tv_GroupRestaurantAddress_item)
+            if (chat == true) {
+                resName.setVisibility(VISIBLE)
+                resAddress.setVisibility(VISIBLE)
+            }
             itemView.setOnClickListener {
                 listner.onItemClick(adapterPosition)
             }
@@ -64,6 +73,8 @@ class GroupAdapter(val context: Context, val groups: MutableList<Group>): Recycl
             tvTime.text = time
             val num = "${group.getCurrent()}/${group.getMax()}"
             tvNum.text =num
+            resName.text = group.getRestName()
+            resAddress.text = group.getAddress()
         }
     }
 }

@@ -4,35 +4,37 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginTop="3dp"
-    android:layout_marginBottom="3dp"
-    android:layout_marginStart="8dp"
-    android:layout_marginEnd="8dp"
+    android:layout_marginTop="2dp"
+    android:layout_marginBottom="2dp"
+    android:layout_marginStart="3dp"
+    android:layout_marginEnd="3dp"
     android:background="@color/white">
 
 
     <TextView
-        android:id="@+id/tv_groupName_item"
+        android:id="@+id/tv_groupName_item1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="French Study"
         android:textSize="20sp"
         android:textStyle="bold"
+        android:layout_marginStart="3dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/tv_groupDescription_item"
-        android:layout_width="wrap_content"
+        android:id="@+id/tv_groupDescription_item1"
+        android:layout_width="320dp"
         android:layout_height="wrap_content"
+        android:layout_marginStart="3dp"
+        android:layout_marginTop="2dp"
         android:text="Come to learn French with us!"
         android:textSize="15sp"
-        android:layout_marginTop="2dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_groupName_item" />
+        app:layout_constraintTop_toBottomOf="@+id/tv_groupName_item1" />
 
     <TextView
-        android:id="@+id/tv_GroupTimeDate_item"
+        android:id="@+id/tv_GroupTimeDate_item1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="12:36 APR 02 2022"
@@ -40,18 +42,45 @@
         android:textSize="15sp"
         android:drawablePadding="1dp"
         android:layout_marginTop="3dp"
+        android:layout_marginEnd="4dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/tv_GroupNum_item"
+        android:id="@+id/tv_GroupNum_item1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="3/5"
-        android:layout_marginEnd="1dp"
+        android:layout_marginEnd="5dp"
         android:drawableStart="@drawable/ic_baseline_group_24_black"
         android:drawablePadding="1dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_GroupTimeDate_item" />
+        app:layout_constraintTop_toBottomOf="@+id/tv_GroupTimeDate_item1" />
+
+    <TextView
+        android:id="@+id/tv_GroupRestaurantName_item"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="2.7dp"
+        android:drawableStart="@drawable/ic_baseline_restaurant_24_black_group"
+        android:drawablePadding="1dp"
+        android:layout_marginStart="3dp"
+        android:text="Panda Express"
+        android:visibility="gone"
+        android:textSize="15sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_groupDescription_item1" />
+
+    <TextView
+        android:id="@+id/tv_GroupRestaurantAddress_item"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="2200 Fuller Court Ann Arbor MI"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginStart="3dp"
+        android:layout_marginTop="2.7dp"
+        android:visibility="gone"
+        android:drawableStart="@drawable/ic_baseline_location_on_24"
+        app:layout_constraintTop_toBottomOf="@+id/tv_GroupRestaurantName_item" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

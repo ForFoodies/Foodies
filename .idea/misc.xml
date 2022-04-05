@@ -13,7 +13,9 @@
         <entry key="app/src/main/res/drawable/add_photo_selector.xml" value="0.217" />
         <entry key="app/src/main/res/drawable/btn_background_selector.xml" value="0.17" />
         <entry key="app/src/main/res/drawable/cancel_selector.xml" value="0.196" />
+        <entry key="app/src/main/res/drawable/color_orange_white.xml" value="0.1645" />
         <entry key="app/src/main/res/drawable/color_selector.xml" value="0.1" />
+        <entry key="app/src/main/res/drawable/color_white_orange.xml" value="0.1645" />
         <entry key="app/src/main/res/drawable/confirm_selector.xml" value="0.196" />
         <entry key="app/src/main/res/drawable/date_selector.xml" value="0.17" />
         <entry key="app/src/main/res/drawable/divider.xml" value="0.44" />
@@ -30,6 +32,8 @@
         <entry key="app/src/main/res/drawable/ic_baseline_text_fields_24.xml" value="0.165" />
         <entry key="app/src/main/res/drawable/join_selector.xml" value="0.187" />
         <entry key="app/src/main/res/drawable/login_selector.xml" value="0.2045" />
+        <entry key="app/src/main/res/drawable/message_incoming.xml" value="0.1645" />
+        <entry key="app/src/main/res/drawable/message_outgoing.xml" value="0.1645" />
         <entry key="app/src/main/res/drawable/redirect_create_account.xml" value="0.1" />
         <entry key="app/src/main/res/drawable/redirect_sign_in.xml" value="0.1" />
         <entry key="app/src/main/res/drawable/signup_selector.xml" value="0.217" />
@@ -43,17 +47,24 @@
         <entry key="app/src/main/res/layout/appbar.xml" value="0.19270833333333334" />
         <entry key="app/src/main/res/layout/dialog_layout.xml" value="0.29583333333333334" />
         <entry key="app/src/main/res/layout/fragment_date_time_picker.xml" value="0.3098958333333333" />
-        <entry key="app/src/main/res/layout/fragment_dialogue.xml" value="0.24479166666666666" />
-        <entry key="app/src/main/res/layout/fragment_group_detail.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/fragment_dialogue.xml" value="0.38551432291666665" />
+        <entry key="app/src/main/res/layout/fragment_group_chat_detail.xml" value="0.18541666666666667" />
+        <entry key="app/src/main/res/layout/fragment_group_chat_list.xml" value="0.17135416666666667" />
+        <entry key="app/src/main/res/layout/fragment_group_detail.xml" value="0.335" />
         <entry key="app/src/main/res/layout/fragment_restaurant.xml" value="0.22604166666666667" />
         <entry key="app/src/main/res/layout/fragment_restaurant_detail.xml" value="0.3701806640625" />
         <entry key="app/src/main/res/layout/fragment_settings.xml" value="0.3098958333333333" />
         <entry key="app/src/main/res/layout/fragment_user_profile.xml" value="0.3098958333333333" />
         <entry key="app/src/main/res/layout/item_group.xml" value="0.4156163533528646" />
+        <entry key="app/src/main/res/layout/item_group_chat.xml" value="0.335" />
         <entry key="app/src/main/res/layout/item_member.xml" value="0.25" />
         <entry key="app/src/main/res/layout/item_restaurant.xml" value="0.6767922235722965" />
         <entry key="app/src/main/res/layout/restaurant_card.xml" value="0.6" />
+        <entry key="app/src/main/res/layout/item_restaurant.xml" value="0.5" />
+        <entry key="app/src/main/res/layout/message_incoming.xml" value="0.31991271972656254" />
+        <entry key="app/src/main/res/layout/message_outgoing.xml" value="0.2601252237955729" />
         <entry key="app/src/main/res/menu/appbar.xml" value="0.25" />
+        <entry key="app/src/main/res/menu/appbar_groupchat_detail.xml" value="0.3098958333333333" />
         <entry key="app/src/main/res/menu/appbar_profile.xml" value="0.2740740740740741" />
         <entry key="app/src/main/res/menu/menu_bottom_navigation.xml" value="0.22604166666666667" />
         <entry key="app/src/main/res/xml/fileprovider.xml" value="0.1" />

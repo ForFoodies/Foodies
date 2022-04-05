@@ -76,7 +76,7 @@
         android:text="Founder: "
         android:textSize="18sp"
         android:textStyle="bold"
-        android:layout_marginTop="5dp"
+        android:layout_marginTop="7dp"
         android:layout_marginStart="15dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tv_GroupTime_detail" />
@@ -97,7 +97,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
         android:text="Peter He"
-        android:layout_marginTop="-3dp"
+        android:layout_marginTop="-5dp"
         android:textStyle="italic|bold"
         android:textSize="24sp"
         app:layout_constraintStart_toEndOf="@+id/tv_FounderProfile_detail"
@@ -121,10 +121,10 @@
         android:text="Members:"
         android:textStyle="bold"
         android:layout_marginStart="15dp"
-        android:layout_marginTop="5dp"
+        android:layout_marginTop="3dp"
         android:textSize="18sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btn_cancel_groupDetail" />
+        app:layout_constraintTop_toBottomOf="@+id/btn_join_GroupDetail" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_Members"
@@ -138,23 +138,29 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tv_memberText_detail" />
 
-    <ImageButton
+    <Button
         android:id="@+id/btn_cancel_groupDetail"
-        android:layout_width="143dp"
-        android:layout_height="68dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
-        android:layout_marginTop="5dp"
-        android:src="@drawable/cancel_selector"
+        android:layout_marginTop="3dp"
+        android:text="Cancel"
+        android:textColor="@drawable/color_white_orange"
+        android:backgroundTint="@drawable/color_orange_white"
+        android:textSize="16sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tv_FounderProfile_detail" />
 
-    <ImageButton
+    <Button
         android:id="@+id/btn_join_GroupDetail"
-        android:layout_width="101dp"
-        android:layout_height="68dp"
-        android:layout_marginTop="8dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
         android:layout_marginEnd="27dp"
-        android:src="@drawable/join_selector"
+        android:textColor="@drawable/color_white_orange"
+        android:backgroundTint="@drawable/color_orange_white"
+        android:text="Join"
+        android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tv_FounderProfile_detail" />
 
