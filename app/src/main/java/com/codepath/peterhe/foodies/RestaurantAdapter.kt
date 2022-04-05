@@ -8,7 +8,6 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.CenterCrop
-import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.bumptech.glide.request.RequestOptions
 
 class RestaurantAdapter(val context: Context, val restaurants: List<YelpRestaurant>) : RecyclerView.Adapter<RestaurantAdapter.ViewHolder>() {
@@ -32,15 +31,15 @@ class RestaurantAdapter(val context: Context, val restaurants: List<YelpRestaura
         holder.bind(restaurant)
     }
 
-    inner class ViewHolder(itemView: View, listner: onItemClickListner) : RecyclerView.ViewHolder(itemView) {
+    inner class ViewHolder(itemView: View, listener: onItemClickListner) : RecyclerView.ViewHolder(itemView) {
         init {
             itemView.setOnClickListener {
-                listner.onItemClick(adapterPosition)
+                listener.onItemClick(adapterPosition)
             }
         }
         fun bind(restaurant: YelpRestaurant) {
             Glide.with(context).load(restaurant.imageUrl).apply(RequestOptions().transforms(
-                CenterCrop(), RoundedCorners(10)
+                CenterCrop()
             )).into(itemView.findViewById<ImageView>(R.id.restaurantImage))
             var name = ""
             if (restaurant.name?.length>22) {

@@ -4,6 +4,7 @@ import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
@@ -16,6 +17,12 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        setSupportActionBar(findViewById(R.id.my_toolbar))
+
+        window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR;//  set status text dark
+        window.statusBarColor = resources.getColor(R.color.white);
+
+
         /*getSupportActionBar()?.setBackgroundDrawable(ColorDrawable(getResources().getColor(R.color.orange)))
         getSupportActionBar()?.setDisplayShowHomeEnabled(true)
         getSupportActionBar()?.setIcon(R.drawable.foodies_logo)
@@ -31,19 +38,18 @@ class MainActivity : AppCompatActivity() {
 //        supportActionBar?.setBackgroundDrawable(ColorDrawable(Color.parseColor("#FFFFFF")))
         //appbar = findViewById(R.id.appbar)
        // setSupportActionBar(appbar)
-        supportActionBar?.elevation = 0.0F
         val fragmentManager: FragmentManager = supportFragmentManager
         findViewById<BottomNavigationView>(R.id.bottom_navigation).setBackgroundColor(getResources().getColor(R.color.primary))
         findViewById<BottomNavigationView>(R.id.bottom_navigation).setOnItemSelectedListener {item ->
             var fragmentToShow: Fragment? = null
             when (item.itemId) {
                 R.id.action_home -> {
-                    this.title = "Discover"
+                    this.supportActionBar?.title = "Discover"
                     fragmentToShow = RestaurantFragment()
                 }
                 R.id.action_chats -> {}
                 R.id.action_profile -> {
-                    this.title = "Profile"
+                    this.supportActionBar?.title = "Profile"
                     fragmentToShow = UserProfileFragment()
                 }
             }

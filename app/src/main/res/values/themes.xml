@@ -1,6 +1,6 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
-    <style name="Theme.Foodies" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
+    <style name="Theme.Foodies" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <!-- Primary brand color. -->
         <item name="colorPrimary">@color/primary</item>
         <item name="colorPrimaryVariant">@color/primary_dark</item>
@@ -10,17 +10,23 @@
         <item name="colorSecondaryVariant">@color/secondary_dark</item>
         <item name="colorOnSecondary">@color/light_gray_1</item>
         <!-- Status bar color. -->
-        <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
+        <item name="android:statusBarColor" tools:targetApi="l">@android:color/transparent</item>
         <!-- Customize your theme here. -->
         <item name="android:textColor">@color/app_black</item>
-        <item name= "android:textViewStyle" > @style/RobotoTextViewStyle </item>
-        <item name= "android:buttonStyle" > @style/RobotoButtonStyle </item>
+        <item name= "android:textViewStyle" > @style/RubikTextViewStyle </item>
+        <item name= "android:buttonStyle" > @style/RubikButtonStyle </item>
+        <item name="android:fontFamily">@font/rubik_light</item>
     </style>
-    <style name= "RobotoTextViewStyle" parent= "android:Widget.TextView" >
-        <item name= "android:fontFamily" > sans-serif-light </item>
+    <style name= "RubikTextViewStyle" parent= "android:Widget.TextView" >
+        <item name= "android:fontFamily" > @font/rubik_light </item>
+        <item name="android:textSize">20dp</item>
     </style>
-    <style name= "RobotoButtonStyle" parent= "android:Widget.Holo.Button" >
-        <item name= "android:fontFamily" > sans-serif-light </item>
+    <style name= "RubikTitleStyle" parent= "android:Widget.TextView" >
+        <item name= "android:fontFamily" > @font/rubik_medium </item>
+        <item name="android:textSize">20dp</item>
+    </style>
+    <style name= "RubikButtonStyle" parent= "android:Widget.Holo.Button" >
+        <item name= "android:fontFamily" > @font/rubik_medium </item>
     </style>
 
     <style name="AppBar" parent="Widget.MaterialComponents.Toolbar">

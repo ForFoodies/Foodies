@@ -16,6 +16,4 @@
         android:icon="@drawable/ic_baseline_person_24_orange"
         android:title="Profile"
         app:showAsAction="always" />
-
-
 </menu>
