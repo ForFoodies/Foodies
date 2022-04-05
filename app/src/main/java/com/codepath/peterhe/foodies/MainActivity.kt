@@ -21,8 +21,7 @@ class MainActivity : AppCompatActivity() {
         setSupportActionBar(findViewById(R.id.my_toolbar))
 
         window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR;//  set status text dark
-        window.statusBarColor = resources.getColor(R.color.white);
-
+        window.statusBarColor = resources.getColor(R.color.primary_dark)
 
         /*getSupportActionBar()?.setBackgroundDrawable(ColorDrawable(getResources().getColor(R.color.orange)))
         getSupportActionBar()?.setDisplayShowHomeEnabled(true)
@@ -49,7 +48,7 @@ class MainActivity : AppCompatActivity() {
                     fragmentToShow = RestaurantFragment()
                 }
                 R.id.action_chats -> {
-                    this.setTitle("Chat")
+                    this.supportActionBar?.title = "Chat"
                     fragmentToShow = GroupChatListFragment()
                 }
                 R.id.action_profile -> {
