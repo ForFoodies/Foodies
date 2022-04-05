@@ -18,7 +18,7 @@
         android:layout_marginTop="8dp"
         android:layout_marginBottom="1dp"
         android:layout_marginStart="5dp"
-        android:textColorHint="@color/orange"
+        android:textColorHint="@color/primary"
         >
     <EditText
         android:id="@+id/etMessage"
@@ -36,7 +36,7 @@
         android:layout_width="30dp"
         android:layout_height="30dp"
         android:layout_alignParentRight="true"
-        android:background="@color/orange"
+        android:background="@color/primary"
         android:contentDescription="@string/send"
         android:gravity="center"
         android:scaleX="1.5"
