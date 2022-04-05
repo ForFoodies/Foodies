@@ -5,6 +5,7 @@ import android.app.DatePickerDialog
 import android.app.TimePickerDialog
 import android.app.TimePickerDialog.OnTimeSetListener
 import android.os.Bundle
+import android.service.autofill.SaveCallback
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -16,10 +17,11 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.CenterCrop
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.bumptech.glide.request.RequestOptions
-import com.codepath.peterhe.foodies.Group
-import com.codepath.peterhe.foodies.R
-import com.codepath.peterhe.foodies.YelpRestaurant
+import com.codepath.peterhe.foodies.*
 import com.google.android.material.textfield.TextInputLayout
+import com.parse.GetCallback
+import com.parse.ParseException
+import com.parse.ParseQuery
 import com.parse.ParseUser
 import org.json.JSONArray
 import java.util.*
@@ -65,12 +67,12 @@ class DialogueFragment : Fragment() {
             openDatePicker(view)
         }
 
-        view.findViewById<ImageButton>(R.id.btn_cancel_dialog).setOnClickListener {
+        view.findViewById<Button>(R.id.btn_cancel_dialog).setOnClickListener {
             val fm = getFragmentManager()
             fm?.popBackStack()
         }
 
-        view.findViewById<ImageButton>(R.id.btn_confirm_dialog).setOnClickListener {
+        view.findViewById<Button>(R.id.btn_confirm_dialog).setOnClickListener {
             view.findViewById<TextInputLayout>(R.id.text_input_layout_groupName_Dialog)?.setError(null)
             view.findViewById<TextInputLayout>(R.id.text_input_layout_groupName_Dialog)?.setErrorEnabled(false)
             view.findViewById<TextInputLayout>(R.id.text_input_layout_interest_Dialog)?.setError(null)
@@ -93,7 +95,9 @@ class DialogueFragment : Fragment() {
                     if (memberList.length() == num) {
                         full = true
                     }
-                    submitGroup(name,description,num,time,date,founder,memberList,restaurantId,full)
+                var restaurantName = restaurant.name
+                var restaurantAddress ="${restaurant.location.address1}, ${restaurant.location.city}, ${restaurant.location.state}"
+                    submitGroup(name,description,num,time,date,founder,memberList,restaurantId,full,restaurantName,restaurantAddress)
             } else {
                 if (name == "") {
                     view.findViewById<TextInputLayout>(R.id.text_input_layout_groupName_Dialog)?.setErrorEnabled(true)
@@ -134,7 +138,9 @@ class DialogueFragment : Fragment() {
         founder: ParseUser?,
         memberList: JSONArray,
         restaurantId: String,
-        full: Boolean
+        full: Boolean,
+        restaurantName:String,
+        restaurantAddress:String,
     ) {
         val group = Group()
         group.setName(name)
@@ -146,6 +152,8 @@ class DialogueFragment : Fragment() {
         group.setMemberList(memberList)
         group.setRestaurant(restaurantId)
         group.setFull(full)
+        group.setRestName(restaurantName)
+        group.setAddress(restaurantAddress)
         val ft: FragmentTransaction? = getFragmentManager()?.beginTransaction()
         group.saveInBackground { exception ->
             if (exception != null) {
@@ -158,7 +166,23 @@ class DialogueFragment : Fragment() {
                 view?.findViewById<EditText>(R.id.et_interests_dialog)?.text?.clear()
                 view?.findViewById<EditText>(R.id.et_groupname_dialog)?.text?.clear()
                 view?.findViewById<EditText>(R.id.et_number_dialog)?.text?.clear()
-
+                var user = ParseUser.getCurrentUser()
+                var groupList = user.getJSONArray("groupList")
+                if (groupList != null) {
+                    groupList.put(group.objectId)
+                } else {
+                    groupList = JSONArray()
+                    groupList.put(group.objectId)
+                }
+                user.put("groupList",groupList)
+                user.saveInBackground { e ->
+                    if (e != null) {
+                        e.printStackTrace()
+                        Toast.makeText(requireContext(), "Error adding a group chat", Toast.LENGTH_SHORT).show()
+                    } else {
+                        Toast.makeText(requireContext(), "Successfully joined a group chat", Toast.LENGTH_SHORT).show()
+                    }
+                }
                 //val fm = getFragmentManager()
                // fm?.popBackStack()
                 val bundle = Bundle()
@@ -171,6 +195,33 @@ class DialogueFragment : Fragment() {
                 ft?.addToBackStack(null)
             }
         }
+       /* group.saveInBackground(object:SaveCallback{
+            override fun onSuccess() {
+                super.onSuccess()
+
+            }
+
+            override fun onFailure(message: CharSequence?) {
+                super.onFailure(message)
+            }
+        })*/
+        /*var user = ParseUser.getCurrentUser()
+        var groupList = user.getJSONArray("groupList")
+        if (groupList != null) {
+            groupList.put(group.objectId)
+        } else {
+            groupList = JSONArray()
+            groupList.put(group.objectId)
+        }
+        user.put("groupList",groupList)
+        user.saveInBackground { e ->
+            if (e != null) {
+                e.printStackTrace()
+                Toast.makeText(requireContext(), "Error adding a group chat", Toast.LENGTH_SHORT).show()
+            } else {
+                Toast.makeText(requireContext(), "Successfully joined a group chat", Toast.LENGTH_SHORT).show()
+            }
+        }*/
     }
 
     private fun popTimePicker(view: View) {

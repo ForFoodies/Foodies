@@ -92,7 +92,7 @@ class RestaurantDetailFragment : Fragment() {
             showDialog(ft!!)
         }
         groupsRecyclerView = view.findViewById(R.id.rvGroups)
-        groupAdapter = GroupAdapter(requireContext(),allGroups)
+        groupAdapter = GroupAdapter(requireContext(),allGroups,false)
         groupsRecyclerView.adapter = groupAdapter
         layoutManager = LinearLayoutManager(requireContext())
         groupsRecyclerView.layoutManager = layoutManager

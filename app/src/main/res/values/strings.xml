@@ -7,4 +7,8 @@
     <string name="back4app_client_key">Oba9757lawZVD5Z21D4bQpwuYUM8gWwY9s1TNqUU</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="message_hint">Say anything</string>
+    <string name="send">Send</string>
+    <string name="profile_me">My Profile Pic</string>
+    <string name="profile_other">Other profile pic</string>
 </resources>

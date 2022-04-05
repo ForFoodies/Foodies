@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- res/layout/message_incoming.xml -->
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingVertical="10dp"
+    android:paddingLeft="15dp"
+    android:paddingRight="60dp"
+    android:clipToPadding="false">
+
+    <TextView
+        android:id="@+id/tvName_incomingDetailChat"
+        android:layout_marginLeft="15dp"
+        android:layout_toRightOf="@+id/ivProfileOther_incomingDetailChat"
+        android:layout_alignTop="@+id/ivProfileOther_incomingDetailChat"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingBottom="4dp"
+        android:text="Johny Lindsey" />
+
+    <ImageView
+        android:id="@+id/ivProfileOther_incomingDetailChat"
+        android:layout_width="55dp"
+        android:layout_height="55dp"
+        android:layout_alignParentLeft="true"
+        android:contentDescription="@string/profile_other"
+        android:src="@color/orange" />
+
+    <TextView
+        android:id="@+id/tvBody_incomingDetailChat"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tvName_incomingDetailChat"
+        android:layout_alignLeft="@+id/tvName_incomingDetailChat"
+        android:background="@drawable/message_incoming"
+        android:elevation="2dp"
+        android:paddingHorizontal="16dp"
+        android:paddingVertical="12dp"
+        android:text="Someone else's message"
+        android:textSize="18dp" />
+</RelativeLayout>
