@@ -51,7 +51,8 @@ class RestaurantAdapter(val context: Context, val restaurants: List<YelpRestaura
             itemView.findViewById<TextView>(R.id.tvRestaurantName).text = name
             itemView.findViewById<RatingBar>(R.id.ratingBar).rating = restaurant.rating.toFloat()
             itemView.findViewById<TextView>(R.id.tvNumReviews).text = "${restaurant.numReviews} Reviews"
-            itemView.findViewById<TextView>(R.id.tvAddress).text = restaurant.location.address1
+            val address = "${restaurant.location.address1}, ${restaurant.location.city}, ${restaurant.location.state}, ${restaurant.location.country}, ${restaurant.location.zip_code}"
+            itemView.findViewById<TextView>(R.id.tvAddress).text = address
             var restaurantcategories = ""
             for ((index,value) in restaurant.categories.withIndex()) {
                 if (index >= 2) {
