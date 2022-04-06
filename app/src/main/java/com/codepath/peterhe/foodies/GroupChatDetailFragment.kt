@@ -42,7 +42,8 @@ class GroupChatDetailFragment : Fragment() {
         if(bundle != null){
             group = bundle.getParcelable<Group>("GroupChatDetail")!!
         }
-        requireActivity().setTitle("${group.getName()} Chat")
+        //requireActivity().setTitle("${group.getName()} Chat")
+        requireActivity().actionBar?.title = "${group.getName()} Chat"
         refreshMessages()
         // Enter the websocket URL of your Parse server
         //val websocketUrl = "wss://PASTE_SERVER_WEBSOCKET_URL_HERE"
@@ -169,7 +170,8 @@ class GroupChatDetailFragment : Fragment() {
             val ft: FragmentTransaction? = getFragmentManager()?.beginTransaction()
             //Log.i(RestaurantFragment.TAG, "Restaurant ${allGroups[position]}")
             ft?.replace(R.id.flContainer, DetailFragment)?.commit()
-            requireActivity().setTitle("${group.getName()}")
+           // requireActivity().setTitle("${group.getName()}")
+            requireActivity().actionBar?.title = "${group.getName()}"
             ft?.addToBackStack(null)
             //Toast.makeText(this, "Successfully logged out", Toast.LENGTH_SHORT).show()
             true

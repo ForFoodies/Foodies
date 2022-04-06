@@ -51,7 +51,8 @@ class DialogueFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        requireActivity().setTitle("Create a new Group")
+        //requireActivity().setTitle("Create a new Group")
+        requireActivity().actionBar?.title = "Create a new Group"
         view.setBackgroundColor(getResources().getColor(R.color.primary))
         val bundle = this.arguments
         if(bundle != null){
@@ -194,7 +195,8 @@ class DialogueFragment : Fragment() {
                 DetailFragment.setArguments(bundle)
                // Log.i(RestaurantFragment.TAG, "Restaurant ${restaurants[position]}")
                 ft?.replace(R.id.flContainer, DetailFragment)?.commit()
-                requireActivity().setTitle("${restaurant.name}")
+               // requireActivity().setTitle("${restaurant.name}")
+                requireActivity().actionBar?.title = "${restaurant.name}"
                 ft?.addToBackStack(null)
             }
         }

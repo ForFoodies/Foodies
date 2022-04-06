@@ -92,7 +92,8 @@ class GroupDetailFragment : Fragment() {
                 DetailFragment.setArguments(bundle)
                 //Log.i(RestaurantFragment.TAG, "Restaurant ${allGroups[position]}")
                 ft?.replace(R.id.flContainer, DetailFragment)?.commit()
-                requireActivity().setTitle("${group.getName()} Chat")
+                //requireActivity().setTitle("${group.getName()} Chat")
+                requireActivity().actionBar?.title =  "${group.getName()} Chat"
                 ft?.addToBackStack(null)
             }
 
@@ -110,7 +111,8 @@ class GroupDetailFragment : Fragment() {
             view?.findViewById<Button>(R.id.btn_join_GroupDetail)?.setText("Go to Chat")
             view?.findViewById<Button>(R.id.btn_cancel_groupDetail)?.setEnabled(false)
             view?.findViewById<Button>(R.id.btn_cancel_groupDetail)?.setVisibility(View.GONE)
-            requireActivity().setTitle("${group.getName()} (Joined)")
+            //requireActivity().setTitle("${group.getName()} (Joined)")
+            requireActivity().actionBar?.title ="${group.getName()} (Joined)"
         }
 
 
@@ -161,7 +163,8 @@ class GroupDetailFragment : Fragment() {
                 view?.findViewById<Button>(R.id.btn_join_GroupDetail)?.setText("Go to Chat")
                 view?.findViewById<Button>(R.id.btn_cancel_groupDetail)?.setEnabled(false)
                 view?.findViewById<Button>(R.id.btn_cancel_groupDetail)?.setVisibility(View.GONE)
-                requireActivity().setTitle("${group.getName()} (Joined)")
+               // requireActivity().setTitle("${group.getName()} (Joined)")
+                requireActivity().actionBar?.title = "${group.getName()} (Joined)"
                 allMembers.add(ParseUser.getCurrentUser())
                 memberAdapter.notifyDataSetChanged()
                 //ft.detach(this).attach(this).commit()
