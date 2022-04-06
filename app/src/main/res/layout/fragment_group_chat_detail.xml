@@ -26,7 +26,8 @@
         android:layout_height="wrap_content"
         android:hint="@string/message_hint"
         android:imeOptions="actionSend"
-        android:inputType="textShortMessage"
+        android:background="@color/light_gray_1"
+        android:inputType="textMultiLine"
         app:layout_constraintHorizontal_bias="0.5"
          />
     </com.google.android.material.textfield.TextInputLayout>
