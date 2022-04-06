@@ -8,12 +8,13 @@
         app:showAsAction="always" />
     <item
         android:id="@+id/action_chats"
-        android:icon="@drawable/ic_baseline_chat_24"
+        android:icon="@drawable/ic_baseline_group_24"
         android:title="Chats"
         app:showAsAction="always" />
     <item
         android:id="@+id/action_profile"
         android:icon="@drawable/ic_baseline_person_24_orange"
         android:title="Profile"
-        app:showAsAction="always" />
+        app:showAsAction="always"
+        />
 </menu>

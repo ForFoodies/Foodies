@@ -8,6 +8,7 @@ import android.location.*
 import android.os.Bundle
 import android.util.Log
 import android.view.*
+import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
@@ -71,7 +72,7 @@ class RestaurantFragment : Fragment(),LocationListener {
         //getView()?.setBackgroundColor(Color.WHITE)
         restaurants = mutableListOf<YelpRestaurant>()
         restaurantAdapter = RestaurantAdapter(requireContext(), restaurants)
-        requireActivity().setTitle("Discover")
+        requireActivity().actionBar?.title = "Discover"
        // val fragmentManager: FragmentManager = supportFragmentManager
         val ft:FragmentTransaction? = getFragmentManager()?.beginTransaction()
         restaurantAdapter.setOnItemClickListner(object: RestaurantAdapter.onItemClickListner{

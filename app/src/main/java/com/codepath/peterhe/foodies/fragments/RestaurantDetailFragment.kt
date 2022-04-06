@@ -47,7 +47,8 @@ class RestaurantDetailFragment : Fragment() {
         if(bundle != null){
             restaurant = bundle.getParcelable<YelpRestaurant>("RestaurantDetail")!!
         }
-        requireActivity().setTitle("${restaurant.name}")
+       // requireActivity().setTitle("${restaurant.name}")
+        requireActivity().actionBar?.title = "${restaurant.name}"
         Glide.with(this).load(restaurant.imageUrl).apply(
             RequestOptions().transforms(
             CenterCrop(), RoundedCorners(10)
