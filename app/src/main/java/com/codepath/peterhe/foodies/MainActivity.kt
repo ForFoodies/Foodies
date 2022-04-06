@@ -75,7 +75,7 @@ class MainActivity : AppCompatActivity() {
                     fragmentToShow = RestaurantFragment()
                 }
                 R.id.action_chats -> {
-                    this.supportActionBar?.title = "Chat"
+                    this.supportActionBar?.title = "Message"
                     fragmentToShow = GroupChatListFragment()
                 }
                 R.id.action_profile -> {
