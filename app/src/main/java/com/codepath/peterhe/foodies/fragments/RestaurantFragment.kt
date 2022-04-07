@@ -6,9 +6,9 @@ import android.content.Context.LOCATION_SERVICE
 import android.content.pm.PackageManager
 import android.location.*
 import android.os.Bundle
+import android.os.Parcelable
 import android.util.Log
 import android.view.*
-import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
@@ -19,6 +19,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.codepath.peterhe.foodies.*
 import com.parse.Parse.getApplicationContext
+import com.parse.ParseGeoPoint
+import com.parse.ParseUser
 import jp.wasabeef.recyclerview.animators.SlideInUpAnimator
 import retrofit2.Call
 import retrofit2.Callback
@@ -26,6 +28,7 @@ import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import java.util.*
+import kotlin.collections.ArrayList
 
 
 private const val BASE_URL = "https://api.yelp.com/v3/"
@@ -165,9 +168,13 @@ class RestaurantFragment : Fragment(),LocationListener {
                         Log.i(TAG, "onFailure $t")
                     }
                 })
+            saveCurrentUserLocation()
         } catch (e: Exception) {
             e.printStackTrace()
         }
+
+       // var user = ParseUser.getCurrentUser()
+
     }
 
     // Append the next page of data into the adapter
@@ -233,6 +240,8 @@ class RestaurantFragment : Fragment(),LocationListener {
         inflater.inflate(R.menu.appbar, menu)
         menu.findItem(R.id.action_map_restaurantList).setOnMenuItemClickListener { item ->
             val bundle = Bundle()
+           // val sublist:ArrayList<YelpRestaurant> = arrayListOf()
+            //sublist.addAll(restaurants.subList(0,10))
             bundle.putParcelableArrayList("RestaurantList", restaurants)
             val DetailFragment = RestaurantListMapsFragment()
             DetailFragment.setArguments(bundle)
@@ -329,5 +338,41 @@ class RestaurantFragment : Fragment(),LocationListener {
             }
         })
         true
+    }
+
+    private fun saveCurrentUserLocation() {
+        // requesting permission to get user's location
+        if (ActivityCompat.checkSelfPermission(
+                requireContext(),
+                Manifest.permission.ACCESS_FINE_LOCATION
+            ) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(
+                requireContext(),
+                Manifest.permission.ACCESS_COARSE_LOCATION
+            ) != PackageManager.PERMISSION_GRANTED
+        ) {
+            ActivityCompat.requestPermissions(
+                requireActivity(),
+                arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),
+                1
+            )
+        } else {
+            // getting last know user's location
+            val location = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER)
+
+            // checking if the location is null
+            if (location != null) {
+                // if it isn't, save it to Back4App Dashboard
+                val currentUserLocation = ParseGeoPoint(location.latitude, location.longitude)
+                val currentUser = ParseUser.getCurrentUser()
+                if (currentUser != null) {
+                    currentUser.put("Location", currentUserLocation)
+                    currentUser.saveInBackground()
+                } else {
+                    // do something like coming back to the login activity
+                }
+            } else {
+                // if it is null, do something like displaying error and coming back to the menu activity
+            }
+        }
     }
 }

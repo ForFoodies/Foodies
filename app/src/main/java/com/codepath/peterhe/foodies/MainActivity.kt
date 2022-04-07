@@ -112,17 +112,10 @@ class MainActivity : AppCompatActivity() {
         findViewById<BottomNavigationView>(R.id.bottom_navigation).selectedItemId = R.id.action_home
     }
 
-    /*override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-       var inflator: MenuInflater = getMenuInflater()
-        inflator.inflate(R.menu.appbar, menu)
-        return true
-    }*/
     fun queryUser(userId: String) {
         val query: ParseQuery<ParseUser> = ParseQuery.getQuery(ParseUser::class.java)
         query.include(ParseUser.KEY_OBJECT_ID)
-        //query.addDescendingOrder("createdAt")
         query.limit = 1
-        //query.skip = offset * 20
         query.whereEqualTo(ParseUser.KEY_OBJECT_ID, userId)
         query.findInBackground(object : FindCallback<ParseUser> {
             override fun done(user: MutableList<ParseUser>?, e: ParseException?) {
@@ -159,22 +152,14 @@ class MainActivity : AppCompatActivity() {
                             ): Boolean {
                                 //Log.d(TAG, "OnResourceReady")
                                 //do something when picture already loaded
-                                //setColorStateList()
-                                //findViewById<BottomNavigationView>(R.id.bottom_navigation).setItemIconTintList(null)
                                 findViewById<BottomNavigationView>(R.id.bottom_navigation).getMenu()
                                     .getItem(2).setIconTintMode(PorterDuff.Mode.DST)
                                 findViewById<BottomNavigationView>(R.id.bottom_navigation).getMenu()
                                     .getItem(2).setIcon(p0)
-                                /*findViewById<BottomNavigationView>(R.id.bottom_navigation).getMenu().getItem(0).getIcon().setColorFilter(
-                                    getResources().getColor(R.color.app_black), PorterDuff.Mode.SRC_ATOP)
-                                findViewById<BottomNavigationView>(R.id.bottom_navigation).getMenu().getItem(1).getIcon().setColorFilter(
-                                    getResources().getColor(R.color.app_black), PorterDuff.Mode.SRC_ATOP)*/
                                 return false
                             }
                         }).into(findViewById<ImageView>(R.id.iv_profilePlaceHolder))
-                        // val myDrawable: Drawable = findViewById<ImageView>(R.id.iv_profilePlaceHolder).get
-                        // val profile:Drawable = getDrawableFromURL.drawableFromUrl(image?.url)
-                        // findViewById<BottomNavigationView>(R.id.bottom_navigation).getMenu().getItem(R.id.action_profile).setIcon(myDrawable)
+
                     }
                 }
             }

@@ -1,10 +1,8 @@
 package com.codepath.peterhe.foodies.fragments
 
 import android.os.Bundle
+import android.view.*
 import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.FragmentTransaction
 import androidx.recyclerview.widget.DividerItemDecoration
@@ -20,7 +18,7 @@ class GroupChatListFragment : Fragment() {
     private lateinit var groupAdapter: GroupAdapter
     // Store a member variable for the listener
     private lateinit var scrollListener: EndlessRecyclerViewScrollListener
-    var allGroups: MutableList<Group> = mutableListOf()
+    var allGroups: ArrayList<Group> = arrayListOf()
     lateinit var groupsRecyclerView: RecyclerView
     lateinit var layoutManager: LinearLayoutManager
 
@@ -34,6 +32,7 @@ class GroupChatListFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        setHasOptionsMenu(true)
         groupsRecyclerView = view.findViewById(R.id.rvGroupChats)
         groupAdapter = GroupAdapter(requireContext(),allGroups,true)
         groupsRecyclerView.adapter = groupAdapter
@@ -73,20 +72,6 @@ class GroupChatListFragment : Fragment() {
                 query.include("objectId")
                 //query.skip = offset * 20
                 query.whereEqualTo("objectId", groupId)
-                /* query.findInBackground(object : FindCallback<Group> {
-                override fun done(groups: MutableList<Group>?, e: ParseException?) {
-                    if (e != null) {
-                        //Log.e(TAG, "Error getting posts")
-                        Toast.makeText(requireContext(), "Error getting groups", Toast.LENGTH_SHORT).show()
-                    } else {
-                        if (groups != null) {
-                            allGroups.addAll(groups)
-                            groupAdapter.notifyDataSetChanged()
-                        }
-                    }
-                }
-
-            })*/
                 query.getFirstInBackground(object : GetCallback<Group> {
                     override fun done(group: Group?, e: ParseException?) {
                         if (e != null) {
@@ -112,6 +97,20 @@ class GroupChatListFragment : Fragment() {
             requireActivity().setTitle("Group Chat (0)")
         }
 
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.menu_groupchat_list, menu)
+        menu.findItem(R.id.action_map_Group).setOnMenuItemClickListener { item ->
+            val bundle = Bundle()
+            bundle.putParcelableArrayList("GroupListMap", allGroups)
+            val DetailFragment = RestaurantListMapsFragment()
+            DetailFragment.setArguments(bundle)
+            val ft:FragmentTransaction? = getFragmentManager()?.beginTransaction()
+            ft?.replace(R.id.flContainer, DetailFragment)?.commit()
+            ft?.addToBackStack(null)
+            true
+        }
     }
 
 }

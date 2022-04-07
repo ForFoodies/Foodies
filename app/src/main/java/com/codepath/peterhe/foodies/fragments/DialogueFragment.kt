@@ -187,8 +187,7 @@ class DialogueFragment : Fragment() {
                         Toast.makeText(requireContext(), "Successfully joined a group chat", Toast.LENGTH_SHORT).show()
                     }
                 }
-                //val fm = getFragmentManager()
-               // fm?.popBackStack()
+
                 val bundle = Bundle()
                 bundle.putParcelable("RestaurantDetail", restaurant)
                 val DetailFragment = RestaurantDetailFragment()
