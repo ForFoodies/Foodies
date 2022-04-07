@@ -35,7 +35,7 @@ class RestaurantFragment : Fragment(),LocationListener {
     //private lateinit var fusedLocationClient: FusedLocationProviderClient
     private lateinit var locationManager: LocationManager
     private lateinit var address: String
-    private lateinit var restaurants: MutableList<YelpRestaurant>
+    private lateinit var restaurants: ArrayList<YelpRestaurant>
     private lateinit var restaurantAdapter: RestaurantAdapter
     private lateinit var yelpHomeService: YelpHomeService
     private lateinit var yelpHomeSearchService: YelpHomeSearchService
@@ -70,7 +70,7 @@ class RestaurantFragment : Fragment(),LocationListener {
         }
         setHasOptionsMenu(true)
         //getView()?.setBackgroundColor(Color.WHITE)
-        restaurants = mutableListOf<YelpRestaurant>()
+        restaurants = arrayListOf<YelpRestaurant>()
         restaurantAdapter = RestaurantAdapter(requireContext(), restaurants)
         requireActivity().actionBar?.title = "Discover"
        // val fragmentManager: FragmentManager = supportFragmentManager
@@ -94,9 +94,6 @@ class RestaurantFragment : Fragment(),LocationListener {
         val layoutManager = LinearLayoutManager(requireContext())
         view.findViewById<RecyclerView>(R.id.rvRestaurants).layoutManager = layoutManager
         view.findViewById<RecyclerView>(R.id.rvRestaurants).itemAnimator = SlideInUpAnimator()
-       /* val itemDecoration: RecyclerView.ItemDecoration =
-            DividerItemDecoration(requireContext(), DividerItemDecoration.VERTICAL)
-        view.findViewById<RecyclerView>(R.id.rvRestaurants).addItemDecoration(itemDecoration)*/
 
         // Retain an instance so that you can call `resetState()` for fresh searches
         scrollListener = object : EndlessRecyclerViewScrollListener(layoutManager) {
@@ -115,55 +112,9 @@ class RestaurantFragment : Fragment(),LocationListener {
         yelpHomeService = retrofit.create(YelpHomeService::class.java)
         yelpHomeSearchService = retrofit.create(YelpHomeSearchService::class.java)
         getLocation()
-        /* yelpHomeService.searchRestaurants("Bearer $API_KEY", address)
-            .enqueue(object : Callback<YelpSearchResult> {
-                override fun onResponse(call: Call<YelpSearchResult>, response: Response<YelpSearchResult>) {
-                    Log.i(TAG, "onResponse $response")
-                    val body = response.body()
-                    if (body == null) {
-                        Log.w(TAG,"Did not receive valid response body.")
-                        return
-                    }
-                    restaurants.addAll(body.restaurants)
-                    restaurantAdapter.notifyDataSetChanged()
-                }
-
-                override fun onFailure(call: Call<YelpSearchResult>, t: Throwable) {
-                    Log.i(TAG, "onFailure $t")
-                }
-            })*/
 
     }
 
-    /**
-     * call this method for receive location
-     * get location and give callback when successfully retrieve
-     * function itself check location permission before access related methods
-     *
-     */
-    /*fun getLastKnownLocation(yelpHomeService: YelpHomeService) : Array<Double> {
-        fusedLocationClient.lastLocation
-            .addOnSuccessListener { location->
-                if (location != null) {
-                    // use your location object
-                    // get latitude , longitude and other info from this
-                   // return [location.longitude,location.latitude]
-
-                }
-
-            }
-    }*/
-    /*fun getLocation() {
-        if (ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.ACCESS_FINE_LOCATION)
-            != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(
-                this,
-                arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),
-                PERMISSION_REQUEST_ACCESS_FINE_LOCATION)
-            return
-        }
-        locationManager!!.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0L, 0f, locationListener)
-    }*/
     @SuppressLint("MissingPermission")
     private fun getLocation() {
         try {
@@ -280,6 +231,18 @@ class RestaurantFragment : Fragment(),LocationListener {
        // super.onCreateOptionsMenu(menu, inflater)
         //inflater = MenuInflater(requireContext())
         inflater.inflate(R.menu.appbar, menu)
+        menu.findItem(R.id.action_map_restaurantList).setOnMenuItemClickListener { item ->
+            val bundle = Bundle()
+            bundle.putParcelableArrayList("RestaurantList", restaurants)
+            val DetailFragment = RestaurantListMapsFragment()
+            DetailFragment.setArguments(bundle)
+            offset = 0
+            scrollListener.resetState()
+            val ft:FragmentTransaction? = getFragmentManager()?.beginTransaction()
+            ft?.replace(R.id.flContainer, DetailFragment)?.commit()
+            ft?.addToBackStack(null)
+            true
+        }
         menu.findItem(R.id.action_cancel).setOnMenuItemClickListener { item ->
             // 1. First, clear the array of data
             restaurants.clear()

@@ -22,7 +22,8 @@ data class YelpRestaurant(
     @SerializedName("image_url") val imageUrl:String,
     val categories:List<YelpCategory>,
     val location: YelpLocation,
-    val phone:String
+    val phone:String,
+    @SerializedName( "region") val region: YelpRegion
     ) : Parcelable {
     constructor(parcel: Parcel) : this(
         parcel.readString()!!,
@@ -37,7 +38,8 @@ data class YelpRestaurant(
         parcel.readString()!!,
         parcel.createTypedArrayList(YelpCategory)!!,
         parcel.readParcelable(YelpLocation::class.java.classLoader)!!,
-        parcel.readString()!!
+        parcel.readString()!!,
+        parcel.readParcelable(YelpRegion::class.java.classLoader)!!
     ) {
     }
 
@@ -64,6 +66,7 @@ data class YelpRestaurant(
         parcel.writeTypedList(categories)
         parcel.writeParcelable(location, flags)
         parcel.writeString(phone)
+        parcel.writeParcelable(region,flags)
     }
 
     override fun describeContents(): Int {
@@ -140,6 +143,61 @@ data class YelpLocation(
         }
 
         override fun newArray(size: Int): Array<YelpLocation?> {
+            return arrayOfNulls(size)
+        }
+    }
+}
+
+data class YelpRegion(
+    @SerializedName( "center") val center: YelpCenter
+) : Parcelable {
+    constructor(parcel: Parcel) : this(parcel.readParcelable(YelpCenter::class.java.classLoader)!!) {
+    }
+
+    override fun writeToParcel(parcel: Parcel, flags: Int) {
+        parcel.writeParcelable(center, flags)
+    }
+
+    override fun describeContents(): Int {
+        return 0
+    }
+
+    companion object CREATOR : Parcelable.Creator<YelpRegion> {
+        override fun createFromParcel(parcel: Parcel): YelpRegion {
+            return YelpRegion(parcel)
+        }
+
+        override fun newArray(size: Int): Array<YelpRegion?> {
+            return arrayOfNulls(size)
+        }
+    }
+}
+
+data class YelpCenter(
+    @SerializedName( "latitude") val latitude: Double,
+    @SerializedName( "longitude") val longitude: Double
+) : Parcelable {
+    constructor(parcel: Parcel) : this(
+        parcel.readDouble(),
+        parcel.readDouble()
+    ) {
+    }
+
+    override fun writeToParcel(parcel: Parcel, flags: Int) {
+        parcel.writeDouble(latitude)
+        parcel.writeDouble(longitude)
+    }
+
+    override fun describeContents(): Int {
+        return 0
+    }
+
+    companion object CREATOR : Parcelable.Creator<YelpCenter> {
+        override fun createFromParcel(parcel: Parcel): YelpCenter {
+            return YelpCenter(parcel)
+        }
+
+        override fun newArray(size: Int): Array<YelpCenter?> {
             return arrayOfNulls(size)
         }
     }

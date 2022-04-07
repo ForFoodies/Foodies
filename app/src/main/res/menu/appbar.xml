@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     >
 
+
     <item
         android:id="@+id/action_cancel"
         android:title="Cancel"
@@ -15,4 +16,11 @@
         android:icon="@drawable/ic_baseline_search_24"
         app:showAsAction="always"
         app:actionViewClass="androidx.appcompat.widget.SearchView" />
+    <item
+        android:title="Map"
+        android:id="@+id/action_map_restaurantList"
+        android:icon="@drawable/ic_baseline_map_24"
+        app:showAsAction="always" />
+
+
 </menu>
