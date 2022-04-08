@@ -1,5 +1,6 @@
 package com.codepath.peterhe.foodies
 
+import android.content.pm.PackageManager
 import android.graphics.Color
 import android.graphics.PorterDuff
 import android.graphics.drawable.Drawable
@@ -12,6 +13,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
+import androidx.fragment.app.FragmentTransaction
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.DataSource
 import com.bumptech.glide.load.engine.GlideException
@@ -28,6 +30,7 @@ import com.parse.*
 
 class MainActivity : AppCompatActivity() {
     private lateinit var appbar: Toolbar
+    private lateinit var fragmentManager: FragmentManager
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -37,7 +40,7 @@ class MainActivity : AppCompatActivity() {
         //Log.i("Main", image?.url.toString())
         window.decorView.systemUiVisibility =
             View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR;//  set status text dark
-        window.statusBarColor = resources.getColor(R.color.primary_dark)
+        //window.statusBarColor = resources.getColor(R.color.primary_dark)
         getWindow().getDecorView().setBackgroundColor(getResources().getColor(R.color.light_gray_1))
         // queryUser(ParseUser.getCurrentUser().objectId)
         val image: ParseFile? = ParseUser.getCurrentUser().getParseFile("profile")
@@ -80,7 +83,7 @@ class MainActivity : AppCompatActivity() {
                 return false
             }
         }).into(findViewById<ImageView>(R.id.iv_profilePlaceHolder))
-        val fragmentManager: FragmentManager = supportFragmentManager
+        fragmentManager = supportFragmentManager
         findViewById<BottomNavigationView>(R.id.bottom_navigation).setBackgroundColor(
             getResources().getColor(
                 R.color.primary
@@ -165,6 +168,26 @@ class MainActivity : AppCompatActivity() {
             }
 
         })
+    }
+
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
+    ) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        Log.i(RestaurantFragment.TAG, "Permission Request")
+        if (requestCode == 1) {
+            if (grantResults.size > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                // if (ContextCompat.checkSelfPermission(requireContext(),Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED){
+               // val ft: FragmentTransaction? = getFragmentManager()?.beginTransaction()
+                fragmentManager.beginTransaction().replace(R.id.flContainer, RestaurantFragment())
+                    .commit()
+
+                //}
+            }
+
+        }
     }
 
 

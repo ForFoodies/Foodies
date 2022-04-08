@@ -68,7 +68,7 @@ class RestaurantFragment : Fragment(),LocationListener {
             ActivityCompat.requestPermissions(
                 requireActivity(),
                 arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),
-                100
+                1
             )
         }
         setHasOptionsMenu(true)
@@ -338,6 +338,26 @@ class RestaurantFragment : Fragment(),LocationListener {
             }
         })
         true
+    }
+
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
+    ) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        Log.i(TAG, "Permission Request")
+        if (requestCode == 1) {
+            if (grantResults.size > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+               // if (ContextCompat.checkSelfPermission(requireContext(),Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED){
+                    val ft: FragmentTransaction? = getFragmentManager()?.beginTransaction()
+                    ft?.replace(R.id.flContainer, RestaurantFragment())?.commit()
+                    requireActivity().setTitle("Discover")
+
+                //}
+            }
+
+        }
     }
 
     private fun saveCurrentUserLocation() {

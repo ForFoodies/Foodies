@@ -1,6 +1,5 @@
 package com.codepath.peterhe.foodies
 
-import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.*
@@ -12,6 +11,7 @@ import androidx.fragment.app.FragmentTransaction
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.codepath.peterhe.foodies.fragments.GroupDetailFragment
+import com.codepath.peterhe.foodies.fragments.RestaurantListMapsFragment
 import com.parse.*
 import com.parse.livequery.ParseLiveQueryClient
 import com.parse.livequery.SubscriptionHandling
@@ -21,6 +21,7 @@ class GroupChatDetailFragment : Fragment() {
     val USER_ID_KEY = "userId"
     val BODY_KEY = "body"
     private lateinit var group: Group
+    var allMembers: ArrayList<ParseUser> = arrayListOf()
 
     var etMessage: EditText? = null
     var ibSend: ImageButton? = null
@@ -162,6 +163,8 @@ class GroupChatDetailFragment : Fragment() {
     }
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         inflater.inflate(R.menu.appbar_groupchat_detail, menu)
+        menu.findItem(R.id.action_map_members).setEnabled(false)
+        queryMembers(menu)
         menu.findItem(R.id.action_GroupDetail).setOnMenuItemClickListener { item ->
             val bundle = Bundle()
             bundle.putParcelable("GroupDetail", group)
@@ -176,10 +179,53 @@ class GroupChatDetailFragment : Fragment() {
             //Toast.makeText(this, "Successfully logged out", Toast.LENGTH_SHORT).show()
             true
         }
+        menu.findItem(R.id.action_map_members).setOnMenuItemClickListener {item ->
+            val bundle = Bundle()
+            // val sublist:ArrayList<YelpRestaurant> = arrayListOf()
+            //sublist.addAll(restaurants.subList(0,10))
+
+            bundle.putParcelableArrayList("MembersMap", allMembers)
+            val DetailFragment = RestaurantListMapsFragment()
+            DetailFragment.setArguments(bundle)
+            val ft:FragmentTransaction? = getFragmentManager()?.beginTransaction()
+            ft?.replace(R.id.flContainer, DetailFragment)?.commit()
+            ft?.addToBackStack(null)
+            true
+        }
     }
     companion object {
         const val TAG = "GroupChatDetail"
         const val MAX_CHAT_MESSAGES_TO_SHOW = 50
+    }
+
+    fun queryMembers(menu: Menu) {
+        val query: ParseQuery<ParseUser> = ParseQuery.getQuery(ParseUser::class.java)
+        query.include(ParseUser.KEY_OBJECT_ID)
+        //query.addDescendingOrder("createdAt")
+        //query.limit = 1
+        //query.skip = offset * 20
+       // query.whereEqualTo(ParseUser.KEY_OBJECT_ID, memberId)
+        val list: ArrayList<String> = ArrayList()
+        for (i in 0 until group.getMemberList()?.length()!!) {
+            list.add(group.getMemberList()!!.getString(i))
+        }
+        query.whereContainedIn(ParseUser.KEY_OBJECT_ID,list)
+        query.findInBackground(object : FindCallback<ParseUser> {
+            override fun done(members: MutableList<ParseUser>?, e: ParseException?) {
+                if (e != null) {
+                    //Log.e(TAG, "Error getting posts")
+                    Toast.makeText(requireContext(), "Error getting members", Toast.LENGTH_SHORT).show()
+                } else {
+                    if (members != null) {
+                        //memberAdapter.clear()
+                        allMembers.addAll(members)
+                        Log.i("groupChat",members.toString())
+                        menu.findItem(R.id.action_map_members).setEnabled(true)
+                    }
+                }
+            }
+
+        })
     }
 
 

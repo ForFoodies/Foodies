@@ -5,11 +5,13 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
+import android.graphics.drawable.Drawable
 import android.location.*
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
+import android.view.RoundedCorner
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
@@ -19,6 +21,17 @@ import androidx.core.content.ContextCompat
 import androidx.core.graphics.drawable.toBitmap
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
+import com.bumptech.glide.Glide
+import com.bumptech.glide.Priority
+import com.bumptech.glide.load.DataSource
+import com.bumptech.glide.load.engine.DiskCacheStrategy
+import com.bumptech.glide.load.engine.GlideException
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners
+import com.bumptech.glide.request.RequestListener
+import com.bumptech.glide.request.RequestOptions
+import com.bumptech.glide.request.target.SimpleTarget
+import com.bumptech.glide.request.target.Target
+import com.bumptech.glide.request.transition.Transition
 import com.codepath.peterhe.foodies.*
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
@@ -28,6 +41,7 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.Marker
 import com.google.android.gms.maps.model.MarkerOptions
+import com.parse.ParseUser
 import java.io.IOException
 import java.util.*
 
@@ -37,8 +51,11 @@ class RestaurantListMapsFragment : Fragment() {
     private lateinit var locationListener: LocationListener
     private var restaurants: ArrayList<YelpRestaurant>? = null
     private var groups: ArrayList<Group>? = null
-    private lateinit var bitmap : Bitmap
-    private lateinit var bitmapGroup : Bitmap
+    private var members: ArrayList<ParseUser>? = null
+    private var memberProfiles: ArrayList<Drawable> = arrayListOf()
+    private var userLocation: LatLng? = null
+    private lateinit var bitmap: Bitmap
+    private lateinit var bitmapGroup: Bitmap
 
     override fun onRequestPermissionsResult(
         requestCode: Int,
@@ -48,10 +65,19 @@ class RestaurantListMapsFragment : Fragment() {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         if (requestCode == 1) {
             if (grantResults.size > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                if (ContextCompat.checkSelfPermission(requireContext(),Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED){
-                    locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER,10,10.toFloat(),locationListener )
+                if (ContextCompat.checkSelfPermission(
+                        requireContext(),
+                        Manifest.permission.ACCESS_FINE_LOCATION
+                    ) == PackageManager.PERMISSION_GRANTED
+                ) {
+                    locationManager.requestLocationUpdates(
+                        LocationManager.GPS_PROVIDER,
+                        10,
+                        10.toFloat(),
+                        locationListener
+                    )
                 }
-                }
+            }
 
         }
     }
@@ -68,25 +94,134 @@ class RestaurantListMapsFragment : Fragment() {
          * user has installed Google Play services and returned to the app.
          */
         //locationManager = Parse.getApplicationContext().getSystemService(Context.LOCATION_SERVICE) as LocationManager
-        locationManager = requireContext().getSystemService(Context.LOCATION_SERVICE) as LocationManager
+        locationManager =
+            requireContext().getSystemService(Context.LOCATION_SERVICE) as LocationManager
+        locationListener = object : LocationListener {
+            override fun onLocationChanged(location: Location) {
+                val userLocation = LatLng(location.getLatitude(), location.getLongitude())
+                //googleMap.addMarker(MarkerOptions().position(userLocation).title("Your Location").icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE)))
+                //googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(userLocation,15.toFloat()))
+
+                val geocoder =
+                    Geocoder(requireActivity().getApplicationContext(), Locale.getDefault())
+                try {
+                    val listAddresses = geocoder.getFromLocation(
+                        location.getLatitude(),
+                        location.getLongitude(),
+                        1
+                    ) as List<Address>
+                    if (listAddresses != null && listAddresses.size > 0) {
+                        val result: Address = listAddresses.get(0)
+                        var address: String = "Your location is at "
+                        if (result.getSubThoroughfare() != null) {
+                            address += result.getSubThoroughfare() + " "
+                        }
+                        if (result.getThoroughfare() != null) {
+                            address += result.getThoroughfare() + ", "
+                        }
+                        if (result.getLocality() != null) {
+                            address += result.getLocality() + ", "
+                        }
+                        if (result.getPostalCode() != null) {
+                            address += result.getPostalCode() + ", "
+                        }
+                        if (result.getCountryName() != null) {
+                            address += result.getCountryName()
+                        }
+                        Toast.makeText(requireContext(), address, Toast.LENGTH_SHORT).show()
+
+                    }
+                } catch (e: IOException) {
+                    e.printStackTrace()
+                }
+
+
+            }
+
+        }
+        if (Build.VERSION.SDK_INT < 23) {
+            if (ContextCompat.checkSelfPermission(
+                    requireContext(),
+                    Manifest.permission.ACCESS_FINE_LOCATION
+                ) == PackageManager.PERMISSION_GRANTED
+            ) {
+                locationManager.requestLocationUpdates(
+                    LocationManager.GPS_PROVIDER,
+                    10,
+                    10.toFloat(),
+                    locationListener
+                )
+            }
+        } else {
+            if (ContextCompat.checkSelfPermission(
+                    requireContext(),
+                    Manifest.permission.ACCESS_FINE_LOCATION
+                ) != PackageManager.PERMISSION_GRANTED
+            ) {
+                ActivityCompat.requestPermissions(
+                    requireActivity(),
+                    arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),
+                    1
+                )
+            } else {
+                if (ContextCompat.checkSelfPermission(
+                        requireContext(),
+                        Manifest.permission.ACCESS_FINE_LOCATION
+                    ) == PackageManager.PERMISSION_GRANTED
+                ) {
+                    locationManager.requestLocationUpdates(
+                        LocationManager.GPS_PROVIDER,
+                        10,
+                        10.toFloat(),
+                        locationListener
+                    )
+                    val lastKnownLocation =
+                        locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER)
+                    userLocation =
+                        LatLng(lastKnownLocation?.getLatitude()!!, lastKnownLocation.getLongitude())
+                    // googleMap.clear()
+                    // googleMap.addMarker(MarkerOptions().position(userLocation).title("Your Location").icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE)))
+
+
+                    /*for (restaurant in restaurants) {
+                         // val restaurantLocation = LatLng(restaurant.region.center.latitude,restaurant.region.center.longitude)
+                         val address = "${restaurant.location.address1}, ${restaurant.location.city}, ${restaurant.location.state}, ${restaurant.location.zip_code}"
+                         val restaurantLocation: LatLng  = getLocationFromAddress(requireContext(), address)!!
+                         googleMap.addMarker(MarkerOptions().position(restaurantLocation).title("${restaurant.name}").icon(BitmapDescriptorFactory.fromBitmap(bitmap!!)))
+                        // googleMap.addMarker(MarkerOptions().position(restaurantLocation).title("${restaurant.name}").icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE)))
+                     }*/
+
+                }
+            }
+        }
+
         if (restaurants != null && restaurants!!.size > 0) {
             googleMap.setInfoWindowAdapter(CustomInfoWindowAdapter(requireContext()))
             var restcount = 0
             for (restaurant in restaurants!!) {
                 // val restaurantLocation = LatLng(restaurant.region.center.latitude,restaurant.region.center.longitude)
                 Log.i("Map", restaurant.name)
-                val address = "${restaurant.location.address1}, ${restaurant.location.city}, ${restaurant.location.state}, ${restaurant.location.zip_code}"
-                val restaurantLocation: LatLng  = getLocationFromAddress(requireContext(), address)!!
+                val address =
+                    "${restaurant.location.address1}, ${restaurant.location.city}, ${restaurant.location.state}, ${restaurant.location.zip_code}"
+                val restaurantLocation: LatLng = getLocationFromAddress(requireContext(), address)!!
                 //val snippet:String:
                 if (restcount == 0) {
-                    googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(restaurantLocation,15.toFloat()))
+                    googleMap.moveCamera(
+                        CameraUpdateFactory.newLatLngZoom(
+                            restaurantLocation,
+                            15.toFloat()
+                        )
+                    )
                 }
                 restcount += 1
-                val marker = googleMap.addMarker(MarkerOptions().position(restaurantLocation).title("${restaurant.name}").icon(BitmapDescriptorFactory.fromBitmap(bitmap!!)))
+                val marker = googleMap.addMarker(
+                    MarkerOptions().position(restaurantLocation).title("${restaurant.name}")
+                        .icon(BitmapDescriptorFactory.fromBitmap(bitmap!!))
+                )
                 marker?.setTag(restaurant)
                 // marker?.showInfoWindow()
             }
-            googleMap.setOnInfoWindowClickListener(object:GoogleMap.OnInfoWindowClickListener {
+            googleMap.setOnInfoWindowClickListener(object : GoogleMap.OnInfoWindowClickListener {
                 override fun onInfoWindowClick(marker: Marker) {
                     val ft: FragmentTransaction? = getFragmentManager()?.beginTransaction()
                     val restaurant = marker.getTag() as YelpRestaurant
@@ -106,15 +241,24 @@ class RestaurantListMapsFragment : Fragment() {
             googleMap.setInfoWindowAdapter(CustomInfoWindowGroupAdapter(requireContext()))
             var groupcount = 0
             for (group in groups!!) {
-                val groupLocation: LatLng  = getLocationFromAddress(requireContext(), group.getAddress())!!
+                val groupLocation: LatLng =
+                    getLocationFromAddress(requireContext(), group.getAddress())!!
                 if (groupcount == 0) {
-                    googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(groupLocation,15.toFloat()))
+                    googleMap.moveCamera(
+                        CameraUpdateFactory.newLatLngZoom(
+                            groupLocation,
+                            15.toFloat()
+                        )
+                    )
                 }
                 groupcount += 1
-                val marker = googleMap.addMarker(MarkerOptions().position(groupLocation).title("${group.getName()}").icon(BitmapDescriptorFactory.fromBitmap(bitmapGroup!!)))
+                val marker = googleMap.addMarker(
+                    MarkerOptions().position(groupLocation).title("${group.getName()}")
+                        .icon(BitmapDescriptorFactory.fromBitmap(bitmapGroup!!))
+                )
                 marker?.setTag(group)
             }
-            googleMap.setOnInfoWindowClickListener(object:GoogleMap.OnInfoWindowClickListener {
+            googleMap.setOnInfoWindowClickListener(object : GoogleMap.OnInfoWindowClickListener {
                 override fun onInfoWindowClick(marker: Marker) {
                     val ft: FragmentTransaction? = getFragmentManager()?.beginTransaction()
                     val bundle = Bundle()
@@ -130,77 +274,133 @@ class RestaurantListMapsFragment : Fragment() {
             })
         }
 
-
-        locationListener = object : LocationListener {
-            override fun onLocationChanged(location: Location) {
-                val userLocation = LatLng(location.getLatitude(),location.getLongitude())
-                //googleMap.addMarker(MarkerOptions().position(userLocation).title("Your Location").icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE)))
-                //googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(userLocation,15.toFloat()))
-
-                val geocoder = Geocoder(requireActivity().getApplicationContext(), Locale.getDefault())
-                try{
-                    val listAddresses = geocoder.getFromLocation(location.getLatitude(),location.getLongitude(),1) as List<Address>
-                    if (listAddresses != null && listAddresses.size > 0) {
-                        val result:Address = listAddresses.get(0)
-                        var address: String = "Your location is at "
-                        if (result.getSubThoroughfare() != null) {
-                            address += result.getSubThoroughfare() + " "
-                        }
-                        if (result.getThoroughfare() != null) {
-                            address += result.getThoroughfare() + ", "
-                        }
-                        if (result.getLocality() != null) {
-                            address += result.getLocality() + ", "
-                        }
-                        if (result.getPostalCode() != null) {
-                            address += result.getPostalCode() + ", "
-                        }
-                        if (result.getCountryName() != null) {
-                            address += result.getCountryName()
-                        }
-                        Toast.makeText(requireContext(),address,Toast.LENGTH_SHORT).show()
-
+        if (members != null && members!!.size > 0) {
+            //googleMap.setInfoWindowAdapter(CustomInfoWindowGroupAdapter(requireContext()))
+            googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(userLocation!!, 15.toFloat()))
+            // var mcount = 0
+            for (member in members!!) {
+                Log.i("Map", member.username)
+                val memberLocation: LatLng = LatLng(
+                    member.getParseGeoPoint("Location")?.getLatitude()!!,
+                    member.getParseGeoPoint("Location")?.getLongitude()!!
+                )
+                /*loadBitmapFromServer(member.getParseFile("profile")?.url,object: OnBitmapLoadedListener {
+                    /* bitmap ->
+                    val bitmapMember =  Bitmap.createScaledBitmap(bitmap!!, 80, 80, false)
+                    val marker = googleMap.addMarker(
+                        MarkerOptions().position(memberLocation).title("${member.username}")
+                            .icon(BitmapDescriptorFactory.fromBitmap(bitmapGroup!!))
+                    )
+                    marker?.setTag(member)
+                    googleMap.moveCamera(
+                        CameraUpdateFactory.newLatLngZoom(
+                            memberLocation!!,
+                            15.toFloat()
+                        )
+                    )*/
+                    override fun onBitmapLoaded(resource: Bitmap?) {
+                        val bitmapMember =  Bitmap.createScaledBitmap(resource!!, 80, 80, false)
+                        val marker = googleMap.addMarker(
+                            MarkerOptions().position(memberLocation).title("${member.username}")
+                                .icon(BitmapDescriptorFactory.fromBitmap(bitmapMember!!))
+                        )
+                        marker?.setTag(member)
+                        googleMap.moveCamera(
+                            CameraUpdateFactory.newLatLngZoom(
+                                memberLocation!!,
+                                15.toFloat()
+                            )
+                        )
                     }
-                } catch(e: IOException) {
-                    e.printStackTrace()
+                })*/
+                // val bitmapMember = Bitmap.createScaledBitmap(b!!, 80, 80, false)
+                /* val marker = googleMap.addMarker(
+                    MarkerOptions().position(memberLocation).title("${member.username}")
+                        .icon(BitmapDescriptorFactory.fromBitmap(bitmapMember!!))
+                )*/
+
+
+                // mcount += 1
+                val imageUrl = member.getParseFile("profile")?.url
+                /* Glide.with(requireContext()).load(imageUrl).override(80, 80).centerCrop().diskCacheStrategy(
+                    DiskCacheStrategy.ALL).listener(object : RequestListener<Drawable>{
+                    override fun onLoadFailed(
+                        e: GlideException?,
+                        model: Any?,
+                        target: Target<Drawable>?,
+                        isFirstResource: Boolean
+                    ): Boolean {
+                        e?.printStackTrace()
+                        return false
+                    }
+
+                    override fun onResourceReady(
+                        resource: Drawable?,
+                        model: Any?,
+                        target: Target<Drawable>?,
+                        dataSource: DataSource?,
+                        isFirstResource: Boolean
+                    ): Boolean {
+                        Log.i("member","Peter")
+                        val b = resource?.toBitmap()!!
+                        val bitmapMember = Bitmap.createScaledBitmap(b!!, 80, 80, false)
+                        val marker = googleMap.addMarker(MarkerOptions().position(memberLocation).title("${member.username}").icon(BitmapDescriptorFactory.fromBitmap(bitmapMember!!)))
+                        marker?.setTag(member)
+                        googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(memberLocation!!,15.toFloat()))
+                        return false;
+                    }
+                })*/
+
+                Glide.with(requireContext()).asBitmap().load(imageUrl).override(160, 160).centerCrop().apply(RequestOptions.bitmapTransform(RoundedCorners(20)))
+                    .diskCacheStrategy(
+                        DiskCacheStrategy.ALL
+                    ).into(object : SimpleTarget<Bitmap>() {
+
+                    /* if (groupcount == 0) {
+                    googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(groupLocation,15.toFloat()))
                 }
+                groupcount += 1*/
+                    override fun onResourceReady(
+                        resource: Bitmap,
+                        transition: Transition<in Bitmap>?
+                    ) {
+                        Log.i("member", "Peter")
+                        val bitmapMember = Bitmap.createScaledBitmap(resource!!, 160, 160, false)
+                        val marker = googleMap.addMarker(
+                            MarkerOptions().position(memberLocation).title("${member.username}")
+                                .icon(BitmapDescriptorFactory.fromBitmap(bitmapMember!!))
+                        )
+                        marker?.setTag(member)
+                        googleMap.moveCamera(
+                            CameraUpdateFactory.newLatLngZoom(
+                                memberLocation!!,
+                                13.toFloat()
+                            )
+                        )
+                    }
 
-
-            }
-
-        }
-        if (Build.VERSION.SDK_INT < 23) {
-            if (ContextCompat.checkSelfPermission(requireContext(),Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED){
-                locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER,10,10.toFloat(),locationListener )
-            }
-        } else {
-            if (ContextCompat.checkSelfPermission(requireContext(),Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-                ActivityCompat.requestPermissions(requireActivity(), arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),1)
-            } else {
-                if (ContextCompat.checkSelfPermission(requireContext(),Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED){
-                    locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER,10,10.toFloat(),locationListener )
-                    val lastKnownLocation = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER)
-                    val userLocation = LatLng(lastKnownLocation?.getLatitude()!!,lastKnownLocation.getLongitude())
-                   // googleMap.clear()
-                   // googleMap.addMarker(MarkerOptions().position(userLocation).title("Your Location").icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE)))
-
-
-                   /*for (restaurant in restaurants) {
-                        // val restaurantLocation = LatLng(restaurant.region.center.latitude,restaurant.region.center.longitude)
-                        val address = "${restaurant.location.address1}, ${restaurant.location.city}, ${restaurant.location.state}, ${restaurant.location.zip_code}"
-                        val restaurantLocation: LatLng  = getLocationFromAddress(requireContext(), address)!!
-                        googleMap.addMarker(MarkerOptions().position(restaurantLocation).title("${restaurant.name}").icon(BitmapDescriptorFactory.fromBitmap(bitmap!!)))
-                       // googleMap.addMarker(MarkerOptions().position(restaurantLocation).title("${restaurant.name}").icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE)))
-                    }*/
-
+                })
+                /*googleMap.setOnInfoWindowClickListener(object:GoogleMap.OnInfoWindowClickListener {
+                override fun onInfoWindowClick(marker: Marker) {
+                    val ft: FragmentTransaction? = getFragmentManager()?.beginTransaction()
+                    val bundle = Bundle()
+                    val group = marker.getTag() as Group
+                    bundle.putParcelable("GroupChatDetail", group)
+                    val DetailFragment = GroupChatDetailFragment()
+                    DetailFragment.setArguments(bundle)
+                    //Log.i(RestaurantFragment.TAG, "Restaurant ${allGroups[position]}")
+                    ft?.replace(R.id.flContainer, DetailFragment)?.commit()
+                    requireActivity().setTitle("${group.getName()} Chat")
+                    ft?.addToBackStack(null)
                 }
+            })*/
             }
         }
-       /* val umich = LatLng(42.2780436,-83.7404128)
+
+        /* val umich = LatLng(42.2780436,-83.7404128)
         googleMap.setMapType(GoogleMap.MAP_TYPE_HYBRID)
         googleMap.addMarker(MarkerOptions().position(umich).title("University of Michigan").icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE)))
         googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(umich,13.toFloat()))*/
-
 
 
     }
@@ -216,39 +416,108 @@ class RestaurantListMapsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val bundle = this.arguments
-        if(bundle != null){
+        if (bundle != null) {
             restaurants = bundle.getParcelableArrayList<YelpRestaurant>("RestaurantList")
             if (restaurants != null && restaurants!!.size > 0) {
-                val b = AppCompatResources.getDrawable(requireContext(), R.drawable.cutlery)?.toBitmap()!!
+                val b = AppCompatResources.getDrawable(requireContext(), R.drawable.cutlery)
+                    ?.toBitmap()!!
                 bitmap = Bitmap.createScaledBitmap(b!!, 80, 80, false)
             }
             groups = bundle.getParcelableArrayList<Group>("GroupListMap")
             if (groups != null && groups!!.size > 0) {
-                val b = AppCompatResources.getDrawable(requireContext(), R.drawable.lover)?.toBitmap()!!
-                bitmapGroup = Bitmap.createScaledBitmap(b!!, 80, 80, false)
+                val b =
+                    AppCompatResources.getDrawable(requireContext(), R.drawable.heart)?.toBitmap()!!
+                bitmapGroup = Bitmap.createScaledBitmap(b!!, 100, 100, false)
             }
-        }
+            members = bundle.getParcelableArrayList<ParseUser>("MembersMap")
+            /* if (members != null && members!!.size > 0) {
+                for (member in members!!) {
+                    Glide.with(requireContext()).load(member.getParseFile("profile")?.url).override(80, 80).apply(
+                        RequestOptions().transforms(
+                            CenterCrop(), RoundedCorners(10)
+                        )
+                    ).listener(object : RequestListener<Drawable>{
+                        override fun onLoadFailed(
+                            e: GlideException?,
+                            model: Any?,
+                            target: Target<Drawable>?,
+                            isFirstResource: Boolean
+                        ): Boolean {
+                            e?.printStackTrace()
+                            return false
+                        }
 
-        val mapFragment = childFragmentManager.findFragmentById(R.id.map) as SupportMapFragment?
-        mapFragment?.getMapAsync(callback)
+                        override fun onResourceReady(
+                            resource: Drawable?,
+                            model: Any?,
+                            target: Target<Drawable>?,
+                            dataSource: DataSource?,
+                            isFirstResource: Boolean
+                        ): Boolean {
+                            memberProfiles.add(resource!!)
+                            val mapFragment = childFragmentManager.findFragmentById(R.id.map) as SupportMapFragment?
+                            mapFragment?.getMapAsync(callback)
+                            return false;
+                        }
+                    })
+                }
+            }
+
+        }*/
+            //if (members == null) {
+            val mapFragment = childFragmentManager.findFragmentById(R.id.map) as SupportMapFragment?
+            mapFragment?.getMapAsync(callback)
+            //}
+        }
     }
 
-    fun getLocationFromAddress(context: Context?, strAddress: String?): LatLng? {
-        val coder = Geocoder(context)
-        val address: List<Address>?
-        var p1: LatLng? = null
+        fun getLocationFromAddress(context: Context?, strAddress: String?): LatLng? {
+            val coder = Geocoder(context)
+            val address: List<Address>?
+            var p1: LatLng? = null
+            try {
+                address = coder.getFromLocationName(strAddress, 5)
+                if (address == null) {
+                    return null
+                }
+                val location = address[0]
+                location.latitude
+                location.longitude
+                p1 = LatLng(location.latitude, location.longitude)
+            } catch (e: Exception) {
+                e.printStackTrace()
+            }
+            return p1
+        }
+
+    fun loadBitmapFromServer(url: String?, callback: OnBitmapLoadedListener) {
         try {
-            address = coder.getFromLocationName(strAddress, 5)
-            if (address == null) {
-                return null
-            }
-            val location = address[0]
-            location.latitude
-            location.longitude
-            p1 = LatLng(location.latitude, location.longitude)
-        } catch (e: Exception) {
-            e.printStackTrace()
+            Glide.with(requireContext()).asBitmap().load(url)
+                .priority(Priority.IMMEDIATE)
+                .listener(object : RequestListener<Bitmap?> {
+                    override fun onResourceReady(
+                        resource: Bitmap?,
+                        model: Any?,
+                        target: Target<Bitmap?>?,
+                        dataSource: DataSource?,
+                        isFirstResource: Boolean
+                    ): Boolean {
+                        callback.onBitmapLoaded(resource)
+                        return false
+                    }
+
+                    override fun onLoadFailed(
+                        e: GlideException?,
+                        model: Any?,
+                        target: Target<Bitmap?>?,
+                        isFirstResource: Boolean
+                    ): Boolean {
+                        return false
+                    }
+                })
+        } catch (e: java.lang.Exception) {
         }
-        return p1
     }
+
+
 }
