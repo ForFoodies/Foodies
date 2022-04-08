@@ -8,25 +8,25 @@
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cvCircle"
-        android:layout_width="155dp"
-        android:layout_height="155dp"
-        android:layout_margin="80dp"
+        android:layout_width="115dp"
+        android:layout_height="115dp"
+        android:layout_marginTop="80dp"
         app:cardBackgroundColor="@color/white"
-        app:cardCornerRadius="250dp"
+        app:cardCornerRadius="120dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
         <androidx.cardview.widget.CardView
-            android:layout_width="150dp"
-            android:layout_height="150dp"
+            android:layout_width="110dp"
+            android:layout_height="110dp"
             android:layout_gravity="center"
-            app:cardCornerRadius="250dp">
+            app:cardCornerRadius="120dp">
 
             <ImageView
                 android:id="@+id/ivProfileImage"
-                android:layout_width="150dp"
-                android:layout_height="150dp"
+                android:layout_width="110dp"
+                android:layout_height="110dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
@@ -36,20 +36,19 @@
 
     </androidx.cardview.widget.CardView>
 
-    <TextView
-        android:id="@+id/tvUsername"
+    <EditText
+        android:id="@+id/etUsername"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="50dp"
+        android:layout_marginTop="50dp"
         android:text="Username"
         android:textSize="30sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-
         app:layout_constraintTop_toBottomOf="@+id/cvCircle" />
 
-    <TextView
-        android:id="@+id/tvBio"
+    <EditText
+        android:id="@+id/etBio"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="50dp"
@@ -57,31 +56,28 @@
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvUsername"
+        app:layout_constraintTop_toBottomOf="@+id/etUsername"
         app:layout_constraintWidth_max="300dp" />
 
     <Button
-        android:id="@+id/btnEditProfile"
+        android:id="@+id/btnDoneEdit"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="50dp"
-        android:text="Edit Profile"
+        android:text="Done"
         android:textColor="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvBio"
+        app:layout_constraintTop_toBottomOf="@+id/etBio"
         app:layout_constraintWidth_min="150dp" />
 
-    <Button
-        android:id="@+id/btnLogout"
+    <ImageButton
+        android:id="@+id/ibEditProfileImage"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:text="Log Out"
-        android:textColor="@color/white"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnEditProfile"
-        app:layout_constraintWidth_min="150dp" />
+        android:backgroundTint="@color/white"
+        app:layout_constraintBottom_toBottomOf="@+id/cvCircle"
+        app:layout_constraintStart_toEndOf="@+id/cvCircle"
+        app:srcCompat="@drawable/ic_baseline_edit_24" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

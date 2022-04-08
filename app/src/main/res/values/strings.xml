@@ -11,4 +11,5 @@
     <string name="send">Send</string>
     <string name="profile_me">My Profile Pic</string>
     <string name="profile_other">Other profile pic</string>
+    <string name="google_maps_api_key">AIzaSyCtMTs2ikkBcdKXLKLeIX8s7deJZxHu5tI</string>
 </resources>

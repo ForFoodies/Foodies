@@ -1,8 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:title="Map"
+        android:id="@+id/action_map_members"
+        android:icon="@drawable/ic_baseline_map_24"
+        app:showAsAction="always"
+        android:enabled="false"/>
     <item android:title="Group Detail"
         android:id="@+id/action_GroupDetail"
-        android:icon="@drawable/ic_baseline_more_horiz_24"
+        android:icon="@drawable/ic_baseline_group_24_black"
         app:showAsAction="always"/>
 </menu>

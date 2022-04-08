@@ -3,12 +3,25 @@ package com.codepath.peterhe.foodies.fragments
 import android.content.Intent
 import android.os.Bundle
 import android.view.*
+import android.widget.*
 import androidx.fragment.app.Fragment
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.resource.bitmap.CenterCrop
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners
+import com.bumptech.glide.request.RequestOptions
 import com.codepath.peterhe.foodies.LogInActivity
 import com.codepath.peterhe.foodies.R
+import com.codepath.peterhe.foodies.SignUpActivity
+import com.parse.ParseFile
 import com.parse.ParseUser
+import java.lang.reflect.Array.newInstance
+import javax.xml.datatype.DatatypeFactory.newInstance
 
 class UserProfileFragment : Fragment() {
+    lateinit var user: ParseUser
+    lateinit var username: TextView
+    lateinit var profileImage: ImageView
+    lateinit var bio: TextView
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -22,7 +35,38 @@ class UserProfileFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         setHasOptionsMenu(true)
 
-        //TODO: Set up views and click listeners
+        // load in user information
+        user = ParseUser.getCurrentUser()
+        username = view.findViewById(R.id.tvUsername)
+        profileImage = view.findViewById(R.id.ivProfileImage)
+        bio = view.findViewById(R.id.tvBio)
+
+        username.text = user.get("username").toString()
+        bio.text = user.get("description").toString()
+        val image: ParseFile? = user.getParseFile("profile")
+        Glide.with(requireContext()).load(image?.url)
+            .into(profileImage)
+
+        // set up buttons
+        view.findViewById<Button>(R.id.btnLogout).setOnClickListener {
+            // log out user
+            ParseUser.logOut()
+            goToLoginActivity()
+        }
+
+        view.findViewById<Button>(R.id.btnEditProfile).setOnClickListener {
+            // go into edit mode
+            val transaction = requireActivity().supportFragmentManager.beginTransaction()
+            transaction.replace(R.id.flContainer, EditProfileFragment())
+            transaction.commit()
+        }
+    }
+
+    private fun goToLoginActivity() {
+        val intent = Intent(activity, LogInActivity::class.java)
+        startActivity(intent)
+        // close current activity
+        activity?.onBackPressed()
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {

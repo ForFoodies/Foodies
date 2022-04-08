@@ -33,71 +33,106 @@ class SignUpActivity : AppCompatActivity() {
         }
         findViewById<ImageButton>(R.id.btn_signup).setOnClickListener {
             findViewById<TextInputLayout>(R.id.text_input_layout_email_signup)?.setError(null)
-            findViewById<TextInputLayout>(R.id.text_input_layout_email_signup)?.setErrorEnabled(false)
+            findViewById<TextInputLayout>(R.id.text_input_layout_email_signup)?.setErrorEnabled(
+                false
+            )
             findViewById<TextInputLayout>(R.id.text_input_layout_password1_signup)?.setError(null)
-            findViewById<TextInputLayout>(R.id.text_input_layout_password1_signup)?.setErrorEnabled(false)
+            findViewById<TextInputLayout>(R.id.text_input_layout_password1_signup)?.setErrorEnabled(
+                false
+            )
             findViewById<TextInputLayout>(R.id.text_input_layout_password2_signup)?.setError(null)
-            findViewById<TextInputLayout>(R.id.text_input_layout_password2_signup)?.setErrorEnabled(false)
+            findViewById<TextInputLayout>(R.id.text_input_layout_password2_signup)?.setErrorEnabled(
+                false
+            )
             findViewById<TextInputLayout>(R.id.text_input_layout_username_signup)?.setError(null)
-            findViewById<TextInputLayout>(R.id.text_input_layout_username_signup)?.setErrorEnabled(false)
+            findViewById<TextInputLayout>(R.id.text_input_layout_username_signup)?.setErrorEnabled(
+                false
+            )
             val email = findViewById<EditText>(R.id.et_email_signup).text.toString()
             val password1 = findViewById<EditText>(R.id.et_password1_signup).text.toString()
             val password2 = findViewById<EditText>(R.id.et_password2_signup).text.toString()
             val username = findViewById<EditText>(R.id.et_username_signup).text.toString()
             val description = findViewById<EditText>(R.id.et_description_signup).text.toString()
 
-            if (email != "" && username != "" && password1 != "" && password2 != "" && password1.equals(password2) &&  (selectedImageUri != null)) {
-             /*   var image: ByteArray? = null
-                try {
-                    image = readInFile(mCurrentPhotoPath)
-                } catch (e: Exception) {
-                    e.printStackTrace()
-                }*/
+            if (email != "" && username != "" && password1 != "" && password2 != "" && password1.equals(
+                    password2
+                ) && (selectedImageUri != null)
+            ) {
+                /*   var image: ByteArray? = null
+                   try {
+                       image = readInFile(mCurrentPhotoPath)
+                   } catch (e: Exception) {
+                       e.printStackTrace()
+                   }*/
                 // Create the ParseFile
                 // Create the ParseFile
-               /* photoFile = ParseFile("picturePath", image)
-                photoFile!!.saveInBackground(object : SaveCallback {
-                    override fun done(e: ParseException?) {
-                        // If successful add file to user and signUpInBackground
-                        if (null == e) {
-                            signUpUser(username, password1, email, description,photoFile!!)
-                        } else {
-                            Toast.makeText(this@SignUpActivity,"Failed to save profile photo",Toast.LENGTH_SHORT).show()
-                            e.printStackTrace()
-                        }
-                    }
-                })*/
-               signUpUser(username, password1, email, description)
+                /* photoFile = ParseFile("picturePath", image)
+                 photoFile!!.saveInBackground(object : SaveCallback {
+                     override fun done(e: ParseException?) {
+                         // If successful add file to user and signUpInBackground
+                         if (null == e) {
+                             signUpUser(username, password1, email, description,photoFile!!)
+                         } else {
+                             Toast.makeText(this@SignUpActivity,"Failed to save profile photo",Toast.LENGTH_SHORT).show()
+                             e.printStackTrace()
+                         }
+                     }
+                 })*/
+                signUpUser(username, password1, email, description)
             } else {
                 if (username == "") {
-                    findViewById<TextInputLayout>(R.id.text_input_layout_username_signup)?.setErrorEnabled(true)
-                    findViewById<TextInputLayout>(R.id.text_input_layout_username_signup)?.setError("Username is required for registration.")
+                    findViewById<TextInputLayout>(R.id.text_input_layout_username_signup)?.setErrorEnabled(
+                        true
+                    )
+                    findViewById<TextInputLayout>(R.id.text_input_layout_username_signup)?.setError(
+                        "Username is required for registration."
+                    )
                 }
                 if (email == "") {
-                    findViewById<TextInputLayout>(R.id.text_input_layout_email_signup)?.setErrorEnabled(true)
+                    findViewById<TextInputLayout>(R.id.text_input_layout_email_signup)?.setErrorEnabled(
+                        true
+                    )
                     findViewById<TextInputLayout>(R.id.text_input_layout_email_signup)?.setError("Email is required for registration.")
                 }
                 if (password1 == "") {
-                    findViewById<TextInputLayout>(R.id.text_input_layout_password1_signup)?.setErrorEnabled(true)
-                    findViewById<TextInputLayout>(R.id.text_input_layout_password1_signup)?.setError("Password is required for registration.")
+                    findViewById<TextInputLayout>(R.id.text_input_layout_password1_signup)?.setErrorEnabled(
+                        true
+                    )
+                    findViewById<TextInputLayout>(R.id.text_input_layout_password1_signup)?.setError(
+                        "Password is required for registration."
+                    )
                 }
                 if (password2 == "") {
-                    findViewById<TextInputLayout>(R.id.text_input_layout_password2_signup)?.setErrorEnabled(true)
-                    findViewById<TextInputLayout>(R.id.text_input_layout_password2_signup)?.setError("Please confirm your password.")
+                    findViewById<TextInputLayout>(R.id.text_input_layout_password2_signup)?.setErrorEnabled(
+                        true
+                    )
+                    findViewById<TextInputLayout>(R.id.text_input_layout_password2_signup)?.setError(
+                        "Please confirm your password."
+                    )
                 }
                 if (Uri.EMPTY.equals(selectedImageUri)) {
-                    Toast.makeText(this,"Must inlcude a profile Photo!",Toast.LENGTH_LONG)
+                    Toast.makeText(this, "Must inlcude a profile Photo!", Toast.LENGTH_LONG)
                 }
                 if (!password1.equals(password2)) {
                     findViewById<EditText>(R.id.et_password2_signup)?.text?.clear()
-                    findViewById<TextInputLayout>(R.id.text_input_layout_password2_signup)?.setErrorEnabled(true)
-                    findViewById<TextInputLayout>(R.id.text_input_layout_password2_signup)?.setError("Passwords don't match.")
+                    findViewById<TextInputLayout>(R.id.text_input_layout_password2_signup)?.setErrorEnabled(
+                        true
+                    )
+                    findViewById<TextInputLayout>(R.id.text_input_layout_password2_signup)?.setError(
+                        "Passwords don't match."
+                    )
                 }
             }
 
         }
     }
-    private fun signUpUser(username:String, password:String,email:String, description:String = "") {
+
+    private fun signUpUser(
+        username: String,
+        password: String,
+        email: String,
+        description: String = ""
+    ) {
         // Create the ParseUser
         val user = ParseUser()
         // Set fields for the user to be created
@@ -109,15 +144,15 @@ class SignUpActivity : AppCompatActivity() {
         user.signUpInBackground { e ->
             if (e == null) {
                 // Hooray! Let them use the app now
-                    submitUserUpdate()
-                Toast.makeText(this,"Account created successfully!",Toast.LENGTH_SHORT).show()
+                submitUserUpdate()
+                Toast.makeText(this, "Account created successfully!", Toast.LENGTH_SHORT).show()
                 intent = Intent(this@SignUpActivity, MainActivity::class.java)
                 startActivity(intent)
                 finish()
             } else {
                 // Sign up didn't succeed. Look at the ParseException
                 // to figure out what went wrong
-                Toast.makeText(this,"Failed to create an account",Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "Failed to create an account", Toast.LENGTH_SHORT).show()
                 e.printStackTrace()
             }
         }
@@ -147,13 +182,13 @@ class SignUpActivity : AppCompatActivity() {
             // So as long as the result is not null, it's safe to use the intent.
             if (i.resolveActivity(packageManager) != null) {
                 // Start the image capture intent to take photo
-               // startActivityForResult(intent, SELECT_PICTURE)
+                // startActivityForResult(intent, SELECT_PICTURE)
                 startActivityForResult(Intent.createChooser(i, "Select Picture"), SELECT_PICTURE)
             }
         }
         // pass the constant to compare it
         // with the returned requestCode
-       // startActivityForResult(Intent.createChooser(i, "Select Picture"), SELECT_PICTURE)
+        // startActivityForResult(Intent.createChooser(i, "Select Picture"), SELECT_PICTURE)
     }
     /*fun imageChooser() {
         val galleryIntent = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
@@ -173,13 +208,13 @@ class SignUpActivity : AppCompatActivity() {
                 if (null != selectedImageUri) {
                     // update the preview image in the layout
                     //IVPreviewImage.setImageURI(selectedImageUri)
-                   //findViewById<ImageButton>(R.id.btn_add_photo_signup).setImageURI(selectedImageUri)
-                   // val uriPathHelper = URIPathHelper()
-                   // mCurrentPhotoPath = PathUtil.getPath(this, selectedImageUri)
-                   // mCurrentPhotoPath = uriPathHelper.getPath(this, selectedImageUri)!!
-                   // val file = File(selectedImageUri.getPath()) //create path from uri
-                   // val split: List<String> = file.path.split(":") //split the path.
-                   // mCurrentPhotoPath = split[1] //assign it to a string(your choice).
+                    //findViewById<ImageButton>(R.id.btn_add_photo_signup).setImageURI(selectedImageUri)
+                    // val uriPathHelper = URIPathHelper()
+                    // mCurrentPhotoPath = PathUtil.getPath(this, selectedImageUri)
+                    // mCurrentPhotoPath = uriPathHelper.getPath(this, selectedImageUri)!!
+                    // val file = File(selectedImageUri.getPath()) //create path from uri
+                    // val split: List<String> = file.path.split(":") //split the path.
+                    // mCurrentPhotoPath = split[1] //assign it to a string(your choice).
                     // by this point we have the camera photo on disk
                     val takenImage = BitmapFactory.decodeFile(photoFile!!.absolutePath)
                     // RESIZE BITMAP, see section below
@@ -189,11 +224,11 @@ class SignUpActivity : AppCompatActivity() {
                 }
             }
         }
-       /* if (requestCode == RESULT_LOAD_IMAGE && resultCode == RESULT_OK && data!= null) {
-            selectedImageUri = data.getData()!!
+        /* if (requestCode == RESULT_LOAD_IMAGE && resultCode == RESULT_OK && data!= null) {
+             selectedImageUri = data.getData()!!
 
-            findViewById<ImageButton>(R.id.btn_add_photo_signup).setImageURI(selectedImageUri)
-        }*/
+             findViewById<ImageButton>(R.id.btn_add_photo_signup).setImageURI(selectedImageUri)
+         }*/
     }
 
     /*fun convertImageUriToFile(imageUri: Uri?, activity: Activity): File? {
