@@ -4,6 +4,8 @@ import android.os.Bundle
 import android.view.*
 import androidx.fragment.app.Fragment
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -12,6 +14,7 @@ import com.codepath.peterhe.foodies.*
 import com.codepath.peterhe.foodies.R
 import com.parse.*
 import jp.wasabeef.recyclerview.animators.SlideInUpAnimator
+
 
 class GroupChatListFragment : Fragment() {
     private lateinit var restaurant: YelpRestaurant
@@ -27,6 +30,8 @@ class GroupChatListFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
+        (activity as AppCompatActivity).setSupportActionBar(view?.findViewById(R.id.my_toolbar))
+        setHasOptionsMenu(true)
         return inflater.inflate(R.layout.fragment_group_chat_list, container, false)
     }
 
@@ -39,6 +44,7 @@ class GroupChatListFragment : Fragment() {
         layoutManager = LinearLayoutManager(requireContext())
         groupsRecyclerView.layoutManager = layoutManager
         groupsRecyclerView.itemAnimator = SlideInUpAnimator()
+
         val itemDecoration: RecyclerView.ItemDecoration =
             DividerItemDecoration(requireContext(), DividerItemDecoration.VERTICAL)
         groupsRecyclerView.addItemDecoration(itemDecoration)
@@ -53,7 +59,7 @@ class GroupChatListFragment : Fragment() {
                 DetailFragment.setArguments(bundle)
                 //Log.i(RestaurantFragment.TAG, "Restaurant ${allGroups[position]}")
                 ft?.replace(R.id.flContainer, DetailFragment)?.commit()
-                requireActivity().setTitle("${allGroups[position].getName()} Chat")
+                requireActivity().actionBar?.title = "${allGroups[position].getName()} Chat"
                 ft?.addToBackStack(null)
             }
         })

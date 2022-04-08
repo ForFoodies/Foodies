@@ -45,24 +45,19 @@ class MainActivity : AppCompatActivity(), LocationListener {
         //ParseUser.getCurrentUser().getParseFile("profile")
         // val image: ParseFile? = ParseUser.getCurrentUser().getParseFile("profile")
         //Log.i("Main", image?.url.toString())
-        window.decorView.systemUiVisibility =
-            View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR;//  set status text dark
-        //window.statusBarColor = resources.getColor(R.color.primary_dark)
+
+        window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR;//  set status text dark
+        window.statusBarColor = resources.getColor(R.color.white)
         getWindow().getDecorView().setBackgroundColor(getResources().getColor(R.color.light_gray_1))
         // queryUser(ParseUser.getCurrentUser().objectId)
         val image: ParseFile? = ParseUser.getCurrentUser().getParseFile("profile")
         Log.i("Main", image?.url.toString())
         Glide.with(this@MainActivity).load(image?.url).override(32, 32).apply(
             RequestOptions().transforms(
-                CenterCrop(), RoundedCorners(10)
-            )
-        ).listener(object : RequestListener<Drawable> {
-            override fun onLoadFailed(
-                p0: GlideException?,
-                p1: Any?,
-                p2: Target<Drawable>?,
-                p3: Boolean
-            ): Boolean {
+                CenterCrop(), RoundedCorners(30)
+            )).
+        listener(object : RequestListener<Drawable> {
+            override fun onLoadFailed(p0: GlideException?, p1: Any?, p2: Target<Drawable>?, p3: Boolean): Boolean {
                 //Log.e(TAG, "onLoadFailed")
                 //do something if error loading
                 return false
@@ -79,6 +74,7 @@ class MainActivity : AppCompatActivity(), LocationListener {
                 //do something when picture already loaded
                 //setColorStateList()
                 //findViewById<BottomNavigationView>(R.id.bottom_navigation).setItemIconTintList(null)
+
                 findViewById<BottomNavigationView>(R.id.bottom_navigation).getMenu().getItem(2)
                     .setIconTintMode(PorterDuff.Mode.DST)
                 findViewById<BottomNavigationView>(R.id.bottom_navigation).getMenu().getItem(2)
@@ -140,7 +136,7 @@ class MainActivity : AppCompatActivity(), LocationListener {
                         Log.i("Main", image?.url.toString())
                         Glide.with(this@MainActivity).load(image?.url).override(32, 32).apply(
                             RequestOptions().transforms(
-                                CenterCrop(), RoundedCorners(10)
+                                CenterCrop(), RoundedCorners(50)
                             )
                         ).listener(object : RequestListener<Drawable> {
                             override fun onLoadFailed(

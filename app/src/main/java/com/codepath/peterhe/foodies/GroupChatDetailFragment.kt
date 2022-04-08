@@ -3,6 +3,7 @@ package com.codepath.peterhe.foodies
 import android.os.Bundle
 import android.util.Log
 import android.view.*
+import android.view.View.*
 import android.widget.EditText
 import android.widget.ImageButton
 import android.widget.Toast
@@ -11,6 +12,7 @@ import androidx.fragment.app.FragmentTransaction
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.codepath.peterhe.foodies.fragments.GroupDetailFragment
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.codepath.peterhe.foodies.fragments.RestaurantListMapsFragment
 import com.parse.*
 import com.parse.livequery.ParseLiveQueryClient
@@ -45,6 +47,7 @@ class GroupChatDetailFragment : Fragment() {
         }
         //requireActivity().setTitle("${group.getName()} Chat")
         requireActivity().actionBar?.title = "${group.getName()} Chat"
+
         refreshMessages()
         // Enter the websocket URL of your Parse server
         //val websocketUrl = "wss://PASTE_SERVER_WEBSOCKET_URL_HERE"
@@ -105,7 +108,7 @@ class GroupChatDetailFragment : Fragment() {
         rvChat.setLayoutManager(linearLayoutManager)
 
         // When send button is clicked, create message object on Parse
-        ibSend?.setOnClickListener(object : View.OnClickListener {
+        ibSend?.setOnClickListener(object : OnClickListener {
             override fun onClick(v: View?) {
                 val data: String = etMessage?.getText().toString()
                 val message = Message()
