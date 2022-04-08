@@ -1,11 +1,10 @@
 package com.codepath.peterhe.foodies.fragments
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -14,6 +13,7 @@ import com.codepath.peterhe.foodies.*
 import com.codepath.peterhe.foodies.R
 import com.parse.*
 import jp.wasabeef.recyclerview.animators.SlideInUpAnimator
+
 
 class GroupChatListFragment : Fragment() {
     private lateinit var restaurant: YelpRestaurant
@@ -29,17 +29,22 @@ class GroupChatListFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
+        (activity as AppCompatActivity).setSupportActionBar(view?.findViewById(R.id.my_toolbar))
+        setHasOptionsMenu(true)
         return inflater.inflate(R.layout.fragment_group_chat_list, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+//        (activity as AppCompatActivity?)!!.setSupportActionBar(view.findViewById(R.id.my_toolbar))
+
         groupsRecyclerView = view.findViewById(R.id.rvGroupChats)
         groupAdapter = GroupAdapter(requireContext(),allGroups,true)
         groupsRecyclerView.adapter = groupAdapter
         layoutManager = LinearLayoutManager(requireContext())
         groupsRecyclerView.layoutManager = layoutManager
         groupsRecyclerView.itemAnimator = SlideInUpAnimator()
+
         val itemDecoration: RecyclerView.ItemDecoration =
             DividerItemDecoration(requireContext(), DividerItemDecoration.VERTICAL)
         groupsRecyclerView.addItemDecoration(itemDecoration)
@@ -54,7 +59,7 @@ class GroupChatListFragment : Fragment() {
                 DetailFragment.setArguments(bundle)
                 //Log.i(RestaurantFragment.TAG, "Restaurant ${allGroups[position]}")
                 ft?.replace(R.id.flContainer, DetailFragment)?.commit()
-                requireActivity().setTitle("${allGroups[position].getName()} Chat")
+                requireActivity().actionBar?.title = "${allGroups[position].getName()} Chat"
                 ft?.addToBackStack(null)
             }
         })

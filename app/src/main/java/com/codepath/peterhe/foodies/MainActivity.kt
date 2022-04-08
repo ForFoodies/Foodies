@@ -36,14 +36,14 @@ class MainActivity : AppCompatActivity() {
        // val image: ParseFile? = ParseUser.getCurrentUser().getParseFile("profile")
         //Log.i("Main", image?.url.toString())
         window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR;//  set status text dark
-        window.statusBarColor = resources.getColor(R.color.primary_dark)
+        window.statusBarColor = resources.getColor(R.color.white)
         getWindow().getDecorView().setBackgroundColor(getResources().getColor(R.color.light_gray_1))
        // queryUser(ParseUser.getCurrentUser().objectId)
         val image: ParseFile? = ParseUser.getCurrentUser().getParseFile("profile")
         Log.i("Main", image?.url.toString())
         Glide.with(this@MainActivity).load(image?.url).override(32,32).apply(
             RequestOptions().transforms(
-                CenterCrop(), RoundedCorners(10)
+                CenterCrop(), RoundedCorners(30)
             )).
         listener(object : RequestListener<Drawable> {
             override fun onLoadFailed(p0: GlideException?, p1: Any?, p2: Target<Drawable>?, p3: Boolean): Boolean {
@@ -56,8 +56,9 @@ class MainActivity : AppCompatActivity() {
                 //do something when picture already loaded
                 //setColorStateList()
                 //findViewById<BottomNavigationView>(R.id.bottom_navigation).setItemIconTintList(null)
-                findViewById<BottomNavigationView>(R.id.bottom_navigation).getMenu().getItem(2).setIconTintMode(PorterDuff.Mode.DST)
-                findViewById<BottomNavigationView>(R.id.bottom_navigation).getMenu().getItem(2).setIcon(p0)
+                findViewById<BottomNavigationView>(R.id.bottom_navigation).menu.getItem(2).iconTintMode =
+                    PorterDuff.Mode.DST
+                findViewById<BottomNavigationView>(R.id.bottom_navigation).menu.getItem(2).icon = p0
                 /*findViewById<BottomNavigationView>(R.id.bottom_navigation).getMenu().getItem(0).getIcon().setColorFilter(
                     getResources().getColor(R.color.app_black), PorterDuff.Mode.SRC_ATOP)
                 findViewById<BottomNavigationView>(R.id.bottom_navigation).getMenu().getItem(1).getIcon().setColorFilter(
@@ -115,7 +116,7 @@ class MainActivity : AppCompatActivity() {
                        Log.i("Main", image?.url.toString())
                        Glide.with(this@MainActivity).load(image?.url).override(32,32).apply(
                            RequestOptions().transforms(
-                               CenterCrop(), RoundedCorners(10)
+                               CenterCrop(), RoundedCorners(50)
                            )).
                        listener(object : RequestListener<Drawable> {
                            override fun onLoadFailed(p0: GlideException?, p1: Any?, p2: Target<Drawable>?, p3: Boolean): Boolean {
@@ -128,8 +129,8 @@ class MainActivity : AppCompatActivity() {
                                //do something when picture already loaded
                                //setColorStateList()
                                //findViewById<BottomNavigationView>(R.id.bottom_navigation).setItemIconTintList(null)
-                               findViewById<BottomNavigationView>(R.id.bottom_navigation).getMenu().getItem(2).setIconTintMode(PorterDuff.Mode.DST)
-                               findViewById<BottomNavigationView>(R.id.bottom_navigation).getMenu().getItem(2).setIcon(p0)
+                               findViewById<BottomNavigationView>(R.id.bottom_navigation).menu.getItem(2).setIconTintMode(PorterDuff.Mode.DST)
+                               findViewById<BottomNavigationView>(R.id.bottom_navigation).menu.getItem(2).setIcon(p0)
                                /*findViewById<BottomNavigationView>(R.id.bottom_navigation).getMenu().getItem(0).getIcon().setColorFilter(
                                    getResources().getColor(R.color.app_black), PorterDuff.Mode.SRC_ATOP)
                                findViewById<BottomNavigationView>(R.id.bottom_navigation).getMenu().getItem(1).getIcon().setColorFilter(
