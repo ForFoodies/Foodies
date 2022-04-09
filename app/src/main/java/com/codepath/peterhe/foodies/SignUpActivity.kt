@@ -14,7 +14,9 @@ import com.parse.ParseUser
 import android.os.Environment
 import android.provider.MediaStore
 import android.util.Log
+import android.view.View
 import androidx.core.content.FileProvider
+import com.google.android.material.button.MaterialButton
 import java.io.*
 
 
@@ -26,12 +28,13 @@ class SignUpActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_sign_up)
-        getWindow().getDecorView().setBackgroundColor(getResources().getColor(R.color.primary));
+        // transparent status bar
+        window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN or View.SYSTEM_UI_FLAG_LAYOUT_STABLE
         getSupportActionBar()?.hide()
         findViewById<ImageButton>(R.id.btn_add_photo_signup).setOnClickListener {
             imageChooser()
         }
-        findViewById<ImageButton>(R.id.btn_signup).setOnClickListener {
+        findViewById<MaterialButton>(R.id.btn_signup).setOnClickListener {
             findViewById<TextInputLayout>(R.id.text_input_layout_email_signup)?.setError(null)
             findViewById<TextInputLayout>(R.id.text_input_layout_email_signup)?.setErrorEnabled(
                 false
@@ -172,7 +175,7 @@ class SignUpActivity : AppCompatActivity() {
         // See https://guides.codepath.com/android/Sharing-Content-with-Intents#sharing-files-with-api-24-or-higher
         if (photoFile != null) {
             val fileProvider: Uri =
-                FileProvider.getUriForFile(this, "com.codepath.fileprovider", photoFile!!)
+                FileProvider.getUriForFile(this, "com.foodies.fileprovider", photoFile!!)
             i.putExtra(MediaStore.EXTRA_OUTPUT, fileProvider)
 
             // If you call startActivityForResult() using an intent that no app can handle, your app will crash.
