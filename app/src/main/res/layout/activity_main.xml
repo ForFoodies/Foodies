@@ -19,14 +19,9 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:menu="@menu/appbar"
-        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
-        app:title="Discover"
+
         app:titleTextAppearance="@style/RubikTitleStyle"
-        app:titleTextColor="@color/primary" />
+         />
 
 
     <FrameLayout
