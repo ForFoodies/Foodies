@@ -210,14 +210,6 @@ class SignUpActivity : AppCompatActivity() {
                 selectedImageUri = data?.data!!
                 if (null != selectedImageUri) {
                     // update the preview image in the layout
-                    //IVPreviewImage.setImageURI(selectedImageUri)
-                    //findViewById<ImageButton>(R.id.btn_add_photo_signup).setImageURI(selectedImageUri)
-                    // val uriPathHelper = URIPathHelper()
-                    // mCurrentPhotoPath = PathUtil.getPath(this, selectedImageUri)
-                    // mCurrentPhotoPath = uriPathHelper.getPath(this, selectedImageUri)!!
-                    // val file = File(selectedImageUri.getPath()) //create path from uri
-                    // val split: List<String> = file.path.split(":") //split the path.
-                    // mCurrentPhotoPath = split[1] //assign it to a string(your choice).
                     // by this point we have the camera photo on disk
                     val takenImage = BitmapFactory.decodeFile(photoFile!!.absolutePath)
                     // RESIZE BITMAP, see section below
@@ -227,56 +219,9 @@ class SignUpActivity : AppCompatActivity() {
                 }
             }
         }
-        /* if (requestCode == RESULT_LOAD_IMAGE && resultCode == RESULT_OK && data!= null) {
-             selectedImageUri = data.getData()!!
 
-             findViewById<ImageButton>(R.id.btn_add_photo_signup).setImageURI(selectedImageUri)
-         }*/
     }
 
-    /*fun convertImageUriToFile(imageUri: Uri?, activity: Activity): File? {
-        var cursor: Cursor? = null //  w  w  w.  ja  va  2 s .  c o m
-        return try {
-            val proj = arrayOf(
-                MediaStore.Images.Media.DATA,
-                MediaStore.Images.Media._ID,
-                MediaStore.Images.ImageColumns.ORIENTATION
-            )
-            cursor = activity
-                .managedQuery(imageUri, proj, null, null, null)
-            val file_ColumnIndex: Int = cursor
-                .getColumnIndexOrThrow(MediaStore.Images.Media.DATA)
-            val orientation_ColumnIndex: Int = cursor
-                .getColumnIndexOrThrow(MediaStore.Images.ImageColumns.ORIENTATION)
-            if (cursor.moveToFirst()) {
-                val orientation: String = cursor
-                    .getString(orientation_ColumnIndex)
-                return File(cursor.getString(file_ColumnIndex))
-            }
-            null
-        } finally {
-            if (cursor != null) {
-                cursor.close()
-            }
-        }
-    }*/
-    /*
-This method can parse out the real local file path from a file URI.
-*/
-    @Throws(IOException::class)
-    private fun readInFile(path: String): ByteArray? {
-        var data: ByteArray? = null
-        val file = File(path)
-        val input_stream: InputStream = BufferedInputStream(FileInputStream(file))
-        val buffer = ByteArrayOutputStream()
-        data = ByteArray(16384) // 16K
-        var bytes_read: Int
-        while (input_stream.read(data, 0, data.size).also { bytes_read = it } != -1) {
-            buffer.write(data, 0, bytes_read)
-        }
-        input_stream.close()
-        return buffer.toByteArray()
-    }
 
     // Returns the File for a photo stored on disk given the fileName
     fun getPhotoFileUri(fileName: String): File {
@@ -306,25 +251,6 @@ This method can parse out the real local file path from a file URI.
             } else {
                 //Log.i(TAG, "Successfully submitted a post")
                 Toast.makeText(this, "Successfully added profile photo", Toast.LENGTH_SHORT).show()
-                /*view?.findViewById<ImageButton>(R.id.btn_join_GroupDetail)?.setEnabled(false)
-                view?.findViewById<ImageButton>(R.id.btn_join_GroupDetail)?.setVisibility(View.GONE)
-                view?.findViewById<ImageButton>(R.id.btn_cancel_groupDetail)?.setEnabled(false)
-                view?.findViewById<ImageButton>(R.id.btn_cancel_groupDetail)?.setVisibility(View.GONE)
-                requireActivity().setTitle("${group.getName()} (Already Joined)")
-                allMembers.add(ParseUser.getCurrentUser())
-                memberAdapter.notifyDataSetChanged()*/
-                //ft.detach(this).attach(this).commit()
-
-                //val fm = getFragmentManager()
-                // fm?.popBackStack()
-                /*val bundle = Bundle()
-                bundle.putParcelable("RestaurantDetail", restaurant)
-                val DetailFragment = RestaurantDetailFragment()
-                DetailFragment.setArguments(bundle)
-                // Log.i(RestaurantFragment.TAG, "Restaurant ${restaurants[position]}")
-                ft?.replace(R.id.flContainer, DetailFragment)?.commit()
-                requireActivity().setTitle("${restaurant.name}")
-                ft?.addToBackStack(null)*/
             }
         }
     }
