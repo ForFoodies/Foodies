@@ -1,30 +1,31 @@
 package com.codepath.peterhe.foodies
+
 import android.os.Parcel
 import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
 
-data class YelpSearchResult (
+data class YelpSearchResult(
     @SerializedName("total") val total: Int,
     @SerializedName("businesses") val restaurants: List<YelpRestaurant>
 
 )
 
 data class YelpRestaurant(
-    val name:String,
-    val rating:Double,
-    val price:String,
-    val id:String,
-    val is_closed:Boolean,
-    val url:String,
-    val transactions:List<String>,
+    val name: String,
+    val rating: Double,
+    val price: String,
+    val id: String,
+    val is_closed: Boolean,
+    val url: String,
+    val transactions: List<String>,
     @SerializedName("review_count") val numReviews: Int,
     @SerializedName("distance") val distanceInMeters: Double,
-    @SerializedName("image_url") val imageUrl:String,
-    val categories:List<YelpCategory>,
+    @SerializedName("image_url") val imageUrl: String,
+    val categories: List<YelpCategory>,
     val location: YelpLocation,
-    val phone:String,
-    @SerializedName( "region") val region: YelpRegion
-    ) : Parcelable {
+    val phone: String,
+    @SerializedName("region") val region: YelpRegion
+) : Parcelable {
     constructor(parcel: Parcel) : this(
         parcel.readString()!!,
         parcel.readDouble()!!,
@@ -43,11 +44,11 @@ data class YelpRestaurant(
     ) {
     }
 
-    fun displayDistance():String {
+    fun displayDistance(): String {
         val milesPerMeter = 0.000621371
         var distanceInMiles = ""
         if (distanceInMeters != null) {
-            distanceInMiles = "%.2f".format(distanceInMeters*milesPerMeter)
+            distanceInMiles = "%.2f".format(distanceInMeters * milesPerMeter)
         }
         return "$distanceInMiles mi"
     }
@@ -66,7 +67,7 @@ data class YelpRestaurant(
         parcel.writeTypedList(categories)
         parcel.writeParcelable(location, flags)
         parcel.writeString(phone)
-        parcel.writeParcelable(region,flags)
+        parcel.writeParcelable(region, flags)
     }
 
     override fun describeContents(): Int {
@@ -84,9 +85,9 @@ data class YelpRestaurant(
     }
 }
 
-data class YelpCategory (
-    val title:String
-    ) : Parcelable {
+data class YelpCategory(
+    val title: String
+) : Parcelable {
     constructor(parcel: Parcel) : this(parcel.readString()!!) {
     }
 
@@ -110,11 +111,11 @@ data class YelpCategory (
 }
 
 data class YelpLocation(
-    val address1:String,
-    val city:String,
-    val state:String,
-    val country:String,
-    val zip_code:String
+    val address1: String,
+    val city: String,
+    val state: String,
+    val country: String,
+    val zip_code: String
 ) : Parcelable {
     constructor(parcel: Parcel) : this(
         parcel.readString()!!,
@@ -149,7 +150,7 @@ data class YelpLocation(
 }
 
 data class YelpRegion(
-    @SerializedName( "center") val center: YelpCenter
+    @SerializedName("center") val center: YelpCenter
 ) : Parcelable {
     constructor(parcel: Parcel) : this(parcel.readParcelable(YelpCenter::class.java.classLoader)!!) {
     }
@@ -174,8 +175,8 @@ data class YelpRegion(
 }
 
 data class YelpCenter(
-    @SerializedName( "latitude") val latitude: Double,
-    @SerializedName( "longitude") val longitude: Double
+    @SerializedName("latitude") val latitude: Double,
+    @SerializedName("longitude") val longitude: Double
 ) : Parcelable {
     constructor(parcel: Parcel) : this(
         parcel.readDouble(),

@@ -12,6 +12,7 @@ public class Message extends ParseObject {
     public String getUserId() {
         return getString(USER_ID_KEY);
     }
+
     public String getGroupId() {
         return getString(GROUP_ID_KEY);
     }
@@ -23,6 +24,7 @@ public class Message extends ParseObject {
     public void setUserId(String userId) {
         put(USER_ID_KEY, userId);
     }
+
     public void setGroupId(String groupId) {
         put(GROUP_ID_KEY, groupId);
     }
