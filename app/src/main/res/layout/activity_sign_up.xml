@@ -23,7 +23,7 @@
         android:id="@+id/hi"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="90dp"
+        android:layout_marginTop="80dp"
         android:text="Hello new Foodie..."
         android:textSize="30sp"
         android:textColor="@color/light_gray_1"
@@ -36,9 +36,9 @@
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/text_input_layout_username_signup"
         android:layout_width="300dp"
-        android:layout_height="50dp"
+        android:layout_height="wrap_content"
 
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="20dp"
         android:textColorHint="@color/app_black"
         app:boxBackgroundColor="@color/light_gray_1"
         app:boxCornerRadiusBottomEnd="20dp"
@@ -73,9 +73,8 @@
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/text_input_layout_email_signup"
         android:layout_width="300dp"
-        android:layout_height="50dp"
+        android:layout_height="wrap_content"
 
-        android:layout_marginTop="15dp"
         android:textColorHint="@color/app_black"
         app:boxBackgroundColor="@color/light_gray_1"
         app:boxCornerRadiusBottomEnd="20dp"
@@ -112,9 +111,7 @@
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/text_input_layout_password1_signup"
         android:layout_width="300dp"
-        android:layout_height="50dp"
-
-        android:layout_marginTop="15dp"
+        android:layout_height="wrap_content"
         android:textColorHint="@color/app_black"
         app:boxBackgroundColor="@color/light_gray_1"
         app:boxCornerRadiusBottomEnd="20dp"
@@ -152,8 +149,7 @@
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/text_input_layout_password2_signup"
         android:layout_width="300dp"
-        android:layout_height="50dp"
-        android:layout_marginTop="15dp"
+        android:layout_height="wrap_content"
 
         android:textColorHint="@color/app_black"
         app:boxBackgroundColor="@color/light_gray_1"
@@ -194,7 +190,6 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:gravity="center"
-        android:layout_marginTop="15dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/text_input_layout_password2_signup"

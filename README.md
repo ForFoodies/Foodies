@@ -164,6 +164,10 @@ Optional:
 
 Here's a walkthrough of implemented user stories:
 
+Log in to Discover:  
+
+<img src='https://i.imgur.com/oMFt6tn.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
+
 App Icon, Splash Screen and Start Activity:
 
 <img src='https://i.imgur.com/quy0WxC.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
