@@ -10,9 +10,9 @@ public interface YelpHomeSearchService {
     @GET("businesses/search")
     fun searchRestaurants(
         @Header("Authorization") authHeader: String,
-        @Query("term") searchTerm:String,
-        @Query("location") location:String,
-        @Query("offset") offset:Int
+        @Query("term") searchTerm: String,
+        @Query("location") location: String,
+        @Query("offset") offset: Int
         // @Query("latitude") latitude:Double,
         //@Query("longitude") longitude:Double
     ): Call<YelpSearchResult>

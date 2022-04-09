@@ -44,7 +44,8 @@ class MainActivity : AppCompatActivity(), LocationListener {
         // val image: ParseFile? = ParseUser.getCurrentUser().getParseFile("profile")
         //Log.i("Main", image?.url.toString())
 
-        window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR;//  set status text dark
+        window.decorView.systemUiVisibility =
+            View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR;//  set status text dark
         window.statusBarColor = resources.getColor(R.color.white)
         getWindow().getDecorView().setBackgroundColor(getResources().getColor(R.color.light_gray_1))
         queryUser(ParseUser.getCurrentUser().objectId)
@@ -53,9 +54,14 @@ class MainActivity : AppCompatActivity(), LocationListener {
         Glide.with(this@MainActivity).load(image?.url).override(40, 40).apply(
             RequestOptions().transforms(
                 CenterCrop(), RoundedCorners(30)
-            )).
-        listener(object : RequestListener<Drawable> {
-            override fun onLoadFailed(p0: GlideException?, p1: Any?, p2: Target<Drawable>?, p3: Boolean): Boolean {
+            )
+        ).listener(object : RequestListener<Drawable> {
+            override fun onLoadFailed(
+                p0: GlideException?,
+                p1: Any?,
+                p2: Target<Drawable>?,
+                p3: Boolean
+            ): Boolean {
                 //Log.e(TAG, "onLoadFailed")
                 //do something if error loading
                 return false
@@ -131,8 +137,8 @@ class MainActivity : AppCompatActivity(), LocationListener {
                 } else {
                     if (user != null && user.size == 1) {
                         val image: ParseFile? = user[0].getParseFile("profile")
-                       // Log.i("Main", image?.url.toString())
-                           //val imageUrl:String = user[0].getString("profile_url")!!
+                        // Log.i("Main", image?.url.toString())
+                        //val imageUrl:String = user[0].getString("profile_url")!!
                         Glide.with(this@MainActivity).load(image?.url).override(32, 32).apply(
                             RequestOptions().transforms(
                                 CenterCrop(), RoundedCorners(50)
@@ -183,7 +189,7 @@ class MainActivity : AppCompatActivity(), LocationListener {
         if (requestCode == 1) {
             if (grantResults.size > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 // if (ContextCompat.checkSelfPermission(requireContext(),Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED){
-               // val ft: FragmentTransaction? = getFragmentManager()?.beginTransaction()
+                // val ft: FragmentTransaction? = getFragmentManager()?.beginTransaction()
                 fragmentManager.beginTransaction().replace(R.id.flContainer, RestaurantFragment())
                     .commit()
 

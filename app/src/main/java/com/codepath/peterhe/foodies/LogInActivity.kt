@@ -7,9 +7,7 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import android.widget.Button
 import android.view.View
-import android.widget.ImageButton
 import android.widget.Toast
 import com.facebook.AccessToken
 import com.facebook.GraphRequest
@@ -32,7 +30,18 @@ class LogInActivity : AppCompatActivity() {
         // transparent status bar
         window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN or View.SYSTEM_UI_FLAG_LAYOUT_STABLE
         getSupportActionBar()?.hide()
-        findViewById<Button>(R.id.btn_login_facebook).setOnClickListener {
+
+        findViewById<MaterialButton>(R.id.redirect_signin).setOnClickListener{
+            val intent = Intent(this,SignInActivity::class.java)
+            startActivity(intent)
+        }
+
+        findViewById<MaterialButton>(R.id.redirect_signup).setOnClickListener{
+            val intent = Intent(this,SignUpActivity::class.java)
+            startActivity(intent)
+        }
+
+        findViewById<MaterialButton>(R.id.btn_login_facebook).setOnClickListener {
             //val intent = Intent(this,SignInActivity::class.java)
             // val intent = Intent(this,FacebookLogInActivity::class.java)
             // startActivity(intent)

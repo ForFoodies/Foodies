@@ -66,12 +66,12 @@ class UserProfileFragment : Fragment() {
                 if (e == null) {
                     //dlg.dismiss()
                     showAlert("So, you're going...", "Ok...Bye-bye then", true);
-                }else {
+                } else {
                     //dlg.dismiss()
                     showAlert("Error...", e.message, false);
                 }
             }
-           // alertDisplayer("So, you are going back", "Bye Bye...")
+            // alertDisplayer("So, you are going back", "Bye Bye...")
             true
         }
         menu.findItem(R.id.action_edit).setOnMenuItemClickListener {
@@ -83,22 +83,22 @@ class UserProfileFragment : Fragment() {
         }
     }
 
-   /* private fun alertDisplayer(title: String, message: String) {
-        val builder: AlertDialog.Builder = AlertDialog.Builder(requireContext()).setTitle(title).setMessage(message).setPositiveButton("OK", object:
-            DialogInterface.OnClickListener{
-            override fun onClick(dialog: DialogInterface?, which: Int) {
-                dialog?.cancel()
-                val intent = Intent(requireContext(), LogInActivity::class.java)
-                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
-                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-                startActivity(intent)
-                requireActivity().finish()
-            }
+    /* private fun alertDisplayer(title: String, message: String) {
+         val builder: AlertDialog.Builder = AlertDialog.Builder(requireContext()).setTitle(title).setMessage(message).setPositiveButton("OK", object:
+             DialogInterface.OnClickListener{
+             override fun onClick(dialog: DialogInterface?, which: Int) {
+                 dialog?.cancel()
+                 val intent = Intent(requireContext(), LogInActivity::class.java)
+                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
+                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                 startActivity(intent)
+                 requireActivity().finish()
+             }
 
-        })
-        val ok: AlertDialog = builder.create()
-        ok.show()
-    }*/
+         })
+         val ok: AlertDialog = builder.create()
+         ok.show()
+     }*/
 
     private fun showAlert(title: String, message: String?, isOk: Boolean) {
         val builder = AlertDialog.Builder(requireContext())
@@ -119,7 +119,7 @@ class UserProfileFragment : Fragment() {
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        ParseFacebookUtils.onActivityResult(requestCode,resultCode,data)
+        ParseFacebookUtils.onActivityResult(requestCode, resultCode, data)
     }
 
 }

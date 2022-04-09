@@ -30,10 +30,10 @@ import retrofit2.converter.gson.GsonConverterFactory
 import java.util.*
 import kotlin.collections.ArrayList
 
+private const val BASE_URL = BuildConfig.BASE_URL
+private const val API_KEY = BuildConfig.API_KEY
 
-private const val BASE_URL = "https://api.yelp.com/v3/"
-private const val API_KEY = "x-mlmzTYMP7jHxTcofpKqz7ou9C780dbLrxFON-B_wrZjIb02f5d3z1-yUQstCmyCOnmqR6pKKj3bq3BboVwU87P0BI_FO5sOth2PFLhlz9bmwwD8GWAqBKlNAxFYnYx"
-class RestaurantFragment : Fragment(),LocationListener {
+class RestaurantFragment : Fragment(), LocationListener {
     // declare a global variable of FusedLocationProviderClient
     //private lateinit var fusedLocationClient: FusedLocationProviderClient
     private lateinit var locationManager: LocationManager
@@ -76,9 +76,9 @@ class RestaurantFragment : Fragment(),LocationListener {
         restaurants = arrayListOf<YelpRestaurant>()
         restaurantAdapter = RestaurantAdapter(requireContext(), restaurants)
         requireActivity().actionBar?.title = "Discover"
-       // val fragmentManager: FragmentManager = supportFragmentManager
-        val ft:FragmentTransaction? = getFragmentManager()?.beginTransaction()
-        restaurantAdapter.setOnItemClickListner(object: RestaurantAdapter.onItemClickListner{
+        // val fragmentManager: FragmentManager = supportFragmentManager
+        val ft: FragmentTransaction? = getFragmentManager()?.beginTransaction()
+        restaurantAdapter.setOnItemClickListner(object : RestaurantAdapter.onItemClickListner {
             override fun onItemClick(position: Int) {
                 //final FragmentTransaction ft = getFragmentManager().beginTransaction();
                 val bundle = Bundle()
@@ -173,7 +173,7 @@ class RestaurantFragment : Fragment(),LocationListener {
             e.printStackTrace()
         }
 
-       // var user = ParseUser.getCurrentUser()
+        // var user = ParseUser.getCurrentUser()
 
     }
 
@@ -235,19 +235,19 @@ class RestaurantFragment : Fragment(),LocationListener {
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         // Inflate the menu; this adds items to the action bar if it is present.
-       // super.onCreateOptionsMenu(menu, inflater)
+        // super.onCreateOptionsMenu(menu, inflater)
         //inflater = MenuInflater(requireContext())
         inflater.inflate(R.menu.appbar, menu)
         menu.findItem(R.id.action_map_restaurantList).setOnMenuItemClickListener { item ->
             val bundle = Bundle()
-           // val sublist:ArrayList<YelpRestaurant> = arrayListOf()
+            // val sublist:ArrayList<YelpRestaurant> = arrayListOf()
             //sublist.addAll(restaurants.subList(0,10))
             bundle.putParcelableArrayList("RestaurantList", restaurants)
             val DetailFragment = RestaurantListMapsFragment()
             DetailFragment.setArguments(bundle)
             offset = 0
             scrollListener.resetState()
-            val ft:FragmentTransaction? = getFragmentManager()?.beginTransaction()
+            val ft: FragmentTransaction? = getFragmentManager()?.beginTransaction()
             ft?.replace(R.id.flContainer, DetailFragment)?.commit()
             ft?.addToBackStack(null)
             true
@@ -349,10 +349,10 @@ class RestaurantFragment : Fragment(),LocationListener {
         Log.i(TAG, "Permission Request")
         if (requestCode == 1) {
             if (grantResults.size > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-               // if (ContextCompat.checkSelfPermission(requireContext(),Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED){
-                    val ft: FragmentTransaction? = getFragmentManager()?.beginTransaction()
-                    ft?.replace(R.id.flContainer, RestaurantFragment())?.commit()
-                    requireActivity().setTitle("Discover")
+                // if (ContextCompat.checkSelfPermission(requireContext(),Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED){
+                val ft: FragmentTransaction? = getFragmentManager()?.beginTransaction()
+                ft?.replace(R.id.flContainer, RestaurantFragment())?.commit()
+                requireActivity().setTitle("Discover")
 
                 //}
             }

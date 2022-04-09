@@ -9,6 +9,9 @@ import okhttp3.logging.HttpLoggingInterceptor
 
 
 class FoodiesApplication : Application() {
+
+    // TODO: hide api keys in secrets.xml or apikey.properties
+
     override fun onCreate() {
         super.onCreate()
         // Use for monitoring Parse network traffic
@@ -26,8 +29,9 @@ class FoodiesApplication : Application() {
                 .applicationId(getString(R.string.back4app_app_id))
                 .clientKey(getString(R.string.back4app_client_key))
                 .server(getString(R.string.back4app_server_url))
-                .build())
-       // ParseFace
+                .build()
+        )
+        // ParseFace
         ParseFacebookUtils.initialize(this);
 
 
