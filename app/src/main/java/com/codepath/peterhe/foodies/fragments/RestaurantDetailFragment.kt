@@ -16,6 +16,7 @@ import com.bumptech.glide.load.resource.bitmap.CenterCrop
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.bumptech.glide.request.RequestOptions
 import com.codepath.peterhe.foodies.*
+import com.google.android.material.button.MaterialButton
 import com.parse.FindCallback
 import com.parse.ParseException
 import com.parse.ParseQuery
@@ -54,9 +55,9 @@ class RestaurantDetailFragment : Fragment() {
             CenterCrop(), RoundedCorners(10)
         )).into(view.findViewById<ImageView>(R.id.ivRestaurantBackground))
         view.findViewById<TextView>(R.id.tvRestaurantDetailName).text = restaurant.name
-        view.findViewById<TextView>(R.id.tvRestaurantDetailRating).text = restaurant.rating.toString()
-        view.findViewById<RatingBar>(R.id.RestaurantDetailRatingBar).rating = restaurant.rating.toFloat()
-        view.findViewById<TextView>(R.id.tvNumReviewsDetail).text = "${restaurant.numReviews} Reviews"
+        view.findViewById<TextView>(R.id.tvRestaurantDetailRating).text = "⭐ ${restaurant.rating.toString()}"
+//        view.findViewById<RatingBar>(R.id.RestaurantDetailRatingBar).rating = restaurant.rating.toFloat()
+        view.findViewById<TextView>(R.id.tvNumReviewsDetail).text = "(${restaurant.numReviews} Reviews)"
         var restaurantcategories = ""
         for ((index,value) in restaurant.categories.withIndex()) {
             if (index >= 2) {
@@ -72,7 +73,7 @@ class RestaurantDetailFragment : Fragment() {
         view.findViewById<TextView>(R.id.tvUrl).text = restaurant.url
         val address = "${restaurant.location.address1}, ${restaurant.location.city}, ${restaurant.location.state}, ${restaurant.location.country}, ${restaurant.location.zip_code}"
         view.findViewById<TextView>(R.id.tvAddressDetail).text = address
-        if (restaurant.is_closed == true) {
+        if (restaurant.is_closed) {
             view.findViewById<TextView>(R.id.tvIsClosed).text = "Closed"
             view.findViewById<TextView>(R.id.tvIsClosed).setTextColor(resources.getColor(R.color.red))
             view.findViewById<TextView>(R.id.tvIsClosed).setCompoundDrawables(resources.getDrawable(R.drawable.ic_baseline_close_24),null,null,null)
@@ -88,7 +89,7 @@ class RestaurantDetailFragment : Fragment() {
         transactions = transactions.dropLast(2)
         view.findViewById<TextView>(R.id.tvTransactions).text = transactions
         //view.findViewById<TextView>(R.id.tvTransactions).setTextColor(getResources().getColor(R.color.green))
-        view.findViewById<ImageButton>(R.id.btn_startGroup).setOnClickListener {
+        view.findViewById<MaterialButton>(R.id.btn_startGroup).setOnClickListener {
             val ft: FragmentTransaction? = getFragmentManager()?.beginTransaction()
             showDialog(ft!!)
         }
