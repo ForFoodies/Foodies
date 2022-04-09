@@ -11,12 +11,16 @@
         <item name="colorSecondaryVariant">@color/secondary_dark</item>
         <item name="colorOnSecondary">@color/light_gray_1</item>
         <!-- Status bar color. -->
-        <item name="android:statusBarColor" tools:targetApi="l">@android:color/transparent</item>
+<!--        <item name="android:statusBarColor" tools:targetApi="l">@android:color/transparent</item>-->
         <!-- Customize your theme here. -->
         <item name="android:textColor">@color/app_black</item>
         <item name= "android:textViewStyle" > @style/RubikTextViewStyle </item>
         <item name= "android:buttonStyle" > @style/RubikButtonStyle </item>
         <item name="android:fontFamily">@font/rubik_light</item>
+
+        <item name="android:windowDrawsSystemBarBackgrounds">true</item>
+        <item name="android:windowTranslucentStatus">false</item>
+        <item name="android:statusBarColor">#00000000</item>
     </style>
     <style name= "RubikTextViewStyle" parent= "android:Widget.TextView" >
         <item name= "android:fontFamily" > @font/rubik_light </item>
@@ -27,7 +31,7 @@
         <item name="android:textSize">20dp</item>
     </style>
     <style name= "RubikButtonStyle" parent= "android:Widget.Holo.Button" >
-        <item name= "android:fontFamily" > @font/rubik_medium </item>
+        <item name= "android:fontFamily" > @font/rubik_bold </item>
     </style>
 
     <style name="AppBar" parent="Widget.MaterialComponents.Toolbar">

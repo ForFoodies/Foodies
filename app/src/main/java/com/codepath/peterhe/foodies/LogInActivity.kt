@@ -8,12 +8,14 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.widget.Button
+import android.view.View
 import android.widget.ImageButton
 import android.widget.Toast
 import com.facebook.AccessToken
 import com.facebook.GraphRequest
 import com.facebook.GraphResponse
 import com.parse.ParseException
+import com.google.android.material.button.MaterialButton
 import com.parse.ParseUser
 import com.parse.facebook.ParseFacebookUtils
 import org.json.JSONException
@@ -27,7 +29,8 @@ class LogInActivity : AppCompatActivity() {
         if (ParseUser.getCurrentUser() != null) {
             gotoMainActivity()
         }
-        getWindow().getDecorView().setBackgroundColor(getResources().getColor(R.color.primary));
+        // transparent status bar
+        window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN or View.SYSTEM_UI_FLAG_LAYOUT_STABLE
         getSupportActionBar()?.hide()
         findViewById<Button>(R.id.btn_login_facebook).setOnClickListener {
             //val intent = Intent(this,SignInActivity::class.java)

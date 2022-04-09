@@ -47,27 +47,6 @@ class UserProfileFragment : Fragment() {
         val image: ParseFile? = user.getParseFile("profile")
         Glide.with(requireContext()).load(image?.url)
             .into(profileImage)
-
-        // set up buttons
-        view.findViewById<Button>(R.id.btnLogout).setOnClickListener {
-            // log out user
-            ParseUser.logOut()
-            goToLoginActivity()
-        }
-
-        view.findViewById<Button>(R.id.btnEditProfile).setOnClickListener {
-            // go into edit mode
-            val transaction = requireActivity().supportFragmentManager.beginTransaction()
-            transaction.replace(R.id.flContainer, EditProfileFragment())
-            transaction.commit()
-        }
-    }
-
-    private fun goToLoginActivity() {
-        val intent = Intent(activity, LogInActivity::class.java)
-        startActivity(intent)
-        // close current activity
-        activity?.onBackPressed()
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
@@ -93,6 +72,13 @@ class UserProfileFragment : Fragment() {
                 }
             }
            // alertDisplayer("So, you are going back", "Bye Bye...")
+            true
+        }
+        menu.findItem(R.id.action_edit).setOnMenuItemClickListener {
+            // go into edit mode
+            val transaction = requireActivity().supportFragmentManager.beginTransaction()
+            transaction.replace(R.id.flContainer, EditProfileFragment())
+            transaction.commit()
             true
         }
     }

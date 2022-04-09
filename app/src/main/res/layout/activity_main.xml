@@ -13,16 +13,13 @@
         android:layout_height="?attr/actionBarSize"
         android:background="@color/white"
         android:elevation="2dp"
-        android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        app:titleTextColor="@color/app_black"
         app:layout_constraintTop_toTopOf="parent"
-        app:menu="@menu/appbar"
-        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
-        app:title="Discover"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
         app:titleTextAppearance="@style/RubikTitleStyle"
-        app:titleTextColor="@color/primary" />
-
+         />
 
     <FrameLayout
         android:id="@+id/flContainer"
@@ -34,8 +31,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/my_toolbar"
         app:layout_constraintVertical_bias="0.0">
-
-
     </FrameLayout>
 
     <ImageView
@@ -46,6 +41,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         tools:srcCompat="@tools:sample/avatars" />
+
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottom_navigation"

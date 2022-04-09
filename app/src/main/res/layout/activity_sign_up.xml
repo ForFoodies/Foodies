@@ -7,241 +7,271 @@
     tools:context=".SignUpActivity">
 
     <ImageView
-        android:id="@+id/imageView4"
-        android:layout_width="412dp"
-        android:layout_height="68dp"
-        android:layout_marginTop="25dp"
+        android:id="@+id/imageView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="centerCrop"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/foodies_word" />
+        app:layout_constraintVertical_bias="0.0"
+        app:srcCompat="@drawable/initial_background" />
+
+    <TextView
+        android:id="@+id/hi"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="80dp"
+        android:text="Hello new Foodie..."
+        android:textSize="30sp"
+        android:textColor="@color/light_gray_1"
+        android:fontFamily="@font/rubik_bold"
+        app:layout_constraintBottom_toTopOf="@+id/text_input_layout_username_signup"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/text_input_layout_username_signup"
-        android:layout_width="wrap_content"
+        android:layout_width="300dp"
         android:layout_height="wrap_content"
-        android:textColorHint="@color/white"
-        app:boxBackgroundColor="@color/primary"
-        app:boxStrokeColor="@color/white"
-        app:counterTextColor="@color/white"
-        android:layout_marginTop="15dp"
+
+        android:layout_marginTop="20dp"
+        android:textColorHint="@color/app_black"
+        app:boxBackgroundColor="@color/light_gray_1"
+        app:boxCornerRadiusBottomEnd="20dp"
+        app:boxCornerRadiusBottomStart="20dp"
+        app:boxCornerRadiusTopEnd="20dp"
+        app:boxCornerRadiusTopStart="20dp"
+
+        app:boxStrokeWidth="0dp"
+        app:boxStrokeWidthFocused="0dp"
+        app:counterTextColor="@color/app_black"
         app:errorEnabled="true"
-        app:helperTextTextColor="@color/white"
+        app:helperTextTextColor="@color/app_black"
         app:hintTextColor="@color/primary"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.496"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView4"
-        app:placeholderTextColor="@color/white"
-        app:prefixTextColor="@color/white"
-        app:suffixTextColor="@color/white">
+        app:layout_constraintTop_toBottomOf="@id/hi"
+        app:layout_constraintStart_toStartOf="parent">
 
         <EditText
             android:id="@+id/et_username_signup"
-            android:layout_width="270dp"
-            android:layout_height="wrap_content"
-            android:drawableStart="@drawable/ic_baseline_person_24"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:ems="10"
-            android:drawablePadding="5dp"
-            android:hint="Enter public username..."
+            android:hint="😊 username"
             android:inputType="textPersonName"
-            android:outlineAmbientShadowColor="@color/white"
-            android:outlineSpotShadowColor="@color/white"
-            android:shadowColor="@color/white"
-            android:textColor="@color/white"
-            android:textColorHint="@color/white"
+            android:textColor="@color/app_black"
+            android:textColorHint="@color/app_black"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.496"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/imageView4" />
+            app:layout_constraintStart_toStartOf="parent" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/text_input_layout_email_signup"
-        android:layout_width="wrap_content"
+        android:layout_width="300dp"
         android:layout_height="wrap_content"
-        android:textColorHint="@color/white"
-        app:boxBackgroundColor="@color/primary"
-        app:boxStrokeColor="@color/white"
-        app:counterTextColor="@color/white"
+
+        android:textColorHint="@color/app_black"
+        app:boxBackgroundColor="@color/light_gray_1"
+        app:boxCornerRadiusBottomEnd="20dp"
+        app:boxCornerRadiusBottomStart="20dp"
+        app:boxCornerRadiusTopEnd="20dp"
+        app:boxCornerRadiusTopStart="20dp"
+
+        app:boxStrokeWidth="0dp"
+        app:boxStrokeWidthFocused="0dp"
+        app:counterTextColor="@color/app_black"
         app:errorEnabled="true"
-        app:helperTextTextColor="@color/white"
+        app:helperTextTextColor="@color/app_black"
         app:hintTextColor="@color/primary"
+
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/text_input_layout_username_signup"
-        app:placeholderTextColor="@color/white"
-        app:prefixTextColor="@color/white"
-        app:suffixTextColor="@color/white">
+        app:layout_constraintTop_toBottomOf="@+id/text_input_layout_username_signup">
 
     <EditText
         android:id="@+id/et_email_signup"
-        android:layout_width="270dp"
-        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:ems="10"
-        android:drawablePadding="5dp"
-        android:textColor="@color/white"
-        android:textColorHint="@color/white"
-        android:outlineAmbientShadowColor="@color/white"
-        android:outlineSpotShadowColor="@color/white"
-        android:shadowColor="@color/white"
-        android:hint=" Register your email..."
-        android:drawableStart="@drawable/ic_baseline_email_24"
+
+        android:textColor="@color/app_black"
+        android:textColorHint="@color/app_black"
+        android:hint="✉️ email"
         android:inputType="textEmailAddress"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/text_input_layout_username_signup" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/text_input_layout_password1_signup"
-        android:layout_width="wrap_content"
+        android:layout_width="300dp"
         android:layout_height="wrap_content"
-        android:textColorHint="@color/white"
-        app:boxBackgroundColor="@color/primary"
-        app:boxStrokeColor="@color/white"
-        app:counterTextColor="@color/white"
+        android:textColorHint="@color/app_black"
+        app:boxBackgroundColor="@color/light_gray_1"
+        app:boxCornerRadiusBottomEnd="20dp"
+        app:boxCornerRadiusBottomStart="20dp"
+        app:boxCornerRadiusTopEnd="20dp"
+        app:boxCornerRadiusTopStart="20dp"
+
+        app:boxStrokeWidth="0dp"
+        app:boxStrokeWidthFocused="0dp"
+        app:counterTextColor="@color/app_black"
         app:errorEnabled="true"
-        app:helperTextTextColor="@color/white"
+        app:helperTextTextColor="@color/app_black"
         app:hintTextColor="@color/primary"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/text_input_layout_email_signup"
-        app:placeholderTextColor="@color/white"
-        app:prefixTextColor="@color/white"
-        app:suffixTextColor="@color/white">
-    <EditText
+        app:layout_constraintTop_toBottomOf="@+id/text_input_layout_email_signup">
+
+        <EditText
         android:id="@+id/et_password1_signup"
-        android:layout_width="270dp"
-        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:ems="10"
-        android:drawablePadding="5dp"
-        android:textColor="@color/white"
-        android:textColorHint="@color/white"
-        android:outlineAmbientShadowColor="@color/white"
-        android:outlineSpotShadowColor="@color/white"
-        android:shadowColor="@color/white"
-        android:drawableStart="@drawable/ic_baseline_lock_24"
-        android:hint=" Enter your password..."
+
+        android:textColor="@color/app_black"
+        android:textColorHint="@color/app_black"
+        android:hint="🔑 password"
         android:inputType="textPassword"
+
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/text_input_layout_email_signup" />
+
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/text_input_layout_password2_signup"
-        android:layout_width="wrap_content"
+        android:layout_width="300dp"
         android:layout_height="wrap_content"
-        android:textColorHint="@color/white"
-        app:boxBackgroundColor="@color/primary"
-        app:boxStrokeColor="@color/white"
-        app:counterTextColor="@color/white"
+
+        android:textColorHint="@color/app_black"
+        app:boxBackgroundColor="@color/light_gray_1"
+        app:boxCornerRadiusBottomEnd="20dp"
+        app:boxCornerRadiusBottomStart="20dp"
+        app:boxCornerRadiusTopEnd="20dp"
+        app:boxCornerRadiusTopStart="20dp"
+
+        app:boxStrokeWidth="0dp"
+        app:boxStrokeWidthFocused="0dp"
+        app:counterTextColor="@color/app_black"
         app:errorEnabled="true"
-        app:helperTextTextColor="@color/white"
+        app:helperTextTextColor="@color/app_black"
         app:hintTextColor="@color/primary"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/text_input_layout_password1_signup"
-        app:placeholderTextColor="@color/white"
-        app:prefixTextColor="@color/white"
-        app:suffixTextColor="@color/white">
+        app:layout_constraintTop_toBottomOf="@+id/text_input_layout_password1_signup">
 
     <EditText
         android:id="@+id/et_password2_signup"
-        android:layout_width="270dp"
-        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:ems="10"
-        android:drawablePadding="5dp"
-        android:textColor="@color/white"
-        android:textColorHint="@color/white"
-        android:outlineAmbientShadowColor="@color/white"
-        android:outlineSpotShadowColor="@color/white"
-        android:shadowColor="@color/white"
-        android:drawableStart="@drawable/ic_baseline_lock_24"
-        android:hint=" Confirm your password..."
+
+        android:textColor="@color/app_black"
+        android:textColorHint="@color/app_black"
+
+        android:hint="✔️ confirm password"
         android:inputType="textPassword"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/text_input_layout_password1_signup" />
     </com.google.android.material.textfield.TextInputLayout>
 
-    <TextView
-        android:id="@+id/textView"
+    <LinearLayout
+        android:id="@+id/choose_photo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="80dp"
-        android:layout_marginTop="16dp"
-        android:text="Choose profile photo"
-        android:textColor="@color/white"
-        android:textSize="20sp"
+        android:orientation="horizontal"
+        android:gravity="center"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/text_input_layout_password2_signup" />
-
-    <ImageButton
-        android:id="@+id/btn_add_photo_signup"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
-        android:background="@drawable/add_photo_selector"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.213"
-        app:layout_constraintStart_toEndOf="@+id/textView"
-        app:layout_constraintTop_toBottomOf="@+id/text_input_layout_password2_signup" />
+        app:layout_constraintTop_toBottomOf="@id/text_input_layout_password2_signup"
+        app:layout_constraintBottom_toTopOf="@id/text_input_layout_description_signup" >
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Choose profile photo"
+            android:textColor="@color/white"
+            android:textSize="20sp"
+            android:layout_marginRight="20dp"/>
+
+        <ImageButton
+            android:id="@+id/btn_add_photo_signup"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:background="@drawable/add_photo_selector" />
+
+    </LinearLayout>
+
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/text_input_layout_description_signup"
-        android:layout_width="wrap_content"
+        android:layout_width="300dp"
         android:layout_height="wrap_content"
-        android:textColorHint="@color/white"
-        android:layout_marginTop="18dp"
-        app:boxBackgroundColor="@color/primary"
-        app:boxStrokeColor="@color/white"
-        app:counterTextColor="@color/white"
+        android:layout_marginTop="15dp"
+
+        android:textColorHint="@color/app_black"
+        app:boxBackgroundColor="@color/light_gray_1"
+        app:boxCornerRadiusBottomEnd="20dp"
+        app:boxCornerRadiusBottomStart="20dp"
+        app:boxCornerRadiusTopEnd="20dp"
+        app:boxCornerRadiusTopStart="20dp"
+
+        app:boxStrokeWidth="0dp"
+        app:boxStrokeWidthFocused="0dp"
+        app:counterTextColor="@color/app_black"
         app:errorEnabled="true"
-        app:helperTextTextColor="@color/white"
+        app:helperTextTextColor="@color/app_black"
         app:hintTextColor="@color/primary"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView"
+        app:layout_constraintTop_toBottomOf="@+id/choose_photo"
         app:placeholderTextColor="@color/white"
         app:prefixTextColor="@color/white"
         app:suffixTextColor="@color/white">
 
         <EditText
             android:id="@+id/et_description_signup"
-            android:layout_width="360dp"
-            android:layout_height="wrap_content"
-            android:drawableStart="@drawable/ic_baseline_text_fields_24"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:ems="10"
-            android:drawablePadding="5dp"
-            android:minLines="3"
+            android:minLines="4"
             android:gravity="start"
-            android:hint=" Introduce yourself... "
+            android:hint=" 👋 Introduce yourself to foodies!!"
             android:inputType="textMultiLine"
-            android:outlineAmbientShadowColor="@color/white"
-            android:outlineSpotShadowColor="@color/white"
-            android:shadowColor="@color/white"
-            android:textColor="@color/white"
-            android:textColorHint="@color/white"
+            android:textColor="@color/app_black"
+            android:textColorHint="@color/app_black"
 
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView" />
+            app:layout_constraintTop_toBottomOf="@+id/choose_photo" />
     </com.google.android.material.textfield.TextInputLayout>
 
-    <ImageButton
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/btn_signup"
-        android:layout_width="154dp"
-        android:layout_height="37dp"
+        android:layout_width="300dp"
+        android:layout_height="55dp"
+
+        android:text="Create Account"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:textAllCaps="false"
+        android:fontFamily="@font/rubik_medium"
+        app:cornerRadius="20dp"
+        app:elevation="0dp"
+
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/text_input_layout_description_signup"
-        app:srcCompat="@drawable/signup_selector" />
+        app:layout_constraintTop_toBottomOf="@+id/text_input_layout_description_signup" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
