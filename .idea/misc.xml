@@ -38,6 +38,7 @@
         <entry key="app/src/main/res/drawable/signup_selector.xml" value="0.217" />
         <entry key="app/src/main/res/drawable/startgroup_selector.xml" value="0.217" />
         <entry key="app/src/main/res/drawable/time_selector.xml" value="0.221" />
+        <entry key="app/src/main/res/layout/activity_facebook_log_in.xml" value="0.21458333333333332" />
         <entry key="app/src/main/res/layout/activity_log_in.xml" value="0.375" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.22604166666666667" />
         <entry key="app/src/main/res/layout/activity_sign_in.xml" value="0.35505981445312507" />

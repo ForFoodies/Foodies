@@ -3,7 +3,6 @@ package com.codepath.peterhe.foodies
 import android.Manifest
 import android.annotation.SuppressLint
 import android.content.pm.PackageManager
-import android.graphics.Color
 import android.graphics.PorterDuff
 import android.graphics.drawable.Drawable
 import android.location.Location
@@ -19,7 +18,6 @@ import androidx.appcompat.widget.Toolbar
 import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
-import androidx.fragment.app.FragmentTransaction
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.DataSource
 import com.bumptech.glide.load.engine.GlideException
@@ -49,7 +47,7 @@ class MainActivity : AppCompatActivity(), LocationListener {
             View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR;//  set status text dark
         //window.statusBarColor = resources.getColor(R.color.primary_dark)
         getWindow().getDecorView().setBackgroundColor(getResources().getColor(R.color.light_gray_1))
-        // queryUser(ParseUser.getCurrentUser().objectId)
+        queryUser(ParseUser.getCurrentUser().objectId)
         val image: ParseFile? = ParseUser.getCurrentUser().getParseFile("profile")
         Log.i("Main", image?.url.toString())
         Glide.with(this@MainActivity).load(image?.url).override(32, 32).apply(
@@ -137,7 +135,8 @@ class MainActivity : AppCompatActivity(), LocationListener {
                 } else {
                     if (user != null && user.size == 1) {
                         val image: ParseFile? = user[0].getParseFile("profile")
-                        Log.i("Main", image?.url.toString())
+                       // Log.i("Main", image?.url.toString())
+                           //val imageUrl:String = user[0].getString("profile_url")!!
                         Glide.with(this@MainActivity).load(image?.url).override(32, 32).apply(
                             RequestOptions().transforms(
                                 CenterCrop(), RoundedCorners(10)
@@ -253,6 +252,12 @@ class MainActivity : AppCompatActivity(), LocationListener {
             e.printStackTrace()
         }
 
+    }
+
+    override fun onProviderDisabled(provider: String) {}
+    override fun onProviderEnabled(provider: String) {}
+    override fun onStatusChanged(provider: String?, status: Int, extras: Bundle?) {
+        Log.i("Main", "On Status Changed")
     }
 
 

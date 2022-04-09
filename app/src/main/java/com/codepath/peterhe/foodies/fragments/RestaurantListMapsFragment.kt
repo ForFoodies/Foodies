@@ -97,6 +97,9 @@ class RestaurantListMapsFragment : Fragment() {
         locationManager =
             requireContext().getSystemService(Context.LOCATION_SERVICE) as LocationManager
         locationListener = object : LocationListener {
+           /* override fun onProviderDisabled(provider: String) {}
+            override fun onProviderEnabled(provider: String) {}
+            override fun onStatusChanged(provider: String?, status: Int, extras: Bundle?) {}*/
             override fun onLocationChanged(location: Location) {
                 val userLocation = LatLng(location.getLatitude(), location.getLongitude())
                 //googleMap.addMarker(MarkerOptions().position(userLocation).title("Your Location").icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE)))

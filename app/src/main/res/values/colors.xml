@@ -19,6 +19,7 @@
 
     <color name="secondary">#FF87BBA2</color>
     <color name="secondary_dark">#FF62A786</color>
+    <color name="facebook_blue"> #FF4267B2</color>
 
 
     <color name="light_gray_on_primary">#FF6F6F6F</color>

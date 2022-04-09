@@ -12,4 +12,10 @@
     <string name="profile_me">My Profile Pic</string>
     <string name="profile_other">Other profile pic</string>
     <string name="google_maps_api_key">AIzaSyCtMTs2ikkBcdKXLKLeIX8s7deJZxHu5tI</string>
+    <string name="Google_OAuth_Client_Key">468782740069-pqp3hp0pn00j90pamq3ausnou2drr5gi.apps.googleusercontent.com</string>
+
+    <!-- Facebook -->
+    <string name="facebook_app_id">1229438741148445</string>
+    <string name="fb_login_protocol_scheme">fb1234</string>
+    <string name="facebook_client_token">34a910bb21b47da664c995fef58c83f4</string>
 </resources>
