@@ -15,222 +15,230 @@
         app:layout_constraintTop_toTopOf="parent"
         tools:src="@tools:sample/backgrounds/scenic" />
 
-    <TextView
-        android:id="@+id/tvRestaurantDetailName"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="1dp"
-        android:layout_marginStart="8dp"
-        android:textSize="25sp"
-        android:textStyle="bold"
-        android:text="Panda Express"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/ivRestaurantBackground" />
 
-    <TextView
-        android:id="@+id/tvRestaurantDetailRating"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:id="@+id/restaurantInfo"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="3dp"
-        android:layout_marginStart="8dp"
-        android:text="4.5"
-        android:textSize="15sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvRestaurantDetailName" />
+        android:orientation="vertical"
+        android:paddingHorizontal="8dp"
+        android:elevation="2dp"
+        app:layout_constraintTop_toBottomOf="@id/ivRestaurantBackground"
+        tools:layout_editor_absoluteX="16dp">
 
-    <RatingBar
-        android:id="@+id/RestaurantDetailRatingBar"
-        style="@style/Widget.AppCompat.RatingBar.Small"
-        android:layout_width="80dp"
-        android:layout_height="22dp"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="3dp"
-        android:numStars="5"
-        android:progressTint="@color/primary"
-        android:rating="4.5"
-        android:stepSize="0.5"
-        app:layout_constraintStart_toEndOf="@+id/tvRestaurantDetailRating"
-        app:layout_constraintTop_toBottomOf="@+id/tvRestaurantDetailName" />
+        <TextView
+            android:id="@+id/tvRestaurantDetailName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:fontFamily="@font/rubik_bold"
+            android:text="Panda Express"
+            android:textSize="30sp" />
 
-    <TextView
-        android:id="@+id/tvNumReviewsDetail"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="3dp"
-        android:layout_marginStart="10dp"
-        android:text="127 Reviews"
-        android:textSize="15sp"
-        app:layout_constraintStart_toEndOf="@+id/RestaurantDetailRatingBar"
-        app:layout_constraintTop_toBottomOf="@+id/tvRestaurantDetailName" />
 
-    <TextView
-        android:id="@+id/tvCategoryDetail"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Coffee Breakfast"
-        android:layout_marginTop="3dp"
-        android:layout_marginStart="8dp"
-        android:textSize="15sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvRestaurantDetailRating" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:orientation="horizontal">
 
-    <TextView
-        android:id="@+id/point1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="·"
-        android:textStyle="bold"
-        android:layout_marginTop="0dp"
-        android:layout_marginStart="5dp"
-        android:textSize="20sp"
-        app:layout_constraintStart_toEndOf="@+id/tvCategoryDetail"
-        app:layout_constraintTop_toBottomOf="@+id/RestaurantDetailRatingBar" />
+            <TextView
+                android:id="@+id/tvRestaurantDetailRating"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="3sp"
+                android:text="⭐ 4.5"
+                android:textSize="15sp" />
 
-    <TextView
-        android:id="@+id/tvPriceDetail"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="$$"
-        android:layout_marginTop="3dp"
-        android:layout_marginStart="5dp"
-        android:textSize="15sp"
-        app:layout_constraintStart_toEndOf="@+id/point1"
-        app:layout_constraintTop_toBottomOf="@+id/RestaurantDetailRatingBar" />
+            <TextView
+                android:id="@+id/tvNumReviewsDetail"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="3sp"
+                android:text="(127 Reviews)"
+                android:textSize="15sp" />
 
-    <TextView
-        android:id="@+id/point2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="·"
-        android:layout_marginTop="0dp"
-        android:layout_marginStart="5dp"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        app:layout_constraintStart_toEndOf="@+id/tvPriceDetail"
-        app:layout_constraintTop_toBottomOf="@+id/RestaurantDetailRatingBar" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="3sp"
+                android:text="·"
+                android:textSize="15sp"
+                android:textStyle="bold" />
 
-    <TextView
-        android:id="@+id/tvDistanceDetail"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="1.7 mi"
-        android:drawableStart="@drawable/ic_baseline_directions_walk_24_black"
-        android:layout_marginTop="3dp"
-        android:layout_marginStart="5dp"
-        android:textSize="15sp"
-        app:layout_constraintStart_toEndOf="@+id/point2"
-        app:layout_constraintTop_toBottomOf="@+id/RestaurantDetailRatingBar" />
+            <TextView
+                android:id="@+id/tvCategoryDetail"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Coffee Breakfast"
+                android:textSize="15sp" />
 
-    <TextView
-        android:id="@+id/tvIsClosed"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Closed"
-        android:layout_marginTop="3dp"
-        android:layout_marginStart="8dp"
-        android:textSize="15sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvCategoryDetail" />
-    <TextView
-        android:id="@+id/point3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="·"
-        android:layout_marginTop="0dp"
-        android:layout_marginStart="5dp"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        app:layout_constraintStart_toEndOf="@+id/tvIsClosed"
-        app:layout_constraintTop_toBottomOf="@+id/tvCategoryDetail" />
+            <TextView
+                android:id="@+id/point1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="3sp"
+                android:text="·"
+                android:textSize="15sp"
+                android:textStyle="bold" />
 
-    <TextView
-        android:id="@+id/tvTransactions"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Delivery, Pickup"
-        android:layout_marginTop="3dp"
-        android:layout_marginStart="5dp"
-        android:textSize="15sp"
-        android:drawableStart="@drawable/ic_baseline_check_24"
-        app:layout_constraintStart_toEndOf="@+id/point3"
-        app:layout_constraintTop_toBottomOf="@+id/tvCategoryDetail" />
+            <TextView
+                android:id="@+id/tvPriceDetail"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="$$"
+                android:textSize="15sp" />
+        </LinearLayout>
 
-    <TextView
-        android:id="@+id/tvPhone"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="+14152520800"
-        android:layout_marginTop="3dp"
-        android:layout_marginStart="8dp"
-        android:textSize="15sp"
-        android:autoLink="phone"
-        android:drawablePadding="1dp"
-        android:drawableStart="@drawable/ic_baseline_phone_24_black"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvIsClosed" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:orientation="horizontal">
 
-    <TextView
-        android:id="@+id/tvUrl"
-        android:layout_width="392dp"
-        android:layout_height="wrap_content"
-        android:text="https://www.yelp.com/biz/four-barrel-coffee-san-francisco"
-        android:autoLink="web"
-        android:maxLines="1"
-        android:layout_marginTop="3dp"
-        android:layout_marginStart="8dp"
-        android:textSize="15sp"
-        android:drawablePadding="1dp"
-        android:drawableStart="@drawable/ic_baseline_web_24"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvPhone" />
+            <TextView
+                android:id="@+id/tvDistanceDetail"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="3sp"
+                android:drawableStart="@drawable/ic_baseline_directions_walk_24_black"
+                android:text="1.7 mi"
+                android:textSize="15sp" />
 
-    <TextView
-        android:id="@+id/tvAddressDetail"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="375 Valencia St, San Franciso, CA, US, 48105"
-        android:drawableStart="@drawable/ic_baseline_location_on_24"
-        android:layout_marginTop="3dp"
-        android:layout_marginStart="8dp"
-        android:textSize="15sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvUrl" />
+            <TextView
+                android:id="@+id/point2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="3sp"
+                android:text="·"
+                android:textSize="15sp"
+                android:textStyle="bold" />
 
-    <TextView
-        android:id="@+id/textView16"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="3dp"
-        android:layout_marginStart="8dp"
-        android:textSize="16sp"
-        android:textColor="@color/primary"
-        android:text="Can't find an interesting group below?"
-        android:textStyle="italic"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvAddressDetail" />
+            <TextView
+                android:id="@+id/tvIsClosed"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Closed"
+                android:textSize="15sp" />
 
-    <ImageButton
-        android:id="@+id/btn_startGroup"
-        android:layout_width="140dp"
-        android:layout_height="27dp"
-      android:layout_marginTop="3dp"
-        android:scaleY="0.8"
-        android:scaleX="0.8"
-        android:background="@color/white"
-        android:scaleType="fitStart"
-        android:src="@drawable/startgroup_selector"
-        app:layout_constraintStart_toEndOf="@+id/textView16"
-        app:layout_constraintTop_toBottomOf="@+id/tvAddressDetail" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/tvTransactions"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+
+            android:text="Delivery, Pickup"
+            android:textSize="15sp"
+            app:drawableStartCompat="@drawable/ic_baseline_check_24" />
+
+        <View android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:layout_marginTop="10dp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:background="@color/light_gray_2"/>
+
+        <TextView
+            android:id="@+id/tvPhone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:autoLink="phone"
+            android:drawableStart="@drawable/ic_baseline_phone_24_black"
+            android:drawablePadding="1dp"
+            android:text="+14152520800"
+            android:textSize="15sp" />
+
+        <TextView
+            android:id="@+id/tvUrl"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:autoLink="web"
+            android:drawablePadding="1dp"
+            android:ellipsize="end"
+            android:maxEms="10"
+            android:maxLines="1"
+            android:text="https://d.yelp.com/biz/four-barrddel-coffee-san-franc"
+            android:textSize="15sp"
+            app:drawableStartCompat="@drawable/ic_baseline_web_24" />
+
+        <TextView
+            android:id="@+id/tvAddressDetail"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:drawableStart="@drawable/ic_baseline_location_on_24"
+            android:text="375 Valencia St, San Franciso, CA, US, 48105"
+            android:textSize="15sp" />
+
+        <View android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:layout_marginTop="10dp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:background="@color/light_gray_2"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/textView16"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="start|center"
+                android:layout_marginStart="10dp"
+                android:fontFamily="@font/rubik_medium"
+                android:text="Groups"
+                android:textColor="@color/primary"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="top"
+                android:layout_weight="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/restaurantImage" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn_startGroup"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:elevation="0dp"
+                app:icon="@android:drawable/ic_input_add"
+                app:iconTint="@color/light_gray_1"
+                android:layout_marginRight="10dp"
+                android:text="Start Group"
+                android:textAllCaps="false"
+                android:textStyle="bold"
+                android:textColor="@color/light_gray_1"
+                app:cornerRadius="20dp"/>
+
+        </LinearLayout>
+
+
+    </LinearLayout>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvGroups"
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:layout_marginTop="2dp"
+        android:backgroundTint="@color/light_gray_1"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        android:layout_marginTop="2dp"
-        app:layout_constraintTop_toBottomOf="@+id/textView16" />
+        app:layout_constraintTop_toBottomOf="@+id/restaurantInfo"
+        app:layout_constraintVertical_bias="1.0" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
