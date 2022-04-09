@@ -139,6 +139,27 @@ Optional:
 | groupID       | String | ID of the group this message was sent in |
 
 
+## Networking
+### Yelp API endpoints
+<img src="https://i.imgur.com/hc1vBEK.png" title="Yelp API list" width='900' alt="screen flow">
+
+#### List of network requests by screen
+- Discover Feed Screen
+  - (Read/GET) Query nearby restaurants from
+- Restaurant Details Screen
+  - (Read/GET) Query restaurant details information from Yelp
+  - (Read/GET) Query list of groups under this restaurants name
+- Group Details Screen
+  - (Read/GET) Read the group founder information as well as group member information
+- Message Screen
+  - (Read/GET) Query the groups current user has joined
+- Chatroom Screen
+  - (Read/Get) Query the messages sent to this chatroom
+  - (Create/Post) Create a new message in the chatroom
+- Profile Screen
+  - (Read/GET) Query logged in user object
+  - (Update/PUT) Update user profile image
+
 ## Video Walkthrough
 
 Here's a walkthrough of implemented user stories:

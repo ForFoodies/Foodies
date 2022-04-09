@@ -27,7 +27,7 @@
         <item name="android:textSize">20dp</item>
     </style>
     <style name= "RubikButtonStyle" parent= "android:Widget.Holo.Button" >
-        <item name= "android:fontFamily" > @font/rubik_medium </item>
+        <item name= "android:fontFamily" > @font/rubik_bold </item>
     </style>
 
     <style name="AppBar" parent="Widget.MaterialComponents.Toolbar">

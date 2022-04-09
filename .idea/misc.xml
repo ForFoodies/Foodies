@@ -22,6 +22,7 @@
         <entry key="app/src/main/res/drawable/home_background_selector.xml" value="0.1" />
         <entry key="app/src/main/res/drawable/home_selector.xml" value="0.1" />
         <entry key="app/src/main/res/drawable/ic_baseline_add_a_photo_24.xml" value="0.132" />
+        <entry key="app/src/main/res/drawable/ic_baseline_arrow_circle_up_24.xml" value="0.2775" />
         <entry key="app/src/main/res/drawable/ic_baseline_check_24.xml" value="0.2005" />
         <entry key="app/src/main/res/drawable/ic_baseline_email_24.xml" value="0.1575" />
         <entry key="app/src/main/res/drawable/ic_baseline_logout_24.xml" value="0.165" />
@@ -45,7 +46,7 @@
         <entry key="app/src/main/res/layout/dialog_layout.xml" value="0.29583333333333334" />
         <entry key="app/src/main/res/layout/fragment_date_time_picker.xml" value="0.3098958333333333" />
         <entry key="app/src/main/res/layout/fragment_dialogue.xml" value="0.24479166666666666" />
-        <entry key="app/src/main/res/layout/fragment_group_chat_detail.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/fragment_group_chat_detail.xml" value="0.4" />
         <entry key="app/src/main/res/layout/fragment_group_chat_list.xml" value="0.3255208333333333" />
         <entry key="app/src/main/res/layout/fragment_group_detail.xml" value="0.25" />
         <entry key="app/src/main/res/layout/fragment_restaurant.xml" value="0.22604166666666667" />

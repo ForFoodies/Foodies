@@ -29,7 +29,6 @@ class GroupChatListFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        (activity as AppCompatActivity).setSupportActionBar(view?.findViewById(R.id.my_toolbar))
         setHasOptionsMenu(true)
         return inflater.inflate(R.layout.fragment_group_chat_list, container, false)
     }

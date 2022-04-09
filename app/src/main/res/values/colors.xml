@@ -23,6 +23,7 @@
 
     <color name="light_gray_on_primary">#FF6F6F6F</color>
     <color name="light_gray_1">#FFF1F2F6</color>
+    <color name="light_gray_1_glass">#75F1F2F6</color>
     <color name="light_gray_2">#FFD7D7D7</color>
     <color name="mid_gray_1">#FF888888</color>
     <color name="mid_gray_2">#FF555555</color>
