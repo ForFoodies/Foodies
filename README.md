@@ -89,6 +89,56 @@ Optional:
 <img src="https://i.imgur.com/X6cBNGi.png" title="Overall screen flow" width='900' alt="screen flow">
 
 
+## Schema
+### Models
+#### User
+
+| Property      | Type     | Description |
+   | ------------- | -------- | ------------|
+| objectId      | String   | unique id for the user (default field) |
+| createdAt     | Date | date when user account is created (default field) |
+| updatedAt     | Date | date when user account is last updated (default field) |
+| profile       | File | user's profile photo |
+| Location      | GeoPoint | user's current location (device location) |
+| username      | String | displayed username in app |
+| password      | String | user's password |
+| email         | String | user's email. entered at sign up process |
+| description   | String | self-introduction |
+| groupList     | Array | list of groups the user has joined so far |
+
+#### Group
+
+| Property      | Type     | Description |
+   | ------------- | -------- | ------------|
+| objectId      | String   | unique id for the group (default field) |
+| createdAt     | Date | date when group is created (default field) |
+| updatedAt     | Date | date when group information is last updated (default field) |
+| restaurantName | String | the name of the restaurant group plans to meet at |
+| restaurantAddress | String | address of the restaurant |
+| restaurantID   | String | restaurant ID from Yelp API |
+| FounderID     | Pointer to User | pointer to the user who created group |
+| description   | String | group description (e.g. meeting purpose/goal) |
+| name          | String | display name of the group |
+| Time          | String | the time group will meet at restaurant |
+| Date          | String | the date group will meet at restaurant |
+| full          | Boolean | has the group reached max member number? |
+| memberList    | Array  | array of member IDs (user ID) |
+| curMember     | Number | current number of members in the group
+| maxMember     | Number | maximum number of members allowed to join the group |
+
+
+#### Message
+
+| Property      | Type     | Description |
+   | ------------- | -------- | ------------|
+| objectId      | String   | unique id for the message (default field) |
+| createdAt     | Date | date when message is sent (default field) |
+| updatedAt     | Date | date when message is last updated (default field) |
+| userID        | String | ID of the user who sent the message |
+| body          | String | message content |
+| groupID       | String | ID of the group this message was sent in |
+
+
 ## Video Walkthrough
 
 Here's a walkthrough of implemented user stories:
@@ -124,12 +174,3 @@ Start a new group registration page:
 Group Registration and back to display List of Groups:
 
 <img src='https://i.imgur.com/uFHnB7Y.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
-
-
-
-
-GIF created with [LiceCap](http://www.cockos.com/licecap/).
-<!-- 
-## Wireframes
-<img src="https://i.imgur.com/9CrjH1K.jpg" width=800><br> -->
-
