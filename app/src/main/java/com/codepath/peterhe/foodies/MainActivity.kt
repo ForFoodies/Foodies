@@ -52,7 +52,7 @@ class MainActivity : AppCompatActivity(), LocationListener {
         // queryUser(ParseUser.getCurrentUser().objectId)
         val image: ParseFile? = ParseUser.getCurrentUser().getParseFile("profile")
         Log.i("Main", image?.url.toString())
-        Glide.with(this@MainActivity).load(image?.url).override(32, 32).apply(
+        Glide.with(this@MainActivity).load(image?.url).override(40, 40).apply(
             RequestOptions().transforms(
                 CenterCrop(), RoundedCorners(30)
             )).

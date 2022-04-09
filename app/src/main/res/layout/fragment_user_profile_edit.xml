@@ -54,6 +54,7 @@
         android:layout_marginTop="50dp"
         android:text="This is a short personal introduction where you can learn more about this user."
         android:textSize="20sp"
+        android:inputType="textMultiLine"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/etUsername"
@@ -79,5 +80,8 @@
         app:layout_constraintBottom_toBottomOf="@+id/cvCircle"
         app:layout_constraintStart_toEndOf="@+id/cvCircle"
         app:srcCompat="@drawable/ic_baseline_edit_24" />
+
+
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -20,20 +20,21 @@
         app:layout_constraintVertical_bias="0.0"
         app:srcCompat="@drawable/initial_background" />
 
+
     <TextView
         android:id="@+id/textView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="60dp"
-        android:text="Welcome to Foodies!"
-        android:textSize="30sp"
-        android:textColor="@color/light_gray_1"
+        android:layout_marginTop="151dp"
         android:fontFamily="@font/rubik_bold"
+        android:text="Welcome to Foodies"
+        android:textColor="@color/light_gray_1"
+        android:textSize="30sp"
         app:layout_constraintBottom_toTopOf="@+id/textView3"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
+        app:layout_constraintTop_toTopOf="@+id/imageView" />
 
     <TextView
         android:id="@+id/textView3"
@@ -52,17 +53,17 @@
         android:layout_height="55dp"
         android:layout_marginTop="276dp"
         android:layout_marginBottom="50dp"
-        android:text="LOG IN"
+        android:fontFamily="@font/rubik_medium"
+        android:text="Log In"
+        android:textAllCaps="false"
         android:textSize="20sp"
         android:textStyle="bold"
-        android:fontFamily="@font/rubik_medium"
         app:cornerRadius="20dp"
-        app:elevation="8dp"
+        app:elevation="0dp"
         app:layout_constraintBottom_toTopOf="@+id/textView4"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-         />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
         android:id="@+id/textView4"
@@ -81,19 +82,16 @@
         android:layout_height="55dp"
         android:layout_marginTop="448dp"
         android:fontFamily="@font/rubik_medium"
-        android:text="SIGN UP"
+        android:text="Sign Up"
+        android:textAllCaps="false"
         android:textSize="20sp"
         android:textStyle="bold"
         app:backgroundTint="@color/light_gray_1"
         app:cornerRadius="20dp"
-        app:elevation="8dp"
+        app:elevation="0dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-
-
-
-
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
