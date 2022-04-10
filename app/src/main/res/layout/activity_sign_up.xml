@@ -53,6 +53,9 @@
         app:counterTextColor="@color/app_black"
         app:errorEnabled="true"
         app:errorTextColor="@color/red"
+        app:errorIconTint="@color/red"
+
+
         app:helperTextTextColor="@color/app_black"
         app:hintTextColor="@color/primary"
         app:layout_constraintEnd_toEndOf="parent"
@@ -92,6 +95,7 @@
         app:helperTextTextColor="@color/app_black"
         app:hintTextColor="@color/primary"
         app:errorTextColor="@color/red"
+        app:errorIconTint="@color/red"
 
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -130,6 +134,7 @@
         app:helperTextTextColor="@color/app_black"
         app:hintTextColor="@color/primary"
         app:errorTextColor="@color/red"
+        app:errorIconTint="@color/red"
 
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -171,6 +176,7 @@
         app:helperTextTextColor="@color/app_black"
         app:hintTextColor="@color/primary"
         app:errorTextColor="@color/red"
+        app:errorIconTint="@color/red"
 
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -241,6 +247,7 @@
         app:helperTextTextColor="@color/app_black"
         app:hintTextColor="@color/primary"
         app:errorTextColor="@color/red"
+        app:errorIconTint="@color/red"
 
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
