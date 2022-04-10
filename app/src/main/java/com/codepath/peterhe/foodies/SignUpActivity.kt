@@ -1,30 +1,34 @@
 package com.codepath.peterhe.foodies
 
 import android.content.Intent
+import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.net.Uri
 import android.os.Bundle
-import android.widget.EditText
-import android.widget.ImageButton
-import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
-import com.google.android.material.textfield.TextInputLayout
-import com.parse.ParseFile
-import com.parse.ParseUser
 import android.os.Environment
 import android.provider.MediaStore
 import android.util.Log
 import android.view.View
+import android.widget.EditText
+import android.widget.ImageButton
+import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.FileProvider
 import com.google.android.material.button.MaterialButton
+import com.google.android.material.textfield.TextInputLayout
+import com.parse.ParseException
+import com.parse.ParseFile
+import com.parse.ParseUser
+import com.parse.SaveCallback
 import java.io.*
 
 
 class SignUpActivity : AppCompatActivity() {
     var photoFile: File? = null
     val photoFileName = "photo.jpg"
-    private lateinit var selectedImageUri: Uri
+    private var selectedImageUri: Uri? = null
     private lateinit var mCurrentPhotoPath: String
+    private lateinit var selectedImage: Bitmap
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_sign_up)
@@ -62,26 +66,6 @@ class SignUpActivity : AppCompatActivity() {
                     password2
                 ) && (selectedImageUri != null)
             ) {
-                /*   var image: ByteArray? = null
-                   try {
-                       image = readInFile(mCurrentPhotoPath)
-                   } catch (e: Exception) {
-                       e.printStackTrace()
-                   }*/
-                // Create the ParseFile
-                // Create the ParseFile
-                /* photoFile = ParseFile("picturePath", image)
-                 photoFile!!.saveInBackground(object : SaveCallback {
-                     override fun done(e: ParseException?) {
-                         // If successful add file to user and signUpInBackground
-                         if (null == e) {
-                             signUpUser(username, password1, email, description,photoFile!!)
-                         } else {
-                             Toast.makeText(this@SignUpActivity,"Failed to save profile photo",Toast.LENGTH_SHORT).show()
-                             e.printStackTrace()
-                         }
-                     }
-                 })*/
                 signUpUser(username, password1, email, description)
             } else {
                 if (username == "") {
@@ -144,15 +128,10 @@ class SignUpActivity : AppCompatActivity() {
         user.setPassword(password)
         user.setEmail(email)
         user.put("description", description)
-        //user.put("profile", ParseFile(picture))
         user.signUpInBackground { e ->
             if (e == null) {
                 // Hooray! Let them use the app now
-                submitUserUpdate()
-                Toast.makeText(this, "Account created successfully!", Toast.LENGTH_SHORT).show()
-                intent = Intent(this@SignUpActivity, MainActivity::class.java)
-                startActivity(intent)
-                finish()
+                    submitUserUpdate()
             } else {
                 // Sign up didn't succeed. Look at the ParseException
                 // to figure out what went wrong
@@ -169,14 +148,14 @@ class SignUpActivity : AppCompatActivity() {
         // intent of the type image
         val i = Intent()
         i.type = "image/*"
-        i.action = Intent.ACTION_GET_CONTENT
+        i.action = Intent.ACTION_PICK
         photoFile = getPhotoFileUri(photoFileName)
         // wrap File object into a content provider
         // required for API >= 24
         // See https://guides.codepath.com/android/Sharing-Content-with-Intents#sharing-files-with-api-24-or-higher
         if (photoFile != null) {
             val fileProvider: Uri =
-                FileProvider.getUriForFile(this, "com.foodies.fileprovider", photoFile!!)
+                FileProvider.getUriForFile(this, "com.codepath.fileprovider", photoFile!!)
             i.putExtra(MediaStore.EXTRA_OUTPUT, fileProvider)
 
             // If you call startActivityForResult() using an intent that no app can handle, your app will crash.
@@ -186,7 +165,6 @@ class SignUpActivity : AppCompatActivity() {
             // So as long as the result is not null, it's safe to use the intent.
             if (i.resolveActivity(packageManager) != null) {
                 // Start the image capture intent to take photo
-                // startActivityForResult(intent, SELECT_PICTURE)
                 startActivityForResult(Intent.createChooser(i, "Select Picture"), SELECT_PICTURE)
             }
         }
@@ -194,10 +172,6 @@ class SignUpActivity : AppCompatActivity() {
         // with the returned requestCode
         // startActivityForResult(Intent.createChooser(i, "Select Picture"), SELECT_PICTURE)
     }
-    /*fun imageChooser() {
-        val galleryIntent = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
-        startActivityForResult(galleryIntent, RESULT_LOAD_IMAGE)
-    }*/
 
     // this function is triggered when user
     // selects the image from the imageChooser
@@ -208,15 +182,17 @@ class SignUpActivity : AppCompatActivity() {
             // SELECT_PICTURE constant
             if (requestCode == SELECT_PICTURE) {
                 // Get the url of the image from data
-                selectedImageUri = data?.data!!
-                if (null != selectedImageUri) {
+                 selectedImageUri = data?.data!! //
+                if (null != selectedImageUri) {//
                     // update the preview image in the layout
                     // by this point we have the camera photo on disk
-                    val takenImage = BitmapFactory.decodeFile(photoFile!!.absolutePath)
+                   // val takenImage = BitmapFactory.decodeFile(photoFile!!.absolutePath)
                     // RESIZE BITMAP, see section below
                     // Load the taken image into a preview
                     val ivPreview: ImageButton = findViewById(R.id.btn_add_photo_signup)
-                    ivPreview.setImageBitmap(takenImage)
+                    val imageStream:InputStream = getContentResolver().openInputStream(selectedImageUri!!)!!
+                    selectedImage = BitmapFactory.decodeStream(imageStream)
+                    ivPreview.setImageBitmap(selectedImage)
                 }
             }
         }
@@ -230,7 +206,8 @@ class SignUpActivity : AppCompatActivity() {
         // Use `getExternalFilesDir` on Context to access package-specific directories.
         // This way, we don't need to request external read/write runtime permissions.
         val mediaStorageDir =
-            File(getExternalFilesDir(Environment.DIRECTORY_PICTURES), TAG)
+           File(getExternalFilesDir(Environment.DIRECTORY_PICTURES), TAG)
+
 
         // Create the storage directory if it does not exist
         if (!mediaStorageDir.exists() && !mediaStorageDir.mkdirs()) {
@@ -242,18 +219,34 @@ class SignUpActivity : AppCompatActivity() {
     }
 
     private fun submitUserUpdate() {
-        val user = ParseUser.getCurrentUser()
-        user.put("profile", ParseFile(photoFile))
-        user.saveInBackground { exception ->
-            if (exception != null) {
-                //Log.e(TAG, "ERROR submitting a post")
-                exception.printStackTrace()
-                Toast.makeText(this, "Error adding profile photo", Toast.LENGTH_SHORT).show()
-            } else {
-                //Log.i(TAG, "Successfully submitted a post")
-                Toast.makeText(this, "Successfully added profile photo", Toast.LENGTH_SHORT).show()
+        val byteArrayOutputStream = ByteArrayOutputStream()
+        selectedImage.compress(Bitmap.CompressFormat.PNG, 100, byteArrayOutputStream)
+        val imageByte = byteArrayOutputStream.toByteArray()
+        val parseFile = ParseFile("image_file.png", imageByte)
+        parseFile.saveInBackground(object:SaveCallback{
+            override fun done(e: ParseException?) {
+                Log.i(TAG, "done")
+                if (e == null) {
+                    Log.i(TAG, "done1")
+                    val user = ParseUser.getCurrentUser()
+                    user.put("profile", parseFile)
+                    user.saveInBackground { exception ->
+                        if (exception != null) {
+                            exception.printStackTrace()
+                        } else {
+                            //Toast.makeText(req, "Account created successfully!", Toast.LENGTH_SHORT).show()
+                            intent = Intent(this@SignUpActivity, MainActivity::class.java)
+                            startActivity(intent)
+                            finish()
+                        }
+                    }
+                }else {
+                    e.printStackTrace()
+                }
             }
-        }
+
+        })
+
     }
 
     companion object {

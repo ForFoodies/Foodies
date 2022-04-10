@@ -1,6 +1,7 @@
 package com.codepath.peterhe.foodies.fragments
 
 import android.content.Intent
+import android.graphics.Bitmap
 import android.net.Uri
 import android.os.Bundle
 import android.os.Environment
@@ -87,7 +88,8 @@ class EditProfileFragment : Fragment() {
         // intent of the type image
         val i = Intent()
         i.type = "image/*"
-        i.action = Intent.ACTION_GET_CONTENT
+        //i.action = Intent.ACTION_GET_CONTENT
+        i.action = Intent.ACTION_PICK
         photoFile = getPhotoFileUri(photoFileName)
         // wrap File object into a content provider
         // required for API >= 24
@@ -145,11 +147,13 @@ class EditProfileFragment : Fragment() {
                 if (null != selectedImageUri) {
                     // update the preview image in the layout
                     // by this point we have the camera photo on disk
-                    val takenImage = BitmapFactory.decodeFile(photoFile!!.absolutePath)
+                   val imageStream:InputStream = requireContext().getContentResolver().openInputStream(selectedImageUri)!!
+                    //val takenImage = BitmapFactory.decodeFile(photoFile!!.absolutePath)
+                    val selectedImage: Bitmap = BitmapFactory.decodeStream(imageStream)
                     // RESIZE BITMAP, see section below
                     // Load the taken image into a preview
                     val ivPreview: ImageButton = view?.findViewById(R.id.btn_add_photo_signup)!!
-                    ivPreview.setImageBitmap(takenImage)
+                    ivPreview.setImageBitmap(selectedImage)
                 }
             }
         }
@@ -157,7 +161,7 @@ class EditProfileFragment : Fragment() {
     }
 
     companion object {
-        const val SELECT_PHOTO = 200
+        const val SELECT_PHOTO = 27
         const val TAG = "EDIT_PROFILE"
     }
 }
