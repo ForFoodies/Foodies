@@ -22,6 +22,7 @@ import com.codepath.peterhe.foodies.SignUpActivity
 import com.parse.ParseUser
 import java.io.File
 import android.graphics.BitmapFactory
+import android.text.method.HideReturnsTransformationMethod
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.textfield.TextInputLayout
 import com.parse.ParseFile
@@ -33,6 +34,7 @@ class EditProfileFragment : Fragment() {
     lateinit var user: ParseUser
     lateinit var username: EditText
     lateinit var bio: EditText
+    lateinit var password: EditText
     var photoFile: File? = null
     val photoFileName = "photo.jpg"
     private lateinit var selectedImageUri: Uri
@@ -48,11 +50,10 @@ class EditProfileFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // TODO: add a back button, also for discover pages so all is consistent?
-        // TODO: update password and email?
         user = ParseUser.getCurrentUser()
         username = view.findViewById<EditText>(R.id.etUsername)
         bio = view.findViewById<EditText>(R.id.etBio)
+        password = view.findViewById<EditText>(R.id.etPassword)
 
         // show current info
         username.setText(user.username)
@@ -68,10 +69,12 @@ class EditProfileFragment : Fragment() {
             // get EditText fields
             val newUsername = username.text.toString()
             val newBio = bio.text.toString()
+            val newPassword = password.text.toString()
 
             // update user info in parse
             user.put("username", newUsername);
             user.put("description", newBio);
+            user.setPassword(newPassword)
             user.saveInBackground()
 
             // go back to profile fragment
@@ -96,7 +99,11 @@ class EditProfileFragment : Fragment() {
         // See https://guides.codepath.com/android/Sharing-Content-with-Intents#sharing-files-with-api-24-or-higher
         if (photoFile != null) {
             val fileProvider: Uri =
-                FileProvider.getUriForFile(requireContext(), "com.foodies.fileprovider", photoFile!!)
+                FileProvider.getUriForFile(
+                    requireContext(),
+                    "com.foodies.fileprovider",
+                    photoFile!!
+                )
             i.putExtra(MediaStore.EXTRA_OUTPUT, fileProvider)
 
             // If you call startActivityForResult() using an intent that no app can handle, your app will crash.
@@ -107,7 +114,8 @@ class EditProfileFragment : Fragment() {
             if (i.resolveActivity(requireContext().packageManager) != null) {
                 // Start the image capture intent to take photo
                 // startActivityForResult(intent, SELECT_PICTURE)
-                startActivityForResult(Intent.createChooser(i, "Select Picture"),
+                startActivityForResult(
+                    Intent.createChooser(i, "Select Picture"),
                     SELECT_PHOTO
                 )
             }
@@ -123,7 +131,10 @@ class EditProfileFragment : Fragment() {
         // Use `getExternalFilesDir` on Context to access package-specific directories.
         // This way, we don't need to request external read/write runtime permissions.
         val mediaStorageDir =
-            File(requireContext().getExternalFilesDir(Environment.DIRECTORY_PICTURES), SignUpActivity.TAG)
+            File(
+                requireContext().getExternalFilesDir(Environment.DIRECTORY_PICTURES),
+                SignUpActivity.TAG
+            )
 
         // Create the storage directory if it does not exist
         if (!mediaStorageDir.exists() && !mediaStorageDir.mkdirs()) {
