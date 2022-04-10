@@ -1,7 +1,13 @@
 package com.codepath.peterhe.foodies.fragments
 
+import android.R.attr.bitmap
+import android.app.Activity.RESULT_OK
 import android.content.Intent
 import android.graphics.Bitmap
+import android.graphics.BitmapFactory
+import android.graphics.PorterDuff
+import android.graphics.drawable.BitmapDrawable
+import android.graphics.drawable.Drawable
 import android.net.Uri
 import android.os.Bundle
 import android.os.Environment
@@ -10,24 +16,22 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.EditText
-import android.widget.ImageButton
-import android.widget.Toast
+import android.widget.*
 import androidx.core.content.FileProvider
 import androidx.fragment.app.Fragment
-import com.codepath.peterhe.foodies.MainActivity
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.DataSource
+import com.bumptech.glide.load.engine.GlideException
+import com.bumptech.glide.load.resource.bitmap.CenterCrop
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners
+import com.bumptech.glide.request.RequestListener
+import com.bumptech.glide.request.RequestOptions
+import com.bumptech.glide.request.target.Target
 import com.codepath.peterhe.foodies.R
-import com.codepath.peterhe.foodies.SignUpActivity
-import com.parse.ParseUser
-import java.io.File
-import android.graphics.BitmapFactory
-import android.text.method.HideReturnsTransformationMethod
-import androidx.appcompat.app.AppCompatActivity
-import com.google.android.material.textfield.TextInputLayout
-import com.parse.ParseFile
-import com.google.android.material.button.MaterialButton
+import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.parse.*
 import java.io.*
+
 
 class EditProfileFragment : Fragment() {
 
@@ -35,9 +39,11 @@ class EditProfileFragment : Fragment() {
     lateinit var username: EditText
     lateinit var bio: EditText
     lateinit var password: EditText
+
     var photoFile: File? = null
-    val photoFileName = "photo.jpg"
-    private lateinit var selectedImageUri: Uri
+    val photoFileName = "Photo.jpg"
+    private var selectedImageUri: Uri? = null
+    private lateinit var selectedImage: Bitmap
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -77,10 +83,17 @@ class EditProfileFragment : Fragment() {
             user.setPassword(newPassword)
             user.saveInBackground()
 
+
+
             // go back to profile fragment
-            val transaction = requireActivity().supportFragmentManager.beginTransaction()
-            transaction.replace(R.id.flContainer, UserProfileFragment())
-            transaction.commit()
+            if (photoFile == null) {
+                val transaction = requireActivity().supportFragmentManager.beginTransaction()
+                transaction.replace(R.id.flContainer, UserProfileFragment())
+                transaction.commit()
+            } else {
+                submitUserUpdate()
+            }
+
         }
     }
 
@@ -91,7 +104,6 @@ class EditProfileFragment : Fragment() {
         // intent of the type image
         val i = Intent()
         i.type = "image/*"
-        //i.action = Intent.ACTION_GET_CONTENT
         i.action = Intent.ACTION_PICK
         photoFile = getPhotoFileUri(photoFileName)
         // wrap File object into a content provider
@@ -99,11 +111,7 @@ class EditProfileFragment : Fragment() {
         // See https://guides.codepath.com/android/Sharing-Content-with-Intents#sharing-files-with-api-24-or-higher
         if (photoFile != null) {
             val fileProvider: Uri =
-                FileProvider.getUriForFile(
-                    requireContext(),
-                    "com.foodies.fileprovider",
-                    photoFile!!
-                )
+                FileProvider.getUriForFile(requireContext(), "com.codepath.fileprovider", photoFile!!)
             i.putExtra(MediaStore.EXTRA_OUTPUT, fileProvider)
 
             // If you call startActivityForResult() using an intent that no app can handle, your app will crash.
@@ -113,11 +121,7 @@ class EditProfileFragment : Fragment() {
             // So as long as the result is not null, it's safe to use the intent.
             if (i.resolveActivity(requireContext().packageManager) != null) {
                 // Start the image capture intent to take photo
-                // startActivityForResult(intent, SELECT_PICTURE)
-                startActivityForResult(
-                    Intent.createChooser(i, "Select Picture"),
-                    SELECT_PHOTO
-                )
+                startActivityForResult(Intent.createChooser(i, "Select Picture"), SELECT_PHOTO)
             }
         }
         // pass the constant to compare it
@@ -131,14 +135,12 @@ class EditProfileFragment : Fragment() {
         // Use `getExternalFilesDir` on Context to access package-specific directories.
         // This way, we don't need to request external read/write runtime permissions.
         val mediaStorageDir =
-            File(
-                requireContext().getExternalFilesDir(Environment.DIRECTORY_PICTURES),
-                SignUpActivity.TAG
-            )
+            File(requireContext().getExternalFilesDir(Environment.DIRECTORY_PICTURES), TAG)
+
 
         // Create the storage directory if it does not exist
         if (!mediaStorageDir.exists() && !mediaStorageDir.mkdirs()) {
-            Log.d(SignUpActivity.TAG, "failed to create directory")
+            Log.d(TAG, "failed to create directory")
         }
 
         // Return the file target for the photo based on filename
@@ -149,26 +151,118 @@ class EditProfileFragment : Fragment() {
     // selects the image from the imageChooser
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        if (resultCode == AppCompatActivity.RESULT_OK) {
+        if (resultCode == RESULT_OK) {
             // compare the resultCode with the
             // SELECT_PICTURE constant
             if (requestCode == SELECT_PHOTO) {
                 // Get the url of the image from data
-                selectedImageUri = data?.data!!
-                if (null != selectedImageUri) {
+                selectedImageUri = data?.data!! //
+                if (null != selectedImageUri) {//
                     // update the preview image in the layout
                     // by this point we have the camera photo on disk
-                   val imageStream:InputStream = requireContext().getContentResolver().openInputStream(selectedImageUri)!!
-                    //val takenImage = BitmapFactory.decodeFile(photoFile!!.absolutePath)
-                    val selectedImage: Bitmap = BitmapFactory.decodeStream(imageStream)
+                    // val takenImage = BitmapFactory.decodeFile(photoFile!!.absolutePath)
                     // RESIZE BITMAP, see section below
                     // Load the taken image into a preview
-                    val ivPreview: ImageButton = view?.findViewById(R.id.btn_add_photo_signup)!!
+                    val ivPreview: ImageView = view?.findViewById(R.id.ivProfileImage)!!
+                    val imageStream:InputStream = requireContext().getContentResolver().openInputStream(selectedImageUri!!)!!
+                    selectedImage = BitmapFactory.decodeStream(imageStream)
                     ivPreview.setImageBitmap(selectedImage)
                 }
             }
         }
 
+    }
+
+    private fun submitUserUpdate() {
+        val byteArrayOutputStream = ByteArrayOutputStream()
+        selectedImage.compress(Bitmap.CompressFormat.PNG, 100, byteArrayOutputStream)
+        val imageByte = byteArrayOutputStream.toByteArray()
+        val parseFile = ParseFile("image_file.png", imageByte)
+        parseFile.saveInBackground(object: SaveCallback {
+            override fun done(e: ParseException?) {
+                Log.i(TAG, "done")
+                if (e == null) {
+                    Log.i(TAG, "done1")
+                    val user = ParseUser.getCurrentUser()
+                    user.put("profile", parseFile)
+                    user.saveInBackground { exception ->
+                        if (exception != null) {
+                            exception.printStackTrace()
+                        } else {
+                            //Toast.makeText(req, "Account created successfully!", Toast.LENGTH_SHORT).show()
+                            Log.i(TAG, "done1.1.1.1")
+                            val d: Drawable = BitmapDrawable(getResources(), Bitmap.createScaledBitmap(selectedImage, 32, 32, true))
+                           requireActivity().findViewById<BottomNavigationView>(R.id.bottom_navigation)?.getMenu()
+                                ?.getItem(2)?.setIcon(d)
+
+                            val transaction = requireActivity().supportFragmentManager.beginTransaction()
+                            transaction.replace(R.id.flContainer, UserProfileFragment())
+                            transaction.commit()
+                        }
+                    }
+                }else {
+                    e.printStackTrace()
+                }
+            }
+
+        })
+
+    }
+
+    fun queryUser(userId: String) {
+        val query: ParseQuery<ParseUser> = ParseQuery.getQuery(ParseUser::class.java)
+        query.include(ParseUser.KEY_OBJECT_ID)
+        query.limit = 1
+        query.whereEqualTo(ParseUser.KEY_OBJECT_ID, userId)
+        query.findInBackground(object : FindCallback<ParseUser> {
+            override fun done(user: MutableList<ParseUser>?, e: ParseException?) {
+                if (e != null) {
+                    //Log.e(TAG, "Error getting posts")
+                    Toast.makeText(requireContext(), "Error getting members", Toast.LENGTH_SHORT)
+                        .show()
+                } else {
+                    if (user != null && user.size == 1) {
+                        val image: ParseFile? = user[0].getParseFile("profile")
+                        // Log.i("Main", image?.url.toString())
+                        //val imageUrl:String = user[0].getString("profile_url")!!
+                        Glide.with(requireContext()).load(image?.url).override(32, 32).apply(
+                            RequestOptions().transforms(
+                                CenterCrop(), RoundedCorners(50)
+                            )
+                        ).listener(object : RequestListener<Drawable> {
+                            override fun onLoadFailed(
+                                p0: GlideException?,
+                                p1: Any?,
+                                p2: Target<Drawable>?,
+                                p3: Boolean
+                            ): Boolean {
+                                //Log.e(TAG, "onLoadFailed")
+                                //do something if error loading
+                                return false
+                            }
+
+                            override fun onResourceReady(
+                                p0: Drawable?,
+                                p1: Any?,
+                                p2: Target<Drawable>?,
+                                p3: DataSource?,
+                                p4: Boolean
+                            ): Boolean {
+                                //Log.d(TAG, "OnResourceReady")
+                                //do something when picture already loaded
+                                view?.findViewById<BottomNavigationView>(R.id.bottom_navigation)?.getMenu()
+                                    ?.getItem(2)?.setIconTintMode(PorterDuff.Mode.DST)
+                                view?.findViewById<BottomNavigationView>(R.id.bottom_navigation)?.getMenu()
+                                    ?.getItem(2)?.setIcon(p0)
+                                return false
+                            }
+                        }).into(view?.findViewById<ImageView>(R.id.iv_profilePlaceHolder)!!)
+
+                    }
+                }
+            }
+
+        })
     }
 
     companion object {

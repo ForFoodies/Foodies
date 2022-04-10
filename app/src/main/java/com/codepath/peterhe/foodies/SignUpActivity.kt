@@ -27,7 +27,6 @@ class SignUpActivity : AppCompatActivity() {
     var photoFile: File? = null
     val photoFileName = "photo.jpg"
     private var selectedImageUri: Uri? = null
-    private lateinit var mCurrentPhotoPath: String
     private lateinit var selectedImage: Bitmap
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -235,7 +234,7 @@ class SignUpActivity : AppCompatActivity() {
                             exception.printStackTrace()
                         } else {
                             //Toast.makeText(req, "Account created successfully!", Toast.LENGTH_SHORT).show()
-                            intent = Intent(this@SignUpActivity, MainActivity::class.java)
+                            val intent = Intent(this@SignUpActivity, MainActivity::class.java)
                             startActivity(intent)
                             finish()
                         }

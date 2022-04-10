@@ -141,7 +141,7 @@ class MainActivity : AppCompatActivity(), LocationListener {
                         //val imageUrl:String = user[0].getString("profile_url")!!
                         Glide.with(this@MainActivity).load(image?.url).override(32, 32).apply(
                             RequestOptions().transforms(
-                                CenterCrop(), RoundedCorners(50)
+                                CenterCrop()
                             )
                         ).listener(object : RequestListener<Drawable> {
                             override fun onLoadFailed(
