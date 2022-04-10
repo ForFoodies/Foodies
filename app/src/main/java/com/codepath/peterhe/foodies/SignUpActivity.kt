@@ -1,5 +1,6 @@
 package com.codepath.peterhe.foodies
 
+import android.app.ProgressDialog
 import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
@@ -12,6 +13,7 @@ import android.view.View
 import android.widget.EditText
 import android.widget.ImageButton
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.FileProvider
 import com.google.android.material.button.MaterialButton
@@ -28,6 +30,7 @@ class SignUpActivity : AppCompatActivity() {
     val photoFileName = "photo.jpg"
     private var selectedImageUri: Uri? = null
     private lateinit var selectedImage: Bitmap
+    private var progressDialog: ProgressDialog? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_sign_up)
@@ -120,10 +123,62 @@ class SignUpActivity : AppCompatActivity() {
         email: String,
         description: String = ""
     ) {
+        progressDialog?.show()
         // Create the ParseUser
         val user = ParseUser()
+        val byteArrayOutputStream = ByteArrayOutputStream()
+        selectedImage.compress(Bitmap.CompressFormat.PNG, 100, byteArrayOutputStream)
+        val imageByte = byteArrayOutputStream.toByteArray()
+        val parseFile = ParseFile("image_file.png", imageByte)
+        parseFile.saveInBackground(object:SaveCallback{
+            override fun done(e: ParseException?) {
+                // Log.i(TAG, "done")
+                if (e == null) {
+                    //Log.i(TAG, "done1")
+                   // val user = ParseUser.getCurrentUser()
+                    user.put("profile", parseFile)
+                    // Set fields for the user to be created
+                    user.setUsername(username)
+                    user.setPassword(password)
+                    user.setEmail(email)
+                    user.put("description", description)
+                    user.signUpInBackground { e ->
+                        if (e == null) {
+                            // Hooray! Let them use the app now
+                            ParseUser.logOut();
+                            showAlert("Account Created Successfully!","Please verify your email before Login", false)
+                        } else {
+                            // Sign up didn't succeed. Look at the ParseException
+                            // to figure out what went wrong
+                            // Toast.makeText(this, "Failed to create an account", Toast.LENGTH_SHORT).show()
+                            // e.printStackTrace()
+                            ParseUser.logOut();
+                            showAlert("Error Account Creation failed","Account could not be created" + " :" + e?.message,true)
+                        }
+                    }
+                    /*user.saveInBackground { exception ->
+                        progressDialog?.dismiss()
+                        if (exception != null) {
+                            exception.printStackTrace()
+                            ParseUser.logOut();
+                            showAlert("Error Account Creation failed","Account could not be created" + " :" + e?.message,true)
+                        } else {
+                            //Toast.makeText(req, "Account created successfully!", Toast.LENGTH_SHORT).show()
+                            /*val intent = Intent(this@SignUpActivity, MainActivity::class.java)
+                            startActivity(intent)
+                            finish()*/
+                            ParseUser.logOut();
+                            showAlert("Account Created Successfully!","Please verify your email before Login", false)
+                        }
+                    }*/
+                }else {
+                    e.printStackTrace()
+                }
+            }
+
+        })
         // Set fields for the user to be created
-        user.setUsername(username)
+        /*user.setUsername(username)
         user.setPassword(password)
         user.setEmail(email)
         user.put("description", description)
@@ -134,10 +189,12 @@ class SignUpActivity : AppCompatActivity() {
             } else {
                 // Sign up didn't succeed. Look at the ParseException
                 // to figure out what went wrong
-                Toast.makeText(this, "Failed to create an account", Toast.LENGTH_SHORT).show()
-                e.printStackTrace()
+               // Toast.makeText(this, "Failed to create an account", Toast.LENGTH_SHORT).show()
+               // e.printStackTrace()
+                ParseUser.logOut();
+                showAlert("Error Account Creation failed","Account could not be created" + " :" + e?.message,true)
             }
-        }
+        }*/
     }
 
     // this function is triggered when
@@ -191,7 +248,8 @@ class SignUpActivity : AppCompatActivity() {
                     val ivPreview: ImageButton = findViewById(R.id.btn_add_photo_signup)
                     val imageStream:InputStream = getContentResolver().openInputStream(selectedImageUri!!)!!
                     selectedImage = BitmapFactory.decodeStream(imageStream)
-                    ivPreview.setImageBitmap(selectedImage)
+                    val selectedImage1 = Bitmap.createScaledBitmap(selectedImage, 110, 110, true)
+                    ivPreview.setImageBitmap(selectedImage1)
                 }
             }
         }
@@ -224,19 +282,24 @@ class SignUpActivity : AppCompatActivity() {
         val parseFile = ParseFile("image_file.png", imageByte)
         parseFile.saveInBackground(object:SaveCallback{
             override fun done(e: ParseException?) {
-                Log.i(TAG, "done")
+               // Log.i(TAG, "done")
                 if (e == null) {
-                    Log.i(TAG, "done1")
+                    //Log.i(TAG, "done1")
                     val user = ParseUser.getCurrentUser()
                     user.put("profile", parseFile)
                     user.saveInBackground { exception ->
+                        progressDialog?.dismiss()
                         if (exception != null) {
                             exception.printStackTrace()
+                            ParseUser.logOut();
+                            showAlert("Error Account Creation failed","Account could not be created" + " :" + e?.message,true)
                         } else {
                             //Toast.makeText(req, "Account created successfully!", Toast.LENGTH_SHORT).show()
-                            val intent = Intent(this@SignUpActivity, MainActivity::class.java)
+                            /*val intent = Intent(this@SignUpActivity, MainActivity::class.java)
                             startActivity(intent)
-                            finish()
+                            finish()*/
+                            ParseUser.logOut();
+                            showAlert("Account Created Successfully!","Please verify your email before Login", false)
                         }
                     }
                 }else {
@@ -246,6 +309,23 @@ class SignUpActivity : AppCompatActivity() {
 
         })
 
+    }
+
+    private fun showAlert(title: String, message: String, error: Boolean) {
+        val builder = AlertDialog.Builder(this)
+            .setTitle(title)
+            .setMessage(message)
+            .setPositiveButton("OK") { dialog, which ->
+                dialog.cancel()
+                // don't forget to change the line below with the names of your Activities
+                if (!error) {
+                    val intent = Intent(this@SignUpActivity, SignInActivity::class.java)
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK)
+                    startActivity(intent)
+                }
+            }
+        val ok = builder.create()
+        ok.show()
     }
 
     companion object {

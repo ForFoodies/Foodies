@@ -19,10 +19,11 @@ import com.parse.ParseUser
 import com.parse.facebook.ParseFacebookUtils
 
 class UserProfileFragment : Fragment() {
-    lateinit var user: ParseUser
-    lateinit var username: TextView
-    lateinit var profileImage: ImageView
-    lateinit var bio: TextView
+    private lateinit var user: ParseUser
+    private lateinit var username: TextView
+    private lateinit var profileImage: ImageView
+    private lateinit var bio: TextView
+    private var progressDialog: ProgressDialog? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -47,6 +48,7 @@ class UserProfileFragment : Fragment() {
         val image: ParseFile? = user.getParseFile("profile")
         Glide.with(requireContext()).load(image?.url)
             .into(profileImage)
+        progressDialog = ProgressDialog(requireContext())
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
@@ -61,8 +63,10 @@ class UserProfileFragment : Fragment() {
             //dlg.setTitle("Please, wait a moment.")
             //dlg.setMessage("Logging out...")
             //dlg.show()
+            progressDialog!!.show()
             LoginManager.getInstance().logOut()
             ParseUser.logOutInBackground { e: ParseException? ->
+                progressDialog!!.dismiss()
                 if (e == null) {
                     //dlg.dismiss()
                     showAlert("So, you're going...", "Ok...Bye-bye then", true);
