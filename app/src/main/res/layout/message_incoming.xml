@@ -26,7 +26,7 @@
         android:layout_height="35dp"
         android:layout_alignParentLeft="true"
         android:contentDescription="@string/profile_other"
-        android:src="@color/primary" />
+         />
 
     <TextView
         android:id="@+id/tvBody_incomingDetailChat"
