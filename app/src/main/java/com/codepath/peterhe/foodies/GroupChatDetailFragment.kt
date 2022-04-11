@@ -3,7 +3,7 @@ package com.codepath.peterhe.foodies
 import android.os.Bundle
 import android.util.Log
 import android.view.*
-import android.view.View.*
+import android.view.View.OnClickListener
 import android.widget.EditText
 import android.widget.ImageButton
 import android.widget.Toast
@@ -12,11 +12,12 @@ import androidx.fragment.app.FragmentTransaction
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.codepath.peterhe.foodies.fragments.GroupDetailFragment
-import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.codepath.peterhe.foodies.fragments.RestaurantListMapsFragment
 import com.parse.*
 import com.parse.livequery.ParseLiveQueryClient
 import com.parse.livequery.SubscriptionHandling
+import java.net.URI
+import java.net.URISyntaxException
 
 
 class GroupChatDetailFragment : Fragment() {
@@ -31,6 +32,7 @@ class GroupChatDetailFragment : Fragment() {
     private var mMessages:MutableList<Message> = mutableListOf()
     private var mFirstLoad:Boolean = true
     private lateinit var mAdapter:ChatAdapter
+    private var parseLiveQueryClient: ParseLiveQueryClient? = null
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -47,12 +49,18 @@ class GroupChatDetailFragment : Fragment() {
         }
         //requireActivity().setTitle("${group.getName()} Chat")
         requireActivity().actionBar?.title = "${group.getName()} Chat"
-
+        startWithCurrentUser()
         refreshMessages()
         // Enter the websocket URL of your Parse server
         //val websocketUrl = "wss://PASTE_SERVER_WEBSOCKET_URL_HERE"
-        val parseLiveQueryClient = ParseLiveQueryClient.Factory.getClient()
-        val parseQuery = ParseQuery.getQuery(Message::class.java)
+        val websocketUrl = "ws://forfoodies.back4app.com/"
+        var parseLiveQueryClient: ParseLiveQueryClient? = null
+        try {
+            parseLiveQueryClient = ParseLiveQueryClient.Factory.getClient(URI(websocketUrl))
+        } catch (e: URISyntaxException) {
+            e.printStackTrace()
+        }
+        val parseQuery : ParseQuery<Message> = ParseQuery.getQuery(Message::class.java)
         // This query can even be more granular (i.e. only refresh if the entry was added by some other user)
 
         // Connect to Parse server
@@ -60,10 +68,27 @@ class GroupChatDetailFragment : Fragment() {
         parseQuery.whereNotEqualTo(USER_ID_KEY, ParseUser.getCurrentUser().getObjectId())
         parseQuery.whereEqualTo("groupId", group.objectId)
         // Connect to Parse server
-        val subscriptionHandling = parseLiveQueryClient.subscribe(parseQuery)
+        val subscriptionHandling:SubscriptionHandling<Message>  = parseLiveQueryClient?.subscribe(parseQuery)!!
 
         // Listen for CREATE events on the Message class
-        subscriptionHandling.handleEvent(SubscriptionHandling.Event.CREATE) { query: ParseQuery<Message>?, `object`: Message? ->
+        subscriptionHandling.handleEvent(SubscriptionHandling.Event.CREATE, object:SubscriptionHandling.HandleEventCallback<Message>{
+            override fun onEvent(p0: ParseQuery<Message>?, p1: Message?) {
+                TODO("Not yet implemented")
+                Log.i("Chat", "Subscribe")
+                mMessages.add(
+                    0,
+                    p1!!
+                )
+                requireActivity().runOnUiThread(object: Runnable {
+                    override fun run() {
+                        mAdapter.notifyDataSetChanged();
+                        rvChat.scrollToPosition(0);
+                    }
+                })
+            }
+        })
+        /*{ query: ParseQuery<Message>?, `object`: Message? ->
+           Log.i("Chat", "Subscribe")
             mMessages.add(
                 0,
                 `object`!!
@@ -76,11 +101,11 @@ class GroupChatDetailFragment : Fragment() {
                     rvChat.scrollToPosition(0);
                 }
             })
-        }
+        }*/
 
 
 
-        startWithCurrentUser()
+        //startWithCurrentUser()
         setHasOptionsMenu(true)
     }
 
@@ -230,6 +255,7 @@ class GroupChatDetailFragment : Fragment() {
 
         })
     }
+
 
 
 }

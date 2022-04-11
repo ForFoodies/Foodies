@@ -69,9 +69,12 @@ dependencies {
     implementation 'com.google.android.material:material:1.0.0'
 
     // implementation 'com.facebook.android:facebook-android-sdk:5.+'
-    // implementation "com.github.parse-community:ParseFacebookUtils-Android:1.14.0"
+    //implementation "com.github.parse-community:ParseFacebookUtils-Android:3.0.0"
     implementation 'com.facebook.android:facebook-login:[8.1)'
     implementation "com.github.parse-community.Parse-SDK-Android:facebook:1.26.0"
-    // implementation 'com.facebook.android:facebook-android-sdk:4.5.0'
+    //implementation 'com.facebook.android:facebook-android-sdk:13.1.0'
+    //implementation "com.github.parse-community.Parse-SDK-Android:parse:1.26.0"
+    //implementation "com.github.parse-community:ParseFacebookUtils-Android:1.12.0"
+    //implementation 'com.facebook.android:facebook-android-sdk:4.37.0'
 
 }

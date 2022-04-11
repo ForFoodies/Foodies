@@ -4,6 +4,9 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="../../../../../layout/custom_preview.xml" value="0.1" />
+        <entry key="../../../.gradle/caches/transforms-3/24de5515fa06489978b2e2b63fdfd2cd/transformed/jetified-facebook-share-4.37.0/res/drawable/com_facebook_button_send_background.xml" value="0.1175" />
+        <entry key="../../../.gradle/caches/transforms-3/3d54ff067c5075ab7e8aa7038ec33a18/transformed/jetified-facebook-share-4.37.0/res/drawable/com_facebook_button_send_background.xml" value="0.1" />
+        <entry key="../../../.gradle/caches/transforms-3/d5b8ea1c572bddb0e124df24a23e4dd0/transformed/jetified-facebook-share-5.1.0/res/drawable/com_facebook_button_send_background.xml" value="0.1945" />
         <entry key="..\:/Users/Yufei/AndroidStudioProjects/Foodies/app/src/main/res/layout/activity_log_in.xml" value="0.2" />
         <entry key="..\:/Users/Yufei/AndroidStudioProjects/Foodies/app/src/main/res/layout/activity_main.xml" value="0.1" />
         <entry key="..\:/Users/Yufei/AndroidStudioProjects/Foodies/app/src/main/res/layout/fragment_restaurant.xml" value="0.275" />
