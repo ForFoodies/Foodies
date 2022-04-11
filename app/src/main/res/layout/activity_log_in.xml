@@ -27,7 +27,7 @@
         android:id="@+id/textView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="151dp"
+        android:layout_marginTop="140dp"
         android:fontFamily="@font/rubik_bold"
         android:text="Welcome to Foodies"
         android:textColor="@color/light_gray_1"

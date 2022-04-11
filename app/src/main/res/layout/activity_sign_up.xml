@@ -52,6 +52,10 @@
         app:boxStrokeWidthFocused="0dp"
         app:counterTextColor="@color/app_black"
         app:errorEnabled="true"
+        app:errorTextColor="@color/red"
+        app:errorIconTint="@color/red"
+
+
         app:helperTextTextColor="@color/app_black"
         app:hintTextColor="@color/primary"
         app:layout_constraintEnd_toEndOf="parent"
@@ -90,6 +94,8 @@
         app:errorEnabled="true"
         app:helperTextTextColor="@color/app_black"
         app:hintTextColor="@color/primary"
+        app:errorTextColor="@color/red"
+        app:errorIconTint="@color/red"
 
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -127,6 +133,9 @@
         app:errorEnabled="true"
         app:helperTextTextColor="@color/app_black"
         app:hintTextColor="@color/primary"
+        app:errorTextColor="@color/red"
+        app:errorIconTint="@color/red"
+
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/text_input_layout_email_signup">
@@ -166,6 +175,9 @@
         app:errorEnabled="true"
         app:helperTextTextColor="@color/app_black"
         app:hintTextColor="@color/primary"
+        app:errorTextColor="@color/red"
+        app:errorIconTint="@color/red"
+
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/text_input_layout_password1_signup">
@@ -234,6 +246,9 @@
         app:errorEnabled="true"
         app:helperTextTextColor="@color/app_black"
         app:hintTextColor="@color/primary"
+        app:errorTextColor="@color/red"
+        app:errorIconTint="@color/red"
+
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/choose_photo"
