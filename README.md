@@ -25,26 +25,26 @@ Unit 5: Group Milestone - Foodies
 
 **Required Must-have Stories**
 
-* User logs in to access groups and previous chats.
-* User creates profile when signing up for the first time. Necessary information includes username, password, interest tag (in general), short introduction, avatar.
-* User sees a list of popular restaurants with basic information around his/her location.
-* User picks a restaurant to view the restaurant details page, including two options: Create New Group or Join an Exisiting Group. 
-* The user who creates the group is the leader, and is responsible for setting up the time to meet, # of members. He/She also has the authority to accpet/deny new member application.
-* User can check the profile page of each existing group member in a group. 
-* User joins the group chat with other group members upon joining a group, and he/she is automatically excluded from the group chat when he/she decides to quit the group.
+- [X] User logs in to access groups and previous chats.
+- [X] User creates profile when signing up for the first time. Necessary information includes username, password, interest tag (in general), short introduction, avatar.
+- [X] User sees a list of popular restaurants with basic information around his/her location.
+- [X] User picks a restaurant to view the restaurant details page, including two options: Create New Group or Join an Exisiting Group. 
+- [X] The user who creates the group is the leader, and is responsible for setting up the time to meet, # of members. He/She also has the authority to accpet/deny new member application.
+- [ ] User can check the profile page of each existing group member in a group. 
+- [ ] User joins the group chat with other group members upon joining a group, and he/she is automatically excluded from the group chat when he/she decides to quit the group.
 
 **Optional Nice-to-have Stories**
 
-* User can decided to share their past visits to restaurants (good credit!).
-* Group members can rate each other after the set meeting/dining time (good credit!).
-* Group displays extra information such as a short introduction or interest tags ("Movie", "Games", "Music")
-* Group leader enters the total bill amount and splits the bill between group members.
-* User views a list of saved restaurants.
-* Search restaurant with a yelp search engine.
-* Display surrounding restaurants in Map view.
-* Direction to the restaurant (e.g. link to Google Map).
-* Settings (Accesibility, Notification, General, etc.)
-* User can sign in with other accounts (e.g. Google account).
+- [X] Search restaurant with a yelp search engine.
+- [X] Display surrounding restaurants in Map view.
+- [X] Direction to the restaurant (e.g. link to Google Map).
+- [X] User can sign in with other accounts (e.g. Google account).
+- [ ] User can decided to share their past visits to restaurants (good credit!).
+- [ ] Group members can rate each other after the set meeting/dining time (good credit!).
+- [ ] Group displays extra information such as a short introduction or interest tags ("Movie", "Games", "Music")
+- [ ] Group leader enters the total bill amount and splits the bill between group members.
+- [ ] User views a list of saved restaurants.
+
 
 ### 2. Screen Archetypes
 
