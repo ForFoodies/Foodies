@@ -85,27 +85,6 @@
         android:backgroundTint="@color/facebook_blue"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintBottom_toTopOf="@+id/btn_login_google" />
-
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/btn_login_google"
-        android:layout_width="270dp"
-        android:layout_height="55dp"
-        android:fontFamily="@font/rubik_medium"
-        android:gravity="start|center_vertical"
-        android:text="Continue with Google"
-        android:textAllCaps="false"
-        android:textSize="15sp"
-        android:textStyle="bold"
-        android:textColor="@color/app_black"
-        app:cornerRadius="20dp"
-        app:elevation="0dp"
-        app:icon="@drawable/google"
-        app:iconSize="20dp"
-        app:iconTint="@null"
-        android:backgroundTint="@color/white"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintBottom_toTopOf="@+id/redirect_signin" />
 
     <TextView

@@ -4,9 +4,6 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="../../../../../layout/custom_preview.xml" value="0.1" />
-        <entry key="../../../.gradle/caches/transforms-3/24de5515fa06489978b2e2b63fdfd2cd/transformed/jetified-facebook-share-4.37.0/res/drawable/com_facebook_button_send_background.xml" value="0.1175" />
-        <entry key="../../../.gradle/caches/transforms-3/3d54ff067c5075ab7e8aa7038ec33a18/transformed/jetified-facebook-share-4.37.0/res/drawable/com_facebook_button_send_background.xml" value="0.1" />
-        <entry key="../../../.gradle/caches/transforms-3/d5b8ea1c572bddb0e124df24a23e4dd0/transformed/jetified-facebook-share-5.1.0/res/drawable/com_facebook_button_send_background.xml" value="0.1945" />
         <entry key="..\:/Users/Yufei/AndroidStudioProjects/Foodies/app/src/main/res/layout/activity_log_in.xml" value="0.2" />
         <entry key="..\:/Users/Yufei/AndroidStudioProjects/Foodies/app/src/main/res/layout/activity_main.xml" value="0.1" />
         <entry key="..\:/Users/Yufei/AndroidStudioProjects/Foodies/app/src/main/res/layout/fragment_restaurant.xml" value="0.275" />
@@ -44,7 +41,7 @@
         <entry key="app/src/main/res/layout/activity_log_in.xml" value="0.4" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.22604166666666667" />
         <entry key="app/src/main/res/layout/activity_sign_in.xml" value="0.264" />
-        <entry key="app/src/main/res/layout/activity_sign_up.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/activity_sign_up.xml" value="0.264" />
         <entry key="app/src/main/res/layout/activity_splash.xml" value="0.3098958333333333" />
         <entry key="app/src/main/res/layout/appbar.xml" value="0.19270833333333334" />
         <entry key="app/src/main/res/layout/custom_layout_info_window_map.xml" value="0.4239583333333333" />
@@ -53,9 +50,10 @@
         <entry key="app/src/main/res/layout/fragment_dialogue.xml" value="0.24479166666666666" />
         <entry key="app/src/main/res/layout/fragment_group_chat_detail.xml" value="0.311614730878187" />
         <entry key="app/src/main/res/layout/fragment_group_chat_list.xml" value="0.3255208333333333" />
-        <entry key="app/src/main/res/layout/fragment_group_detail.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/fragment_group_detail.xml" value="0.536" />
         <entry key="app/src/main/res/layout/fragment_restaurant.xml" value="0.22604166666666667" />
         <entry key="app/src/main/res/layout/fragment_restaurant_detail.xml" value="0.3701806640625" />
+        <entry key="app/src/main/res/layout/fragment_restaurant_list_maps.xml" value="0.2875882946518668" />
         <entry key="app/src/main/res/layout/fragment_settings.xml" value="0.3098958333333333" />
         <entry key="app/src/main/res/layout/fragment_user_profile.xml" value="0.3098958333333333" />
         <entry key="app/src/main/res/layout/fragment_user_profile_edit.xml" value="0.4546875" />
