@@ -52,8 +52,7 @@ class GroupChatDetailFragment : Fragment() {
         startWithCurrentUser()
         refreshMessages()
         // Enter the websocket URL of your Parse server
-        //val websocketUrl = "wss://PASTE_SERVER_WEBSOCKET_URL_HERE"
-        val websocketUrl = "ws://forfoodies.back4app.com/"
+        val websocketUrl = "wss://forfoodies.b4a.io"
         var parseLiveQueryClient: ParseLiveQueryClient? = null
         try {
             parseLiveQueryClient = ParseLiveQueryClient.Factory.getClient(URI(websocketUrl))
@@ -73,7 +72,6 @@ class GroupChatDetailFragment : Fragment() {
         // Listen for CREATE events on the Message class
         subscriptionHandling.handleEvent(SubscriptionHandling.Event.CREATE, object:SubscriptionHandling.HandleEventCallback<Message>{
             override fun onEvent(p0: ParseQuery<Message>?, p1: Message?) {
-                TODO("Not yet implemented")
                 Log.i("Chat", "Subscribe")
                 mMessages.add(
                     0,
@@ -87,25 +85,6 @@ class GroupChatDetailFragment : Fragment() {
                 })
             }
         })
-        /*{ query: ParseQuery<Message>?, `object`: Message? ->
-           Log.i("Chat", "Subscribe")
-            mMessages.add(
-                0,
-                `object`!!
-            )
-
-            // RecyclerView updates need to be run on the UI thread
-            requireActivity().runOnUiThread(object: Runnable {
-                override fun run() {
-                    mAdapter.notifyDataSetChanged();
-                    rvChat.scrollToPosition(0);
-                }
-            })
-        }*/
-
-
-
-        //startWithCurrentUser()
         setHasOptionsMenu(true)
     }
 
@@ -199,19 +178,13 @@ class GroupChatDetailFragment : Fragment() {
             val DetailFragment = GroupDetailFragment()
             DetailFragment.setArguments(bundle)
             val ft: FragmentTransaction? = getFragmentManager()?.beginTransaction()
-            //Log.i(RestaurantFragment.TAG, "Restaurant ${allGroups[position]}")
             ft?.replace(R.id.flContainer, DetailFragment)?.commit()
-           // requireActivity().setTitle("${group.getName()}")
             requireActivity().actionBar?.title = "${group.getName()}"
             ft?.addToBackStack(null)
-            //Toast.makeText(this, "Successfully logged out", Toast.LENGTH_SHORT).show()
             true
         }
         menu.findItem(R.id.action_map_members).setOnMenuItemClickListener {item ->
             val bundle = Bundle()
-            // val sublist:ArrayList<YelpRestaurant> = arrayListOf()
-            //sublist.addAll(restaurants.subList(0,10))
-
             bundle.putParcelableArrayList("MembersMap", allMembers)
             val DetailFragment = RestaurantListMapsFragment()
             DetailFragment.setArguments(bundle)
@@ -229,10 +202,6 @@ class GroupChatDetailFragment : Fragment() {
     fun queryMembers(menu: Menu) {
         val query: ParseQuery<ParseUser> = ParseQuery.getQuery(ParseUser::class.java)
         query.include(ParseUser.KEY_OBJECT_ID)
-        //query.addDescendingOrder("createdAt")
-        //query.limit = 1
-        //query.skip = offset * 20
-       // query.whereEqualTo(ParseUser.KEY_OBJECT_ID, memberId)
         val list: ArrayList<String> = ArrayList()
         for (i in 0 until group.getMemberList()?.length()!!) {
             list.add(group.getMemberList()!!.getString(i))

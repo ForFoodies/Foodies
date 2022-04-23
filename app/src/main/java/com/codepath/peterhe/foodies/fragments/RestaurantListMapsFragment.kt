@@ -479,7 +479,7 @@ class RestaurantListMapsFragment : Fragment() {
             val address: List<Address>?
             var p1: LatLng? = null
             try {
-                address = coder.getFromLocationName(strAddress, 5)
+                address = coder.getFromLocationName(strAddress, 1)
                 if (address == null) {
                     return null
                 }
