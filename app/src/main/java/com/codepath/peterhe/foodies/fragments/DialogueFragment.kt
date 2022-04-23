@@ -53,7 +53,7 @@ class DialogueFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         //requireActivity().setTitle("Create a new Group")
         requireActivity().actionBar?.title = "Create a new Group"
-        view.setBackgroundColor(getResources().getColor(R.color.primary))
+        view.setBackgroundColor(getResources().getColor(R.color.white))
         val bundle = this.arguments
         if(bundle != null){
             restaurant = bundle.getParcelable<YelpRestaurant>("RestaurantDialog")!!
@@ -234,42 +234,42 @@ class DialogueFragment : Fragment() {
 
     private fun getMonthFormat(i1: Int): String {
         if (i1 == 1) {
-            return "JAN"
+            return "Jan"
         }
         if (i1 == 2) {
-            return "FEB"
+            return "Feb"
         }
         if (i1 == 3) {
-            return "MAR"
+            return "Mar"
         }
         if (i1 == 4) {
-            return "APR"
+            return "Apr"
         }
         if (i1 == 5) {
-            return "MAY"
+            return "May"
         }
         if (i1 == 6) {
-            return "JUN"
+            return "Jun"
         }
         if (i1 == 7) {
-            return "JUL"
+            return "Jul"
         }
         if (i1 == 8) {
-            return "AUG"
+            return "Aug"
         }
         if (i1 == 9) {
-            return "SEP"
+            return "Sep"
         }
         if (i1 == 10) {
-            return "OCT"
+            return "Oct"
         }
         if (i1 == 11) {
-            return "NOV"
+            return "Nov"
         }
         if (i1 == 12) {
-            return "DEC"
+            return "Dec"
         }
-        return "JAN"
+        return "Jan"
     }
 
     private fun openDatePicker(view: View) {
