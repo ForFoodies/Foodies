@@ -259,7 +259,7 @@
         <EditText
             android:id="@+id/et_description_signup"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="120dp"
             android:ems="10"
             android:minLines="4"
             android:gravity="start"
