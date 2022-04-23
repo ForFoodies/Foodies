@@ -19,6 +19,7 @@ import com.codepath.peterhe.foodies.Group
 import com.codepath.peterhe.foodies.GroupChatDetailFragment
 import com.codepath.peterhe.foodies.MemberAdapter
 import com.codepath.peterhe.foodies.R
+import com.google.android.material.button.MaterialButton
 import com.parse.*
 import jp.wasabeef.recyclerview.animators.SlideInUpAnimator
 import org.json.JSONArray
@@ -79,11 +80,11 @@ class GroupDetailFragment : Fragment() {
         view.findViewById<TextView>(R.id.tv_GroupNumber_detail).text = num
         val time = "${group.getTime()} ${group.getDate()}"
         view.findViewById<TextView>(R.id.tv_GroupTime_detail).text = time
-        view.findViewById<Button>(R.id.btn_cancel_groupDetail).setOnClickListener {
+        view.findViewById<MaterialButton>(R.id.btn_cancel_groupDetail).setOnClickListener {
             val fm = getFragmentManager()
             fm?.popBackStack()
         }
-        view.findViewById<Button>(R.id.btn_join_GroupDetail).setOnClickListener {
+        view.findViewById<MaterialButton>(R.id.btn_join_GroupDetail).setOnClickListener {
             if (Userjoined == false) {
                 submitGroupUpdate(ParseUser.getCurrentUser().objectId)
             } else {
@@ -109,9 +110,9 @@ class GroupDetailFragment : Fragment() {
         }
         requireActivity().setTitle("${group.getName()}")
         if (Userjoined == true) {
-            view?.findViewById<Button>(R.id.btn_join_GroupDetail)?.setText("Go to Chat")
-            view?.findViewById<Button>(R.id.btn_cancel_groupDetail)?.setEnabled(false)
-            view?.findViewById<Button>(R.id.btn_cancel_groupDetail)?.setVisibility(View.GONE)
+            view?.findViewById<MaterialButton>(R.id.btn_join_GroupDetail)?.setText("Go to Chat")
+            view?.findViewById<MaterialButton>(R.id.btn_cancel_groupDetail)?.setEnabled(false)
+            view?.findViewById<MaterialButton>(R.id.btn_cancel_groupDetail)?.setVisibility(View.GONE)
             //requireActivity().setTitle("${group.getName()} (Joined)")
             requireActivity().actionBar?.title ="${group.getName()} (Joined)"
         }
@@ -161,9 +162,9 @@ class GroupDetailFragment : Fragment() {
                 //Log.i(TAG, "Successfully submitted a post")
                 Toast.makeText(requireContext(), "Successfully joined a group", Toast.LENGTH_SHORT).show()
                 Userjoined = true
-                view?.findViewById<Button>(R.id.btn_join_GroupDetail)?.setText("Go to Chat")
-                view?.findViewById<Button>(R.id.btn_cancel_groupDetail)?.setEnabled(false)
-                view?.findViewById<Button>(R.id.btn_cancel_groupDetail)?.setVisibility(View.GONE)
+                view?.findViewById<MaterialButton>(R.id.btn_join_GroupDetail)?.setText("Go to Chat")
+                view?.findViewById<MaterialButton>(R.id.btn_cancel_groupDetail)?.setEnabled(false)
+                view?.findViewById<MaterialButton>(R.id.btn_cancel_groupDetail)?.setVisibility(View.GONE)
                // requireActivity().setTitle("${group.getName()} (Joined)")
                 requireActivity().actionBar?.title = "${group.getName()} (Joined)"
                 allMembers.add(ParseUser.getCurrentUser())
