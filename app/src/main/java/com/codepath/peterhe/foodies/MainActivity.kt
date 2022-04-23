@@ -40,9 +40,6 @@ class MainActivity : AppCompatActivity(), LocationListener {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         setSupportActionBar(findViewById(R.id.my_toolbar))
-        //ParseUser.getCurrentUser().getParseFile("profile")
-        // val image: ParseFile? = ParseUser.getCurrentUser().getParseFile("profile")
-        //Log.i("Main", image?.url.toString())
 
         window.decorView.systemUiVisibility =
             View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR;//  set status text dark
@@ -62,7 +59,6 @@ class MainActivity : AppCompatActivity(), LocationListener {
                 p2: Target<Drawable>?,
                 p3: Boolean
             ): Boolean {
-                //Log.e(TAG, "onLoadFailed")
                 //do something if error loading
                 return false
             }
@@ -76,9 +72,6 @@ class MainActivity : AppCompatActivity(), LocationListener {
             ): Boolean {
                 //Log.d(TAG, "OnResourceReady")
                 //do something when picture already loaded
-                //setColorStateList()
-                //findViewById<BottomNavigationView>(R.id.bottom_navigation).setItemIconTintList(null)
-
                 findViewById<BottomNavigationView>(R.id.bottom_navigation).getMenu().getItem(2)
                     .setIconTintMode(PorterDuff.Mode.DST)
                 findViewById<BottomNavigationView>(R.id.bottom_navigation).getMenu().getItem(2)
@@ -137,8 +130,6 @@ class MainActivity : AppCompatActivity(), LocationListener {
                 } else {
                     if (user != null && user.size == 1) {
                         val image: ParseFile? = user[0].getParseFile("profile")
-                        // Log.i("Main", image?.url.toString())
-                        //val imageUrl:String = user[0].getString("profile_url")!!
                         Glide.with(this@MainActivity).load(image?.url).override(32, 32).apply(
                             RequestOptions().transforms(
                                 CenterCrop()
@@ -200,10 +191,11 @@ class MainActivity : AppCompatActivity(), LocationListener {
     }
 
     override fun onLocationChanged(location: Location) {
-        saveCurrentUserLocation()
+        Log.i("Location","0")
+        saveCurrentUserLocation(location)
     }
 
-    private fun saveCurrentUserLocation() {
+    private fun saveCurrentUserLocation(location: Location) {
         // requesting permission to get user's location
         if (ActivityCompat.checkSelfPermission(
                 this,
@@ -219,12 +211,7 @@ class MainActivity : AppCompatActivity(), LocationListener {
                 1
             )
         } else {
-            // getting last know user's location
-            val location = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER)
-
-            // checking if the location is null
-            if (location != null) {
-                // if it isn't, save it to Back4App Dashboard
+                // save it to Back4App Dashboard
                 val currentUserLocation = ParseGeoPoint(location.latitude, location.longitude)
                 val currentUser = ParseUser.getCurrentUser()
                 if (currentUser != null) {
@@ -233,9 +220,7 @@ class MainActivity : AppCompatActivity(), LocationListener {
                 } else {
                     // do something like coming back to the login activity
                 }
-            } else {
-                // if it is null, do something like displaying error and coming back to the menu activity
-            }
+
         }
     }
 

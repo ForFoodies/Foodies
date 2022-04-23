@@ -123,10 +123,6 @@ class GroupChatDetailFragment : Fragment() {
                 message.saveInBackground(object : SaveCallback {
                     override fun done(e: ParseException?) {
                         if (e == null) {
-                            Toast.makeText(
-                                requireContext(), "Successfully created message on Parse",
-                                Toast.LENGTH_SHORT
-                            ).show()
                             refreshMessages()
                         } else {
                             Log.e(TAG, "Failed to save message", e)
