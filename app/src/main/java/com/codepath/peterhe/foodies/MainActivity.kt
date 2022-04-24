@@ -70,16 +70,11 @@ class MainActivity : AppCompatActivity(), LocationListener {
                 p3: DataSource?,
                 p4: Boolean
             ): Boolean {
-                //Log.d(TAG, "OnResourceReady")
                 //do something when picture already loaded
                 findViewById<BottomNavigationView>(R.id.bottom_navigation).getMenu().getItem(2)
                     .setIconTintMode(PorterDuff.Mode.DST)
                 findViewById<BottomNavigationView>(R.id.bottom_navigation).getMenu().getItem(2)
                     .setIcon(p0)
-                /*findViewById<BottomNavigationView>(R.id.bottom_navigation).getMenu().getItem(0).getIcon().setColorFilter(
-                    getResources().getColor(R.color.app_black), PorterDuff.Mode.SRC_ATOP)
-                findViewById<BottomNavigationView>(R.id.bottom_navigation).getMenu().getItem(1).getIcon().setColorFilter(
-                    getResources().getColor(R.color.app_black), PorterDuff.Mode.SRC_ATOP)*/
                 return false
             }
         }).into(findViewById<ImageView>(R.id.iv_profilePlaceHolder))
@@ -141,7 +136,6 @@ class MainActivity : AppCompatActivity(), LocationListener {
                                 p2: Target<Drawable>?,
                                 p3: Boolean
                             ): Boolean {
-                                //Log.e(TAG, "onLoadFailed")
                                 //do something if error loading
                                 return false
                             }
@@ -153,7 +147,6 @@ class MainActivity : AppCompatActivity(), LocationListener {
                                 p3: DataSource?,
                                 p4: Boolean
                             ): Boolean {
-                                //Log.d(TAG, "OnResourceReady")
                                 //do something when picture already loaded
                                 findViewById<BottomNavigationView>(R.id.bottom_navigation).getMenu()
                                     .getItem(2).setIconTintMode(PorterDuff.Mode.DST)
@@ -179,8 +172,6 @@ class MainActivity : AppCompatActivity(), LocationListener {
         Log.i(RestaurantFragment.TAG, "Permission Request")
         if (requestCode == 1) {
             if (grantResults.size > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                // if (ContextCompat.checkSelfPermission(requireContext(),Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED){
-                // val ft: FragmentTransaction? = getFragmentManager()?.beginTransaction()
                 fragmentManager.beginTransaction().replace(R.id.flContainer, RestaurantFragment())
                     .commit()
 
