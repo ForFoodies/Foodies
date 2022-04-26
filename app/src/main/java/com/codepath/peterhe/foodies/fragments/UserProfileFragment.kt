@@ -28,6 +28,8 @@ class UserProfileFragment : Fragment() {
     private var posts: ArrayList<Post> = arrayListOf()
     private lateinit var gridView: GridView
     private lateinit var postAdapter: GridPostAdapter
+    private var bundle: Bundle? = null
+
 
 
     override fun onCreateView(
@@ -40,13 +42,21 @@ class UserProfileFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        bundle = this.arguments
+        if(bundle != null){
+            Log.i("parceable","1")
+            user = bundle?.getParcelable<ParseUser>("MemberDetail")!!
+
+        } else {
+            Log.i("parceable","2")
+            user = ParseUser.getCurrentUser()
+        }
         binding = ActivityMainBinding.inflate(getLayoutInflater())
         gridView = view.findViewById(R.id.PostGridView)
-        queryPosts()
+        queryPosts(user)
         setHasOptionsMenu(true)
 
         // load in user information
-        user = ParseUser.getCurrentUser()
         username = view.findViewById(R.id.tvUsername)
         profileImage = view.findViewById(R.id.ivProfileImage)
         bio = view.findViewById(R.id.tvBio)
@@ -77,7 +87,7 @@ class UserProfileFragment : Fragment() {
                 progressDialog!!.dismiss()
                 if (e == null) {
                     //dlg.dismiss()
-                    showAlert("So, you're going...", "Ok...Bye-bye then", true);
+                    showAlert("Are you sure you want to leave?", "Foodies hope to see you again!", true);
                 } else {
                     //dlg.dismiss()
                     showAlert("Error...", e.message, false);
@@ -86,6 +96,8 @@ class UserProfileFragment : Fragment() {
             // alertDisplayer("So, you are going back", "Bye Bye...")
             true
         }
+        menu.findItem(R.id.action_edit).isEnabled = true
+        menu.findItem(R.id.action_edit).isVisible = true
         menu.findItem(R.id.action_edit).setOnMenuItemClickListener {
             // go into edit mode
             val transaction = requireActivity().supportFragmentManager.beginTransaction()
@@ -93,8 +105,16 @@ class UserProfileFragment : Fragment() {
             transaction.commit()
             true
         }
+
     }
 
+    override fun onPrepareOptionsMenu(menu: Menu) {
+        super.onPrepareOptionsMenu(menu)
+        if (bundle != null) {
+            menu.findItem(R.id.action_edit).isEnabled = false
+            menu.findItem(R.id.action_edit).isVisible = false
+        }
+    }
     /* private fun alertDisplayer(title: String, message: String) {
          val builder: AlertDialog.Builder = AlertDialog.Builder(requireContext()).setTitle(title).setMessage(message).setPositiveButton("OK", object:
              DialogInterface.OnClickListener{
@@ -134,8 +154,7 @@ class UserProfileFragment : Fragment() {
         ParseFacebookUtils.onActivityResult(requestCode, resultCode, data)
     }
 
-    fun queryPosts() {
-        val user = ParseUser.getCurrentUser()
+    fun queryPosts(user: ParseUser) {
         val query: ParseQuery<Post> = ParseQuery.getQuery(Post::class.java)
         query.whereEqualTo("userId",user)
         query.orderByDescending("createdAt")
@@ -145,7 +164,6 @@ class UserProfileFragment : Fragment() {
                     Toast.makeText(requireContext(), "Error getting posts", Toast.LENGTH_SHORT).show()
                 } else {
                     if (posts != null) {
-                        Log.i("Profile","1.0")
                         postAdapter = GridPostAdapter(requireContext(), posts)
                         gridView.setAdapter(postAdapter)
                         //binding.gridView.

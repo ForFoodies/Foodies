@@ -279,6 +279,7 @@ class RestaurantListMapsFragment : Fragment() {
 
         if (members != null && members!!.size > 0) {
             //googleMap.setInfoWindowAdapter(CustomInfoWindowGroupAdapter(requireContext()))
+            googleMap.setInfoWindowAdapter(CustomInfoWindowMemberAdapter(requireContext()))
             googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(userLocation!!, 15.toFloat()))
             // var mcount = 0
             for (member in members!!) {
@@ -398,6 +399,20 @@ class RestaurantListMapsFragment : Fragment() {
                 }
             })*/
             }
+            googleMap.setOnInfoWindowClickListener(object : GoogleMap.OnInfoWindowClickListener {
+                override fun onInfoWindowClick(marker: Marker) {
+                    val ft: FragmentTransaction? = getFragmentManager()?.beginTransaction()
+                    val member = marker.getTag() as ParseUser
+                    val bundle = Bundle()
+                    bundle.putParcelable("MemberDetail",member)
+                    val DetailFragment = UserProfileFragment()
+                    DetailFragment.setArguments(bundle)
+                    //Log.i(RestaurantFragment.TAG, "Restaurant ${allGroups[position]}")
+                    ft?.replace(R.id.flContainer, DetailFragment)?.commit()
+                    requireActivity().setTitle("Profile")
+                    ft?.addToBackStack(null)
+                }
+            })
         }
 
         /* val umich = LatLng(42.2780436,-83.7404128)

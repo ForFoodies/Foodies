@@ -63,13 +63,13 @@ class GroupDetailFragment : Fragment() {
             override fun onItemClick(position: Int) {
                 //final FragmentTransaction ft = getFragmentManager().beginTransaction();
                 val bundle = Bundle()
-                bundle.putParcelable("MemberDetail", allMembers[position])
-                /*val DetailFragment = GroupDetailFragment()
+                bundle.putParcelable("MemberDetail",allMembers[position])
+                val DetailFragment = UserProfileFragment()
                 DetailFragment.setArguments(bundle)
                 //Log.i(RestaurantFragment.TAG, "Restaurant ${allGroups[position]}")
                 ft?.replace(R.id.flContainer, DetailFragment)?.commit()
-                requireActivity().setTitle("${allMembers[position].getName()}")
-                ft?.addToBackStack(null)*/
+                requireActivity().setTitle("Profile")
+                ft?.addToBackStack(null)
             }
         })
 

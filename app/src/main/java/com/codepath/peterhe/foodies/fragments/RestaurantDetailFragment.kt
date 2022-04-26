@@ -133,13 +133,11 @@ class RestaurantDetailFragment : Fragment() {
         query.include(Group.RESTAURANT_KEY)
         query.addDescendingOrder("createdAt")
         query.limit = 20
-        //query.skip = offset * 20
         query.whereEqualTo(Group.RESTAURANT_KEY, restaurant.id)
         query.whereEqualTo(Group.FULL_KEY,false)
         query.findInBackground(object : FindCallback<Group> {
             override fun done(groups: MutableList<Group>?, e: ParseException?) {
                 if (e != null) {
-                    //Log.e(TAG, "Error getting posts")
                     Toast.makeText(requireContext(), "Error getting groups", Toast.LENGTH_SHORT).show()
                 } else {
                     if (groups != null) {
@@ -152,13 +150,5 @@ class RestaurantDetailFragment : Fragment() {
 
         })
     }
-    /*override fun onBackPressed() {
-        val fromNewActivity = true
-        val mainIntent = Intent(view!!.context, MainActivity::class.java)
-        val bundleObj = Bundle()
-        bundleObj.putString("fromNewActivity", Boolean.toString(fromNewActivity))
-        mainIntent.putExtras(bundleObj)
-        startActivityForResult(mainIntent, 0)
-    }*/
 
 }
