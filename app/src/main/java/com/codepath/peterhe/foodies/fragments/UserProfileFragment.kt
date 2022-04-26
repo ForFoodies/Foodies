@@ -4,19 +4,19 @@ import android.app.ProgressDialog
 import android.content.DialogInterface
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.*
 import android.widget.*
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import com.bumptech.glide.Glide
-import com.codepath.peterhe.foodies.LogInActivity
-import com.codepath.peterhe.foodies.MainActivity
+import com.codepath.peterhe.foodies.*
 import com.codepath.peterhe.foodies.R
+import com.codepath.peterhe.foodies.databinding.ActivityMainBinding
 import com.facebook.login.LoginManager
-import com.parse.ParseException
-import com.parse.ParseFile
-import com.parse.ParseUser
+import com.parse.*
 import com.parse.facebook.ParseFacebookUtils
+
 
 class UserProfileFragment : Fragment() {
     private lateinit var user: ParseUser
@@ -24,6 +24,11 @@ class UserProfileFragment : Fragment() {
     private lateinit var profileImage: ImageView
     private lateinit var bio: TextView
     private var progressDialog: ProgressDialog? = null
+    private lateinit var binding:ActivityMainBinding
+    private var posts: ArrayList<Post> = arrayListOf()
+    private lateinit var gridView: GridView
+    private lateinit var postAdapter: GridPostAdapter
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -35,6 +40,9 @@ class UserProfileFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        binding = ActivityMainBinding.inflate(getLayoutInflater())
+        gridView = view.findViewById(R.id.PostGridView)
+        queryPosts()
         setHasOptionsMenu(true)
 
         // load in user information
@@ -124,6 +132,30 @@ class UserProfileFragment : Fragment() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         ParseFacebookUtils.onActivityResult(requestCode, resultCode, data)
+    }
+
+    fun queryPosts() {
+        val user = ParseUser.getCurrentUser()
+        val query: ParseQuery<Post> = ParseQuery.getQuery(Post::class.java)
+        query.whereEqualTo("userId",user)
+        query.orderByDescending("createdAt")
+        query.findInBackground(object : FindCallback<Post>{
+            override fun done(posts: MutableList<Post>?, e: ParseException?) {
+                if (e != null) {
+                    Toast.makeText(requireContext(), "Error getting posts", Toast.LENGTH_SHORT).show()
+                } else {
+                    if (posts != null) {
+                        Log.i("Profile","1.0")
+                        postAdapter = GridPostAdapter(requireContext(), posts)
+                        gridView.setAdapter(postAdapter)
+                        //binding.gridView.
+                    }
+                }
+                }
+
+        })
+
+
     }
 
 }

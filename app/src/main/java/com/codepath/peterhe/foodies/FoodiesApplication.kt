@@ -24,6 +24,7 @@ class FoodiesApplication : Application() {
         // Register your parse models
         ParseObject.registerSubclass(Group::class.java)
         ParseObject.registerSubclass(Message::class.java)
+        ParseObject.registerSubclass(Post::class.java)
         Parse.initialize(
             Parse.Configuration.Builder(this)
                 .applicationId(getString(R.string.back4app_app_id))
