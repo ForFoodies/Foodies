@@ -13,129 +13,107 @@
         app:cardElevation="2dp"
         app:cardUseCompatPadding="true"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <LinearLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:padding="10dp">
-
-            <LinearLayout
-                android:id="@+id/groupLine1"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
+            android:layout_height="wrap_content">
 
                 <TextView
                     android:id="@+id/tv_groupName_item1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="start"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="2dp"
+                    android:fontFamily="@font/rubik_medium"
+                    android:layout_marginEnd="38dp"
                     android:text="French Study"
                     android:textSize="18sp"
                     android:textStyle="bold"
-                    android:fontFamily="@font/rubik_medium"
-                    android:layout_marginStart="3dp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
-                <View
-                    android:id="@+id/gap"
-                    android:layout_width="0dp"
-                    android:layout_height="10dp"
-                    android:layout_gravity="top"
-                    android:layout_weight="0.5"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"/>
 
-                <TextView
-                    android:id="@+id/tv_GroupTimeDate_item1"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="12:36 APR 02 2022"
-                    android:drawableStart="@drawable/ic_baseline_access_time_24_black"
-                    android:textSize="15sp"
-                    android:textColor="@android:color/darker_gray"
-                    android:gravity="center"
-                    android:drawablePadding="1dp"
-                    android:layout_marginTop="3dp"
-                    android:layout_marginEnd="4dp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-            </LinearLayout>
-            <LinearLayout
-                android:layout_width="match_parent"
+            <TextView
+                android:id="@+id/tv_GroupTimeDate_item1"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="3dp"
-                android:layout_marginBottom="3dp"
-                android:orientation="horizontal">
+                android:layout_marginEnd="5dp"
+                android:drawableStart="@drawable/ic_baseline_access_time_24_black"
+                android:drawablePadding="1dp"
+                android:gravity="center"
+                android:text="12:36 APR 02 2022"
+                android:textColor="@android:color/darker_gray"
+                android:textSize="15sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.949"
+                app:layout_constraintStart_toEndOf="@id/tv_groupName_item1"
+                app:layout_constraintTop_toTopOf="parent" />
 
-                <TextView
-                    android:id="@+id/tv_groupDescription_item1"
-                    android:layout_width="320dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="3dp"
-                    android:layout_marginTop="2dp"
-                    android:layout_gravity="start"
-                    android:layout_weight="0.7"
-                    android:text="Come to learn French with us!ome to learn French with us!ome to learn French with us!ome to learn French with us!ome to learn French with us!ome to learn French with us!ome to learn French with us!"
-                    android:textSize="13sp"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/tv_groupName_item1" />
+            <TextView
+                android:id="@+id/tv_groupDescription_item1"
+                android:layout_width="320dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="start"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="2dp"
+                android:layout_weight="0.7"
+                android:text="Come to learn French with us!ome to learn French with us!ome to learn French with us!ome to learn French with us!ome to learn French with us!ome to learn French with us!ome to learn French with us!"
+                android:textSize="13sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_groupName_item1" />
 
-                <View
-                    android:id="@+id/gap2"
-                    android:layout_width="0dp"
-                    android:layout_height="10dp"
-                    android:layout_gravity="top"
-                    android:layout_weight="0.2"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"/>
 
-                <TextView
-                    android:id="@+id/tv_GroupNum_item1"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="7/10"
-                    android:textSize="15sp"
-                    android:gravity="center"
-                    android:textColor="@android:color/darker_gray"
-                    android:layout_gravity="top"
-                    android:layout_marginEnd="5dp"
-                    android:drawableStart="@drawable/ic_baseline_group_24_black"
-                    android:drawablePadding="1dp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/tv_GroupTimeDate_item1" />
+            <TextView
+                android:id="@+id/tv_GroupNum_item1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="top"
+                android:layout_marginEnd="5dp"
+                android:drawableStart="@drawable/ic_baseline_group_24_black"
+                android:drawablePadding="1dp"
+                android:gravity="center"
+                android:text="7/10"
+                android:textColor="@android:color/darker_gray"
+                android:textSize="15sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.583"
+                app:layout_constraintStart_toEndOf="@+id/tv_groupDescription_item1"
+                app:layout_constraintTop_toBottomOf="@+id/tv_GroupTimeDate_item1" />
 
-            </LinearLayout>
             <TextView
                 android:id="@+id/tv_GroupRestaurantName_item"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:drawableStart="@drawable/ic_baseline_restaurant_24_black_group"
                 android:drawablePadding="1dp"
+                android:drawableTint="@color/primary_tint_2"
+                android:gravity="center"
                 android:text="Panda Express"
                 android:textSize="15sp"
-                android:gravity="center"
+                android:layout_marginStart="6dp"
                 android:visibility="gone"
-                android:drawableTint="@color/primary_tint_2"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tv_groupDescription_item1" />
+
             <TextView
                 android:id="@+id/tv_GroupRestaurantAddress_item"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="2200 Fuller Court Ann Arbor MI"
-                app:layout_constraintStart_toStartOf="parent"
-                android:textSize="15sp"
-                android:visibility="gone"
+                android:drawableStart="@drawable/ic_baseline_location_on_24"
                 android:drawableTint="@color/primary_tint_2"
                 android:gravity="center"
-                android:drawableStart="@drawable/ic_baseline_location_on_24"
+                android:layout_marginStart="6dp"
+                android:text="2200 Fuller Court Ann Arbor MI"
+                android:textSize="15sp"
+                android:visibility="gone"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tv_GroupRestaurantName_item" />
 
-        </LinearLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
     </com.google.android.material.card.MaterialCardView>
 </androidx.constraintlayout.widget.ConstraintLayout>
