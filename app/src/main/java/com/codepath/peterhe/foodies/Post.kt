@@ -5,6 +5,7 @@ import android.os.Parcelable
 import com.parse.ParseClassName
 import com.parse.ParseFile
 import com.parse.ParseObject
+import com.parse.ParseUser
 
 @ParseClassName("Post")
 class Post() : ParseObject() {
@@ -22,6 +23,12 @@ class Post() : ParseObject() {
     }
     fun setImage(image: ParseFile) {
         put("Image",image)
+    }
+    fun getUserId():ParseUser? {
+        return getParseUser("userId")
+    }
+    fun setUserId(user: ParseUser) {
+        put("userId",user)
     }
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {

@@ -1,14 +1,21 @@
 package com.codepath.peterhe.foodies.fragments
 
+import android.app.Activity
 import android.app.ProgressDialog
 import android.content.DialogInterface
 import android.content.Intent
+import android.graphics.BitmapFactory
+import android.net.Uri
 import android.os.Bundle
+import android.os.Environment
+import android.provider.MediaStore
 import android.util.Log
 import android.view.*
 import android.widget.*
 import androidx.appcompat.app.AlertDialog
+import androidx.core.content.FileProvider
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentTransaction
 import com.bumptech.glide.Glide
 import com.codepath.peterhe.foodies.*
 import com.codepath.peterhe.foodies.R
@@ -16,6 +23,8 @@ import com.codepath.peterhe.foodies.databinding.ActivityMainBinding
 import com.facebook.login.LoginManager
 import com.parse.*
 import com.parse.facebook.ParseFacebookUtils
+import java.io.File
+import java.io.InputStream
 
 
 class UserProfileFragment : Fragment() {
@@ -29,6 +38,9 @@ class UserProfileFragment : Fragment() {
     private lateinit var gridView: GridView
     private lateinit var postAdapter: GridPostAdapter
     private var bundle: Bundle? = null
+    var photoFile: File? = null
+    val photoFileName = "Post.jpg"
+    private var selectedImageUri: Uri? = null
 
 
 
@@ -72,15 +84,6 @@ class UserProfileFragment : Fragment() {
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         inflater.inflate(R.menu.appbar_profile, menu)
         menu.findItem(R.id.action_logout).setOnMenuItemClickListener { item ->
-            /*val intent = Intent(requireContext(), LogInActivity::class.java)
-            ParseUser.logOut()
-            startActivity(intent)
-            requireActivity().finish()
-            //Toast.makeText(this, "Successfully logged out", Toast.LENGTH_SHORT).show()*/
-            //val dlg = ProgressDialog(requireContext())
-            //dlg.setTitle("Please, wait a moment.")
-            //dlg.setMessage("Logging out...")
-            //dlg.show()
             progressDialog!!.show()
             LoginManager.getInstance().logOut()
             ParseUser.logOutInBackground { e: ParseException? ->
@@ -106,6 +109,15 @@ class UserProfileFragment : Fragment() {
             true
         }
 
+        menu.findItem(R.id.action_addPost).isEnabled = true
+        menu.findItem(R.id.action_addPost).isVisible = true
+        menu.findItem(R.id.action_addPost).setOnMenuItemClickListener {
+            // go into edit mode
+            imageChooser()
+            true
+        }
+
+
     }
 
     override fun onPrepareOptionsMenu(menu: Menu) {
@@ -115,22 +127,6 @@ class UserProfileFragment : Fragment() {
             menu.findItem(R.id.action_edit).isVisible = false
         }
     }
-    /* private fun alertDisplayer(title: String, message: String) {
-         val builder: AlertDialog.Builder = AlertDialog.Builder(requireContext()).setTitle(title).setMessage(message).setPositiveButton("OK", object:
-             DialogInterface.OnClickListener{
-             override fun onClick(dialog: DialogInterface?, which: Int) {
-                 dialog?.cancel()
-                 val intent = Intent(requireContext(), LogInActivity::class.java)
-                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
-                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-                 startActivity(intent)
-                 requireActivity().finish()
-             }
-
-         })
-         val ok: AlertDialog = builder.create()
-         ok.show()
-     }*/
 
     private fun showAlert(title: String, message: String?, isOk: Boolean) {
         val builder = AlertDialog.Builder(requireContext())
@@ -151,7 +147,24 @@ class UserProfileFragment : Fragment() {
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        ParseFacebookUtils.onActivityResult(requestCode, resultCode, data)
+        if (requestCode != SELECT_PHOTO) {
+            ParseFacebookUtils.onActivityResult(requestCode, resultCode, data)
+        } else {
+            if (resultCode == Activity.RESULT_OK) {
+                selectedImageUri = data?.data!! //
+                if (null != selectedImageUri) {//
+                    val bundle = Bundle()
+                    bundle.putParcelable("PostDetail", selectedImageUri)
+                    val DetailFragment = AddPostFragment()
+                    DetailFragment.setArguments(bundle)
+                    val ft: FragmentTransaction? = getFragmentManager()?.beginTransaction()
+                    ft?.replace(R.id.flContainer, DetailFragment)?.commit()
+                    requireActivity().setTitle("Add Post")
+                    ft?.addToBackStack(null)
+                }
+            }
+        }
+
     }
 
     fun queryPosts(user: ParseUser) {
@@ -176,5 +189,62 @@ class UserProfileFragment : Fragment() {
 
 
     }
+
+    // this function is triggered when
+    // the Select Image Button is clicked
+    fun imageChooser() {
+        // create an instance of the
+        // intent of the type image
+        val i = Intent()
+        i.type = "image/*"
+        i.action = Intent.ACTION_PICK
+        photoFile = getPhotoFileUri(photoFileName)
+        // wrap File object into a content provider
+        // required for API >= 24
+        // See https://guides.codepath.com/android/Sharing-Content-with-Intents#sharing-files-with-api-24-or-higher
+        if (photoFile != null) {
+            val fileProvider: Uri =
+                FileProvider.getUriForFile(requireContext(), "com.codepath.fileprovider", photoFile!!)
+            i.putExtra(MediaStore.EXTRA_OUTPUT, fileProvider)
+
+            // If you call startActivityForResult() using an intent that no app can handle, your app will crash.
+            // So as long as the result is not null, it's safe to use the intent.
+
+            // If you call startActivityForResult() using an intent that no app can handle, your app will crash.
+            // So as long as the result is not null, it's safe to use the intent.
+            if (i.resolveActivity(requireContext().packageManager) != null) {
+                // Start the image capture intent to take photo
+                startActivityForResult(Intent.createChooser(i, "Select Picture"),
+                    SELECT_PHOTO
+                )
+            }
+        }
+        // pass the constant to compare it
+        // with the returned requestCode
+        // startActivityForResult(Intent.createChooser(i, "Select Picture"), SELECT_PICTURE)
+    }
+
+    // Returns the File for a photo stored on disk given the fileName
+    fun getPhotoFileUri(fileName: String): File {
+        // Get safe storage directory for photos
+        // Use `getExternalFilesDir` on Context to access package-specific directories.
+        // This way, we don't need to request external read/write runtime permissions.
+        val mediaStorageDir =
+            File(requireContext().getExternalFilesDir(Environment.DIRECTORY_PICTURES), EditProfileFragment.TAG)
+
+
+        // Create the storage directory if it does not exist
+        if (!mediaStorageDir.exists() && !mediaStorageDir.mkdirs()) {
+            Log.d(EditProfileFragment.TAG, "failed to create directory")
+        }
+
+        // Return the file target for the photo based on filename
+        return File(mediaStorageDir.path + File.separator + fileName)
+    }
+    companion object {
+        const val SELECT_PHOTO = 25
+        const val TAG = "EDIT_PROFILE"
+    }
+
 
 }

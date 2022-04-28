@@ -220,62 +220,6 @@ class EditProfileFragment : Fragment() {
 
     }
 
-    fun queryUser(userId: String) {
-        val query: ParseQuery<ParseUser> = ParseQuery.getQuery(ParseUser::class.java)
-        query.include(ParseUser.KEY_OBJECT_ID)
-        query.limit = 1
-        query.whereEqualTo(ParseUser.KEY_OBJECT_ID, userId)
-        query.findInBackground(object : FindCallback<ParseUser> {
-            override fun done(user: MutableList<ParseUser>?, e: ParseException?) {
-                if (e != null) {
-                    //Log.e(TAG, "Error getting posts")
-                    Toast.makeText(requireContext(), "Error getting members", Toast.LENGTH_SHORT)
-                        .show()
-                } else {
-                    if (user != null && user.size == 1) {
-                        val image: ParseFile? = user[0].getParseFile("profile")
-                        // Log.i("Main", image?.url.toString())
-                        //val imageUrl:String = user[0].getString("profile_url")!!
-                        Glide.with(requireContext()).load(image?.url).override(32, 32).apply(
-                            RequestOptions().transforms(
-                                CenterCrop(), RoundedCorners(50)
-                            )
-                        ).listener(object : RequestListener<Drawable> {
-                            override fun onLoadFailed(
-                                p0: GlideException?,
-                                p1: Any?,
-                                p2: Target<Drawable>?,
-                                p3: Boolean
-                            ): Boolean {
-                                //Log.e(TAG, "onLoadFailed")
-                                //do something if error loading
-                                return false
-                            }
-
-                            override fun onResourceReady(
-                                p0: Drawable?,
-                                p1: Any?,
-                                p2: Target<Drawable>?,
-                                p3: DataSource?,
-                                p4: Boolean
-                            ): Boolean {
-                                //Log.d(TAG, "OnResourceReady")
-                                //do something when picture already loaded
-                                view?.findViewById<BottomNavigationView>(R.id.bottom_navigation)?.getMenu()
-                                    ?.getItem(2)?.setIconTintMode(PorterDuff.Mode.DST)
-                                view?.findViewById<BottomNavigationView>(R.id.bottom_navigation)?.getMenu()
-                                    ?.getItem(2)?.setIcon(p0)
-                                return false
-                            }
-                        }).into(view?.findViewById<ImageView>(R.id.iv_profilePlaceHolder)!!)
-
-                    }
-                }
-            }
-
-        })
-    }
-
     companion object {
         const val SELECT_PHOTO = 27
         const val TAG = "EDIT_PROFILE"
