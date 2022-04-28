@@ -64,13 +64,22 @@ class EditProfileFragment : Fragment() {
         // show current info
         username.setText(user.username)
         bio.setText(user.get("description").toString())
+        val image: ParseFile? = user.getParseFile("profile")
+        val profileImage: ImageView = view.findViewById(R.id.ivProfileImage)
+        Glide.with(requireContext()).load(image?.url).centerCrop()
+            .into(profileImage)
+
 
         view.findViewById<ImageButton>(R.id.ibEditProfileImage).setOnClickListener {
             // change profile image
             // TODO: show image after user uploaded new image and save as profile image, app crashes right now
             imageChooser()
         }
-
+        view.findViewById<Button>(R.id.btnCancelEdit).setOnClickListener{
+            val transaction = requireActivity().supportFragmentManager.beginTransaction()
+            transaction.replace(R.id.flContainer, UserProfileFragment())
+            transaction.commit()
+        }
         view.findViewById<Button>(R.id.btnDoneEdit).setOnClickListener {
             // get EditText fields
             val newUsername = username.text.toString()
@@ -81,17 +90,19 @@ class EditProfileFragment : Fragment() {
             user.put("username", newUsername);
             user.put("description", newBio);
             user.setPassword(newPassword)
-            user.saveInBackground()
-
-
-
-            // go back to profile fragment
-            if (photoFile == null) {
-                val transaction = requireActivity().supportFragmentManager.beginTransaction()
-                transaction.replace(R.id.flContainer, UserProfileFragment())
-                transaction.commit()
-            } else {
-                submitUserUpdate()
+            user.saveInBackground{exception->
+                if (exception == null) {
+                    // go back to profile fragment
+                    if (photoFile == null) {
+                        val transaction = requireActivity().supportFragmentManager.beginTransaction()
+                        transaction.replace(R.id.flContainer, UserProfileFragment())
+                        transaction.commit()
+                    } else {
+                        submitUserUpdate()
+                    }
+                }else {
+                    Toast.makeText(requireContext(),"Error updating profile", Toast.LENGTH_SHORT).show()
+                }
             }
 
         }

@@ -64,7 +64,7 @@ class UserProfileFragment : Fragment() {
         username.text = user.get("username").toString()
         bio.text = user.get("description").toString()
         val image: ParseFile? = user.getParseFile("profile")
-        Glide.with(requireContext()).load(image?.url)
+        Glide.with(requireContext()).load(image?.url).centerCrop()
             .into(profileImage)
         progressDialog = ProgressDialog(requireContext())
     }
@@ -161,6 +161,7 @@ class UserProfileFragment : Fragment() {
         query.findInBackground(object : FindCallback<Post>{
             override fun done(posts: MutableList<Post>?, e: ParseException?) {
                 if (e != null) {
+                    Log.i("Get posts",e.message.toString())
                     Toast.makeText(requireContext(), "Error getting posts", Toast.LENGTH_SHORT).show()
                 } else {
                     if (posts != null) {
