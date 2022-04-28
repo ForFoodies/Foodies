@@ -5,13 +5,11 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
-import android.graphics.drawable.Drawable
 import android.location.*
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
-import android.view.RoundedCorner
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
@@ -37,10 +35,7 @@ import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
-import com.google.android.gms.maps.model.BitmapDescriptorFactory
-import com.google.android.gms.maps.model.LatLng
-import com.google.android.gms.maps.model.Marker
-import com.google.android.gms.maps.model.MarkerOptions
+import com.google.android.gms.maps.model.*
 import com.parse.ParseUser
 import java.io.IOException
 import java.util.*
@@ -52,7 +47,7 @@ class RestaurantListMapsFragment : Fragment() {
     private var restaurants: ArrayList<YelpRestaurant>? = null
     private var groups: ArrayList<Group>? = null
     private var members: ArrayList<ParseUser>? = null
-    private var memberProfiles: ArrayList<Drawable> = arrayListOf()
+    private var positions: ArrayList<LatLng> = arrayListOf()
     private var userLocation: LatLng? = null
     private lateinit var bitmap: Bitmap
     private lateinit var bitmapGroup: Bitmap
@@ -207,6 +202,7 @@ class RestaurantListMapsFragment : Fragment() {
                 val address =
                     "${restaurant.location.address1}, ${restaurant.location.city}, ${restaurant.location.state}, ${restaurant.location.zip_code}"
                 val restaurantLocation: LatLng = getLocationFromAddress(requireContext(), address)!!
+                positions.add(restaurantLocation)
                 //val snippet:String:
                 if (restcount == 0) {
                     googleMap.moveCamera(
@@ -223,7 +219,16 @@ class RestaurantListMapsFragment : Fragment() {
                 )
                 marker?.setTag(restaurant)
                 // marker?.showInfoWindow()
+
             }
+            val b = LatLngBounds.Builder()
+            for (position in positions) {
+                b.include(position)
+            }
+            val bounds = b.build()
+            //Change the padding as per needed
+            val cu = CameraUpdateFactory.newLatLngBounds(bounds, 20)
+            googleMap.animateCamera(cu)
             googleMap.setOnInfoWindowClickListener(object : GoogleMap.OnInfoWindowClickListener {
                 override fun onInfoWindowClick(marker: Marker) {
                     val ft: FragmentTransaction? = getFragmentManager()?.beginTransaction()
@@ -246,6 +251,7 @@ class RestaurantListMapsFragment : Fragment() {
             for (group in groups!!) {
                 val groupLocation: LatLng =
                     getLocationFromAddress(requireContext(), group.getAddress())!!
+                positions.add(groupLocation)
                 if (groupcount == 0) {
                     googleMap.moveCamera(
                         CameraUpdateFactory.newLatLngZoom(
@@ -261,6 +267,14 @@ class RestaurantListMapsFragment : Fragment() {
                 )
                 marker?.setTag(group)
             }
+            val b = LatLngBounds.Builder()
+            for (position in positions) {
+                b.include(position)
+            }
+            val bounds = b.build()
+            //Change the padding as per needed
+            val cu = CameraUpdateFactory.newLatLngBounds(bounds, 20)
+            googleMap.animateCamera(cu)
             googleMap.setOnInfoWindowClickListener(object : GoogleMap.OnInfoWindowClickListener {
                 override fun onInfoWindowClick(marker: Marker) {
                     val ft: FragmentTransaction? = getFragmentManager()?.beginTransaction()
@@ -275,6 +289,8 @@ class RestaurantListMapsFragment : Fragment() {
                     ft?.addToBackStack(null)
                 }
             })
+
+
         }
 
         if (members != null && members!!.size > 0) {
@@ -284,121 +300,49 @@ class RestaurantListMapsFragment : Fragment() {
             // var mcount = 0
             for (member in members!!) {
                 Log.i("Map", member.username)
-                val memberLocation: LatLng = LatLng(
-                    member.getParseGeoPoint("Location")?.getLatitude()!!,
-                    member.getParseGeoPoint("Location")?.getLongitude()!!
-                )
-                /*loadBitmapFromServer(member.getParseFile("profile")?.url,object: OnBitmapLoadedListener {
-                    /* bitmap ->
-                    val bitmapMember =  Bitmap.createScaledBitmap(bitmap!!, 80, 80, false)
-                    val marker = googleMap.addMarker(
-                        MarkerOptions().position(memberLocation).title("${member.username}")
-                            .icon(BitmapDescriptorFactory.fromBitmap(bitmapGroup!!))
+                if (member.getBoolean("AllowSharing")) {
+                    val memberLocation: LatLng = LatLng(
+                        member.getParseGeoPoint("Location")?.getLatitude()!!,
+                        member.getParseGeoPoint("Location")?.getLongitude()!!
                     )
-                    marker?.setTag(member)
-                    googleMap.moveCamera(
-                        CameraUpdateFactory.newLatLngZoom(
-                            memberLocation!!,
-                            15.toFloat()
-                        )
-                    )*/
-                    override fun onBitmapLoaded(resource: Bitmap?) {
-                        val bitmapMember =  Bitmap.createScaledBitmap(resource!!, 80, 80, false)
-                        val marker = googleMap.addMarker(
-                            MarkerOptions().position(memberLocation).title("${member.username}")
-                                .icon(BitmapDescriptorFactory.fromBitmap(bitmapMember!!))
-                        )
-                        marker?.setTag(member)
-                        googleMap.moveCamera(
-                            CameraUpdateFactory.newLatLngZoom(
-                                memberLocation!!,
-                                15.toFloat()
-                            )
-                        )
-                    }
-                })*/
-                // val bitmapMember = Bitmap.createScaledBitmap(b!!, 80, 80, false)
-                /* val marker = googleMap.addMarker(
-                    MarkerOptions().position(memberLocation).title("${member.username}")
-                        .icon(BitmapDescriptorFactory.fromBitmap(bitmapMember!!))
-                )*/
+                    val imageUrl = member.getParseFile("profile")?.url
+                    positions.add(memberLocation)
+                    Glide.with(requireContext()).asBitmap().load(imageUrl).override(160, 160).centerCrop().apply(RequestOptions.bitmapTransform(RoundedCorners(20)))
+                        .diskCacheStrategy(
+                            DiskCacheStrategy.ALL
+                        ).into(object : SimpleTarget<Bitmap>() {
 
+                            override fun onResourceReady(
+                                resource: Bitmap,
+                                transition: Transition<in Bitmap>?
+                            ) {
+                                Log.i("member", "Peter")
+                                val bitmapMember = Bitmap.createScaledBitmap(resource!!, 160, 160, false)
+                                val marker = googleMap.addMarker(
+                                    MarkerOptions().position(memberLocation).title("${member.username}")
+                                        .icon(BitmapDescriptorFactory.fromBitmap(bitmapMember!!))
+                                )
+                                marker?.setTag(member)
+                               /* googleMap.moveCamera(
+                                    CameraUpdateFactory.newLatLngZoom(
+                                        memberLocation!!,
+                                        13.toFloat()
+                                    )
+                                )*/
+                            }
 
-                // mcount += 1
-                val imageUrl = member.getParseFile("profile")?.url
-                /* Glide.with(requireContext()).load(imageUrl).override(80, 80).centerCrop().diskCacheStrategy(
-                    DiskCacheStrategy.ALL).listener(object : RequestListener<Drawable>{
-                    override fun onLoadFailed(
-                        e: GlideException?,
-                        model: Any?,
-                        target: Target<Drawable>?,
-                        isFirstResource: Boolean
-                    ): Boolean {
-                        e?.printStackTrace()
-                        return false
-                    }
-
-                    override fun onResourceReady(
-                        resource: Drawable?,
-                        model: Any?,
-                        target: Target<Drawable>?,
-                        dataSource: DataSource?,
-                        isFirstResource: Boolean
-                    ): Boolean {
-                        Log.i("member","Peter")
-                        val b = resource?.toBitmap()!!
-                        val bitmapMember = Bitmap.createScaledBitmap(b!!, 80, 80, false)
-                        val marker = googleMap.addMarker(MarkerOptions().position(memberLocation).title("${member.username}").icon(BitmapDescriptorFactory.fromBitmap(bitmapMember!!)))
-                        marker?.setTag(member)
-                        googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(memberLocation!!,15.toFloat()))
-                        return false;
-                    }
-                })*/
-
-                Glide.with(requireContext()).asBitmap().load(imageUrl).override(160, 160).centerCrop().apply(RequestOptions.bitmapTransform(RoundedCorners(20)))
-                    .diskCacheStrategy(
-                        DiskCacheStrategy.ALL
-                    ).into(object : SimpleTarget<Bitmap>() {
-
-                    /* if (groupcount == 0) {
-                    googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(groupLocation,15.toFloat()))
+                        })
                 }
-                groupcount += 1*/
-                    override fun onResourceReady(
-                        resource: Bitmap,
-                        transition: Transition<in Bitmap>?
-                    ) {
-                        Log.i("member", "Peter")
-                        val bitmapMember = Bitmap.createScaledBitmap(resource!!, 160, 160, false)
-                        val marker = googleMap.addMarker(
-                            MarkerOptions().position(memberLocation).title("${member.username}")
-                                .icon(BitmapDescriptorFactory.fromBitmap(bitmapMember!!))
-                        )
-                        marker?.setTag(member)
-                        googleMap.moveCamera(
-                            CameraUpdateFactory.newLatLngZoom(
-                                memberLocation!!,
-                                13.toFloat()
-                            )
-                        )
-                    }
 
-                })
-                /*googleMap.setOnInfoWindowClickListener(object:GoogleMap.OnInfoWindowClickListener {
-                override fun onInfoWindowClick(marker: Marker) {
-                    val ft: FragmentTransaction? = getFragmentManager()?.beginTransaction()
-                    val bundle = Bundle()
-                    val group = marker.getTag() as Group
-                    bundle.putParcelable("GroupChatDetail", group)
-                    val DetailFragment = GroupChatDetailFragment()
-                    DetailFragment.setArguments(bundle)
-                    //Log.i(RestaurantFragment.TAG, "Restaurant ${allGroups[position]}")
-                    ft?.replace(R.id.flContainer, DetailFragment)?.commit()
-                    requireActivity().setTitle("${group.getName()} Chat")
-                    ft?.addToBackStack(null)
-                }
-            })*/
             }
+            val b = LatLngBounds.Builder()
+            for (p in positions) {
+                b.include(p)
+            }
+            val bounds = b.build()
+            //Change the padding as per needed
+            val cu = CameraUpdateFactory.newLatLngBounds(bounds,  20)
+            googleMap.animateCamera(cu)
             googleMap.setOnInfoWindowClickListener(object : GoogleMap.OnInfoWindowClickListener {
                 override fun onInfoWindowClick(marker: Marker) {
                     val ft: FragmentTransaction? = getFragmentManager()?.beginTransaction()
@@ -415,10 +359,6 @@ class RestaurantListMapsFragment : Fragment() {
             })
         }
 
-        /* val umich = LatLng(42.2780436,-83.7404128)
-        googleMap.setMapType(GoogleMap.MAP_TYPE_HYBRID)
-        googleMap.addMarker(MarkerOptions().position(umich).title("University of Michigan").icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE)))
-        googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(umich,13.toFloat()))*/
 
 
     }

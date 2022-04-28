@@ -77,25 +77,25 @@
         android:id="@+id/btnDoneEdit"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="50dp"
         android:layout_marginEnd="27dp"
         android:text="Done"
+        android:textStyle="bold"
+        android:layout_marginTop="15dp"
         android:textColor="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/etBio"
-        app:layout_constraintWidth_min="150dp" />
+        app:layout_constraintTop_toBottomOf="@+id/divider_4"
+        app:layout_constraintWidth_min="127dp" />
 
     <Button
         android:id="@+id/btnCancelEdit"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="27dp"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="15dp"
         android:text="Cancel"
-        android:textColor="@color/white"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/etBio"
-        app:layout_constraintWidth_min="150dp" />
+        app:layout_constraintTop_toBottomOf="@+id/divider_4"
+        app:layout_constraintWidth_min="127dp" />
 
     <ImageButton
         android:id="@+id/ibEditProfileImage"
@@ -154,6 +154,44 @@
         android:layout_marginTop="25dp"
         android:background="?android:attr/listDivider"
         app:layout_constraintTop_toBottomOf="@id/etPassword" />
+
+    <View
+        android:id="@+id/divider_3"
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:layout_marginTop="25dp"
+        android:background="?android:attr/listDivider"
+        app:layout_constraintTop_toBottomOf="@id/etBio" />
+
+    <View
+        android:id="@+id/divider_4"
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:layout_marginTop="25dp"
+        android:background="?android:attr/listDivider"
+        app:layout_constraintTop_toBottomOf="@id/textView6" />
+
+    <TextView
+        android:id="@+id/textView6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Allow sharing location with groups"
+        android:layout_marginStart="27dp"
+        android:layout_marginTop="20dp"
+        android:textSize="15sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/divider_3" />
+
+    <Switch
+        android:id="@+id/switch_allowSharing"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:showText="true"
+        android:checked="true"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="27dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/divider_3" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

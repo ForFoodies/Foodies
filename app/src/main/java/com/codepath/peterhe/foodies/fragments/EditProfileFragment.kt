@@ -39,6 +39,7 @@ class EditProfileFragment : Fragment() {
     lateinit var username: EditText
     lateinit var bio: EditText
     lateinit var password: EditText
+    lateinit var switch: Switch
 
     var photoFile: File? = null
     val photoFileName = "Photo.jpg"
@@ -60,10 +61,12 @@ class EditProfileFragment : Fragment() {
         username = view.findViewById<EditText>(R.id.etUsername)
         bio = view.findViewById<EditText>(R.id.etBio)
         password = view.findViewById<EditText>(R.id.etPassword)
+        switch = view.findViewById<Switch>(R.id.switch_allowSharing)
 
         // show current info
         username.setText(user.username)
         bio.setText(user.get("description").toString())
+        switch.setChecked(user.getBoolean("AllowSharing"))
         val image: ParseFile? = user.getParseFile("profile")
         val profileImage: ImageView = view.findViewById(R.id.ivProfileImage)
         Glide.with(requireContext()).load(image?.url).centerCrop()
@@ -85,10 +88,12 @@ class EditProfileFragment : Fragment() {
             val newUsername = username.text.toString()
             val newBio = bio.text.toString()
             val newPassword = password.text.toString()
+            val checked = switch.isChecked
 
             // update user info in parse
-            user.put("username", newUsername);
-            user.put("description", newBio);
+            user.put("username", newUsername)
+            user.put("description", newBio)
+            user.put("AllowSharing",checked)
             user.setPassword(newPassword)
             user.saveInBackground{exception->
                 if (exception == null) {
