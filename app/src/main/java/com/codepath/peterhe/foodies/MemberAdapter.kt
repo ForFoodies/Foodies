@@ -77,7 +77,7 @@ class MemberAdapter(val context: Context, val members: MutableList<ParseUser>) :
             ).into(itemView.findViewById<ImageView>(R.id.iv_MemberProfile_item))
             tvDescription.text = user.get("description").toString()
             tvName.text = user.getUsername()
-            val time = "${user.getCreatedAt()}".substring(4, 10)
+            val time = "${user.getCreatedAt()}".substring(4, 10) +" " + "${user.getCreatedAt()}".substring(24, 28)
             tvTime.text = time
             //TODO add profile image
         }

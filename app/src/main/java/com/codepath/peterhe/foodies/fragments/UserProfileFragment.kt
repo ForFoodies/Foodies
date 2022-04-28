@@ -11,6 +11,8 @@ import android.os.Environment
 import android.provider.MediaStore
 import android.util.Log
 import android.view.*
+import android.view.View.GONE
+import android.view.View.VISIBLE
 import android.widget.*
 import androidx.appcompat.app.AlertDialog
 import androidx.core.content.FileProvider
@@ -30,6 +32,8 @@ import java.io.InputStream
 class UserProfileFragment : Fragment() {
     private lateinit var user: ParseUser
     private lateinit var username: TextView
+    private lateinit var time: TextView
+    private lateinit var number: TextView
     private lateinit var profileImage: ImageView
     private lateinit var bio: TextView
     private var progressDialog: ProgressDialog? = null
@@ -72,9 +76,28 @@ class UserProfileFragment : Fragment() {
         username = view.findViewById(R.id.tvUsername)
         profileImage = view.findViewById(R.id.ivProfileImage)
         bio = view.findViewById(R.id.tvBio)
+        time = view.findViewById(R.id.tv_ProfileTime)
+        number = view.findViewById(R.id.tv_ProfileNumber)
 
         username.text = user.get("username").toString()
         bio.text = user.get("description").toString()
+        val timeText = "${user.getCreatedAt()}".substring(4, 10) +" " + "${user.getCreatedAt()}".substring(24, 28)
+        time.text = timeText
+        number.text = user.getJSONArray("groupList")?.length().toString()
+        val gender:String? = user.get("gender")?.toString()
+        if ("male".equals(gender)) {
+            Log.i("Profile","1")
+            view.findViewById<TextView>(R.id.tv_FemaleProfile).setVisibility(GONE)
+            view.findViewById<TextView>(R.id.tv_maleProfile).setVisibility(VISIBLE)
+        } else if ("female".equals(gender)) {
+            Log.i("Profile","2")
+            view.findViewById<TextView>(R.id.tv_FemaleProfile).setVisibility(VISIBLE)
+            view.findViewById<TextView>(R.id.tv_maleProfile).setVisibility(GONE)
+        } else {
+            Log.i("Profile","3")
+            view.findViewById<TextView>(R.id.tv_FemaleProfile).setVisibility(GONE)
+            view.findViewById<TextView>(R.id.tv_maleProfile).setVisibility(GONE)
+        }
         val image: ParseFile? = user.getParseFile("profile")
         Glide.with(requireContext()).load(image?.url).centerCrop()
             .into(profileImage)
