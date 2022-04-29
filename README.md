@@ -203,7 +203,6 @@ For each restaurant, users can either choose to join a existing restaurant, or c
 
 - Users can change their profile image and bio (short description/introduction).
 - Users who joined via email, they can update user ID and password.
-- <img src='' title='Video Walkthrough' width='' alt='Video Walkthrough' />
 
 
 ### Maps: Restaurants, Groups, Members
