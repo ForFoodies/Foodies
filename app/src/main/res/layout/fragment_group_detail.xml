@@ -153,15 +153,15 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
         android:layout_marginTop="3dp"
+        android:backgroundTint="@drawable/color_orange_white"
         android:text="Cancel"
         android:textAllCaps="false"
+        android:textColor="@drawable/color_white_orange"
+        android:textSize="16sp"
         android:textStyle="bold"
         app:cornerRadius="20dp"
-        android:textColor="@drawable/color_white_orange"
-        android:backgroundTint="@drawable/color_orange_white"
-        android:textSize="16sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_FounderProfile_detail" />
+        app:layout_constraintTop_toBottomOf="@+id/joinedSince" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btn_join_GroupDetail"
@@ -177,34 +177,47 @@
         app:cornerRadius="20dp"
         android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_FounderProfile_detail" />
+        app:layout_constraintTop_toBottomOf="@+id/joinedSince" />
 
-    <TextView
-        android:id="@+id/tv_joined_text1"
+
+    <LinearLayout
+        android:id="@+id/joinedSince"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textColor="@color/mid_gray_1"
-        android:text="Joined Foodies since "
-        android:textSize="15sp"
-        android:layout_marginTop="3dp"
-        android:layout_marginStart="10dp"
-        android:drawablePadding="1dp"
+        android:orientation="horizontal"
         android:gravity="center_vertical"
-        android:drawableStart="@drawable/ic_baseline_calendar_month_24"
+        android:layout_marginBottom="10dp"
         app:layout_constraintStart_toEndOf="@+id/tv_FounderProfile_detail"
-        app:layout_constraintTop_toBottomOf="@+id/tv_FounderDescription_detail" />
+        app:layout_constraintTop_toBottomOf="@id/tv_FounderDescription_detail">
 
-    <TextView
-        android:id="@+id/tv_FounderJoined_GroupDetail"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textColor="@color/mid_gray_1"
-        android:text="Wed Mar 22"
-        android:textSize="15sp"
-        android:layout_marginTop="3dp"
-        android:layout_marginStart="1dp"
-        app:layout_constraintStart_toEndOf="@+id/tv_joined_text1"
-        app:layout_constraintTop_toBottomOf="@+id/tv_FounderDescription_detail" />
+        <TextView
+            android:id="@+id/tv_joined_text1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/mid_gray_1"
+            android:text="Joined Foodies since "
+            android:textSize="15sp"
+            android:layout_marginTop="3dp"
+            android:layout_marginStart="10dp"
+            android:drawablePadding="1dp"
+            android:gravity="center_vertical"
+            android:drawableStart="@drawable/ic_baseline_calendar_month_24"
+            app:layout_constraintStart_toEndOf="@+id/tv_FounderProfile_detail"
+            app:layout_constraintTop_toBottomOf="@+id/tv_FounderDescription_detail"/>
+
+        <TextView
+            android:id="@+id/tv_FounderJoined_GroupDetail"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/mid_gray_1"
+            android:text="Wed Mar 22"
+            android:textSize="15sp"
+            android:layout_marginTop="3dp"
+            android:layout_marginStart="1dp"
+            app:layout_constraintStart_toEndOf="@+id/tv_joined_text1"
+            app:layout_constraintTop_toBottomOf="@+id/tv_FounderDescription_detail"/>
+    </LinearLayout>
+
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
