@@ -164,7 +164,47 @@ Optional:
 
 Here's a walkthrough of implemented user stories:
 
-Log in to Discover:  
+#### Login 
+- Via Facebook
+
+- Via email registration. User should use an active email to validate their Foodies account.
+<img src='https://i.imgur.com/YkVDrAW.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
+
+#### Discover page: Discover and Search for Restraurants
+- Discover page. Restaurants are listed based on Yelp's recommendation order.
+- Search example
+
+#### View restaurant detail by seleting a card on Discover page
+- Restaurant details
+For each restaurant, users can either choose to join a existing restaurant, or create their own.
+
+#### Create a group!
+- To create a new group, users must provide group name, description, maximum number of members, meeting time, and meeting location.
+
+
+#### Messages tab: Chat with your group members!
+- Messages tab includes shows all groups group chats the user has joined before. When they join a group, they are automatically invited to the group chat.
+
+
+#### Live group chat
+- Group chats are automatically updated so that each users receive messages instantly.
+
+
+#### Profile tab: Make a post and Edit user profile
+- On Foodies, users can post images and captions (like a mini-instagram)!
+
+
+- Users can change their profile image and bio (short description/introduction).
+- Users who joined via email, they can update user ID and password.
+
+
+#### Maps: Restaurants, Groups, Members
+- Depending on where the user enters the map view (top right icon), they can view one of Restaurants, Groups, or Members' map view.
+- Discover page --> Location of restaurants that are listed on the discover page
+- Messages page --> Location of restaurants associated with each group.
+- Group chat room --> Location of members of that group.
+
+<!-- Log in to Discover:  
 
 <img src='https://i.imgur.com/bmS2t81.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
 
@@ -198,4 +238,4 @@ Start a new group registration page:
 
 Group Registration and back to display List of Groups:
 
-<img src='https://i.imgur.com/uFHnB7Y.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
+<img src='https://i.imgur.com/uFHnB7Y.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' /> -->
