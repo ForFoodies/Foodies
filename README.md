@@ -164,57 +164,56 @@ Optional:
 
 Here's a walkthrough of implemented user stories:
 
-#### Login 
+### Login 
 - Via Facebook  
-<img src='https://i.imgur.com/4dSmVfv.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
+- <img src='https://i.imgur.com/4dSmVfv.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
 - Via email registration. User should use an active email to validate their Foodies account.  
-<img src='https://i.imgur.com/YkVDrAW.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
+- <img src='https://i.imgur.com/YkVDrAW.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
 
-#### Discover page: Discover and Search for Restraurants
+### Discover page: Discover and Search for Restraurants
 - Discover page. Restaurants are listed based on Yelp's recommendation order.  
-<img src='https://i.imgur.com/DAg7b1T.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
+- <img src='https://i.imgur.com/DAg7b1T.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
 - Search example (keyward: french, burger)  
-<img src='https://i.imgur.com/i35ieN4.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
+- <img src='https://i.imgur.com/i35ieN4.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
 
-#### View restaurant detail by seleting a card on Discover page
+### View restaurant detail by seleting a card on Discover page
 - Restaurant details  
-<img src='https://i.imgur.com/aP9S1cm.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' /> 
+- <img src='https://i.imgur.com/aP9S1cm.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' /> 
 For each restaurant, users can either choose to join a existing restaurant, or create their own.
 
 
-#### Create a group!
+### Create a group!
 - To create a new group, users must provide group name, description, maximum number of members, meeting time, and meeting location.  
-<img src='https://i.imgur.com/6XTlJn3.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
+- <img src='https://i.imgur.com/6XTlJn3.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
 
-#### Messages tab: View joined groups
+### Messages tab: View joined groups
 - Messages tab includes shows all groups group chats the user has joined before. When they join a group, they are automatically invited to the group chat.  
-<img src='https://i.imgur.com/ljdyOGd.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
+- <img src='https://i.imgur.com/ljdyOGd.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
 
 
 
-#### Chatroom: Live group chat
+### Chatroom: Live group chat
 - Group chats are automatically updated so that each users receive messages instantly.
-<img src='https://i.imgur.com/qucsqLa.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
-<img src='https://i.imgur.com/5FkM63l.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
+- <img src='https://i.imgur.com/qucsqLa.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
+- <img src='https://i.imgur.com/5FkM63l.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
 
-#### Profile tab: Make a post and Edit user profile
+### Profile tab: Make a post and Edit user profile
 - On Foodies, users can post images and captions (like a mini-instagram)!
-<img src='https://i.imgur.com/E43nkk1.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
+- <img src='https://i.imgur.com/E43nkk1.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
 
 - Users can change their profile image and bio (short description/introduction).
 - Users who joined via email, they can update user ID and password.
-<img src='' title='Video Walkthrough' width='' alt='Video Walkthrough' />
+- <img src='' title='Video Walkthrough' width='' alt='Video Walkthrough' />
 
 
-#### Maps: Restaurants, Groups, Members
+### Maps: Restaurants, Groups, Members
 - Depending on where the user enters the map view (top right icon), they can view one of Restaurants, Groups, or Members' map view.
-
 - Discover page --> Location of restaurants that are listed on the discover page
-<img src='https://i.imgur.com/dQgwmcK.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
+- <img src='https://i.imgur.com/dQgwmcK.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
 - Messages page --> Location of restaurants associated with each group.
-<img src='https://i.imgur.com/i9XQoA4.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
+- <img src='https://i.imgur.com/i9XQoA4.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
 - Group chat room --> Location of members of that group.
-<img src='https://i.imgur.com/X6v6Z68.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
+- <img src='https://i.imgur.com/X6v6Z68.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
 
 <!-- Log in to Discover:  
 
