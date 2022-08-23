@@ -21,7 +21,7 @@ Unit 5: Group Milestone - Foodies
 - **Scope:** First we would start with displaying restraunt information and letting users to form a group. Then perhaps add communication (e.g. group chat) and payment methods within the app. Large potential to work with local restaurants, giving them an advertisement platform.
 
 ## Product Spec
-### 1. User Stories (Required and Optional)
+### 1. User Stories 
 
 **Required Must-have Stories**
 
@@ -30,8 +30,8 @@ Unit 5: Group Milestone - Foodies
 - [X] User sees a list of popular restaurants with basic information around his/her location.
 - [X] User picks a restaurant to view the restaurant details page, including two options: Create New Group or Join an Exisiting Group. 
 - [X] The user who creates the group is the leader, and is responsible for setting up the time to meet, # of members. He/She also has the authority to accpet/deny new member application.
-- [ ] User can check the profile page of each existing group member in a group. 
-- [ ] User joins the group chat with other group members upon joining a group, and he/she is automatically excluded from the group chat when he/she decides to quit the group.
+- [X] User can check the profile page of each existing group member in a group. 
+- [X] User joins the group chat with other group members upon joining a group, and he/she is automatically excluded from the group chat when he/she decides to quit the group.
 
 **Optional Nice-to-have Stories**
 
