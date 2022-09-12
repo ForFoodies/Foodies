@@ -1,4 +1,4 @@
-Unit 5: Group Milestone - Foodies
+
 ===
 
 # Foodies
